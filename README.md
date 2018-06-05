@@ -7,7 +7,7 @@ Goedkoop en gezond eten ophalen is onmogelijk. Net zoals goedkoop koken voor een
 
 Deze app maakt het mogelijk om als kookliefhebber te koken voor meerdere personen waarbij andere mensen zich kunnen inschrijven om het eten op te komen halen voor een shappelijke prijs. Een ideale manier om voedselverspilling, eenzaamheid en de prijs van je eten omlaag te krijgen. De bedoeling van de app is dat je het bonnetje online kan zetten en zo de prijs van het eten kan verdelen onder de mensen die zijn ingeschreven. 
 
-![Alt text](https://github.com/nielske31/EetMee/blob/master/doc/design_idea.png)
+![Alt text](https://github.com/nielske31/EetMee/blob/master/design_idea.png)
 
 # main features
 
