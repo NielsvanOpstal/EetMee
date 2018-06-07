@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "938689399490",
+    "firebase_url": "https://eetmee-63ead.firebaseio.com",
+    "project_id": "eetmee-63ead",
+    "storage_bucket": "eetmee-63ead.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938689399490:android:97674a1df7b20171",
+        "android_client_info": {
+          "package_name": "com.example.niels.eetmee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938689399490-gncsm8ik1qshfa7cfh472gqpsudio3gm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.niels.eetmee",
+            "certificate_hash": "48dc7d588e37560477fc8c395146c991187da66b"
+          }
+        },
+        {
+          "client_id": "938689399490-6uvsfbbmn4675a0dqbs5459hil8ccjq5.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "938689399490-6uvsfbbmn4675a0dqbs5459hil8ccjq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABONVOYobWZEhgc138DeQ_BMMFIoLYrz8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938689399490-6uvsfbbmn4675a0dqbs5459hil8ccjq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

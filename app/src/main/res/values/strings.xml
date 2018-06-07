@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Lijstje</string>
+    <string name="app_name">Eetmee</string>
+
+    <string name ="users_email">Email User: %1$s (verified: %2$b)</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+    <string name="signed_out">Signed out</string>
+    <string name="auth_failed">Authentication failed</string>
+
 </resources>

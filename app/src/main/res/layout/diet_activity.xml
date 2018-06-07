@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+        <Switch
+            android:id="@+id/VegetarianSwitch"
+            android:layout_width="167dp"
+            android:layout_height="wrap_content"
+            android:text="vegatarisch" />
+
+        <Switch
+            android:id="@+id/NutSwitch"
+            android:layout_width="169dp"
+            android:layout_height="wrap_content"
+            android:text="bevat noten"
+            app:layout_column="0"
+            app:layout_row="1" />
+
+        <Switch
+            android:id="@+id/VeganSwitch"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Veganistisch"
+            app:layout_column="1"
+            app:layout_row="0" />
+
+        <Switch
+            android:id="@+id/GlutenSwitch"
+            android:layout_width="127dp"
+            android:layout_height="wrap_content"
+            android:text="bevat gluten"
+            app:layout_column="1"
+            app:layout_row="1" />
+
+        <Switch
+            android:id="@+id/LactoseSwitch"
+            android:layout_width="169dp"
+            android:layout_height="wrap_content"
+            android:text="bevat lactose"
+            app:layout_column="0"
+            app:layout_row="2" />
+
+        <Switch
+            android:id="@+id/PeanutSwitch"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:text="bevat pinda's"
+            app:layout_column="1"
+            app:layout_row="2" />
+
+        <Switch
+            android:id="@+id/ShellfishSwitch"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:text="bevat shaaldieren"
+            app:layout_column="0"
+            app:layout_row="3" />
+
+        <Switch
+            android:id="@+id/SoySwitch"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="bevat soya"
+            app:layout_column="1"
+            app:layout_row="3" />
+    </android.support.v7.widget.GridLayout>
+
+    <Button
+        android:id="@+id/Submit button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Verstuur!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="De laatste dingentjes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999" />
+
+</android.support.constraint.ConstraintLayout>

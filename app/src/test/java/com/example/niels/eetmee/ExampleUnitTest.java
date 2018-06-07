@@ -1,4 +1,4 @@
-package com.example.niels.lijstje;
+package com.example.niels.eetmee;
 
 import org.junit.Test;
 
