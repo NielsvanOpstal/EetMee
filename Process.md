@@ -6,3 +6,10 @@
 - gek iets met logoutknop, nu beetje ghetto gerepareerd (gefixt)
 - Nog doen: errors teruggeven als registreren niet lukt
 - Besloten om te wachten met de aanbiedingen te filteren op dieet, het zal niet heel moeilijk zijn maar onhandig om vanaf het begin te implementeren. Ook zal het sorteren van de lijst van aanbiedingen gewoon op afstand zijn in eerste geval.
+- Toch gekozen om wel direct te werken met dieet en dit te bewerkstelligen door middel van een abstract met dieetwensen.
+- Diet toch een losse class gemaakt, moet nog even de database structuur aanpassen
+
+# dag 4
+IDEE: maak het mogelijk om een aanbod te maken voor over een paar dagen en ook te filteren daarop.
+- Besloten om de offer database te laten werken met push(). Wel daarom User toegevoegd aan de offer.
+- TODO overal: eerst checken of er iets in mAuth staat
