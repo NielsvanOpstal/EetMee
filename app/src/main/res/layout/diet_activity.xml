@@ -20,13 +20,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5">
 
         <Switch
-            android:id="@+id/VegetarianSwitch"
+            android:id="@+id/OfferVegetarianSwitch"
             android:layout_width="167dp"
             android:layout_height="wrap_content"
             android:text="vegatarisch" />
 
         <Switch
-            android:id="@+id/NutSwitch"
+            android:id="@+id/OfferNutSwitch"
             android:layout_width="169dp"
             android:layout_height="wrap_content"
             android:text="bevat noten"
@@ -34,7 +34,7 @@
             app:layout_row="1" />
 
         <Switch
-            android:id="@+id/VeganSwitch"
+            android:id="@+id/OfferVeganSwitch"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:text="Veganistisch"
@@ -42,7 +42,7 @@
             app:layout_row="0" />
 
         <Switch
-            android:id="@+id/GlutenSwitch"
+            android:id="@+id/OfferGlutenSwitch"
             android:layout_width="127dp"
             android:layout_height="wrap_content"
             android:text="bevat gluten"
@@ -50,7 +50,7 @@
             app:layout_row="1" />
 
         <Switch
-            android:id="@+id/LactoseSwitch"
+            android:id="@+id/OfferLactoseSwitch"
             android:layout_width="169dp"
             android:layout_height="wrap_content"
             android:text="bevat lactose"
@@ -58,7 +58,7 @@
             app:layout_row="2" />
 
         <Switch
-            android:id="@+id/PeanutSwitch"
+            android:id="@+id/OfferPeanutSwitch"
             android:layout_width="131dp"
             android:layout_height="wrap_content"
             android:text="bevat pinda's"
@@ -66,7 +66,7 @@
             app:layout_row="2" />
 
         <Switch
-            android:id="@+id/ShellfishSwitch"
+            android:id="@+id/OfferShellfishSwitch"
             android:layout_width="165dp"
             android:layout_height="wrap_content"
             android:text="bevat shaaldieren"
@@ -74,7 +74,7 @@
             app:layout_row="3" />
 
         <Switch
-            android:id="@+id/SoySwitch"
+            android:id="@+id/OfferSoySwitch"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:text="bevat soya"
@@ -83,12 +83,13 @@
     </android.support.v7.widget.GridLayout>
 
     <Button
-        android:id="@+id/Submit button"
+        android:id="@+id/Submitbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Verstuur!"
+        android:onClick="dietadded"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridLayout" />

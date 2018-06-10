@@ -15,8 +15,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Wat ga je maken?"
         android:inputType="textPersonName"
-        android:text="Wat ga je maken?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,13 +24,13 @@
         app:layout_constraintVertical_bias="0.06999999" />
 
     <EditText
-        android:id="@+id/KostenEditText"
+        android:id="@+id/CostEditText"
         android:layout_width="272dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Hoeveel kost het ongeveer pp?"
         android:inputType="number"
-        android:text="Hoeveel kost het ongeveer pp?"
         app:layout_constraintStart_toStartOf="@+id/PersonsEditText"
         app:layout_constraintTop_toBottomOf="@+id/PersonsEditText" />
 
@@ -40,8 +40,8 @@
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Voor hoeveel personen?"
         android:inputType="number"
-        android:text="Voor hoeveel personen?"
         app:layout_constraintStart_toStartOf="@+id/WhatEditText"
         app:layout_constraintTop_toBottomOf="@+id/WhatEditText" />
 
@@ -51,10 +51,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPostalAddress"
-        android:text="Waar Woon je?"
-        app:layout_constraintStart_toStartOf="@+id/KostenEditText"
-        app:layout_constraintTop_toBottomOf="@+id/KostenEditText" />
+        android:hint="Waar Woon je?"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/CostEditText"
+        app:layout_constraintTop_toBottomOf="@+id/CostEditText" />
 
     <EditText
         android:id="@+id/TimeEditText"
@@ -62,13 +62,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="time"
-        android:text="Hoe laat is het eten klaar?"
+        android:hint="Hoe laat is het eten klaar?"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/AdressEditText"
         app:layout_constraintTop_toBottomOf="@+id/AdressEditText" />
 
     <CheckBox
-        android:id="@+id/ToghetherCheckbox"
+        android:id="@+id/TogetherCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -89,16 +89,17 @@
         android:text="Afhalen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ToghetherCheckbox" />
+        app:layout_constraintTop_toBottomOf="@+id/TogetherCheckbox" />
 
     <Button
-        android:id="@+id/MakeButton"
+        android:id="@+id/ContinueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Maak aan!"
+        android:text="verder"
+        android:onClick="ContiueClicked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PickupCheckbox" />

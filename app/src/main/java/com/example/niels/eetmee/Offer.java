@@ -8,6 +8,7 @@ public class Offer {
     private String adress;
     private boolean eatTogheter;
     private boolean pickup;
+    private String userID;
 
     public void setWhat(String what) {
         this.what = what;
@@ -37,6 +38,10 @@ public class Offer {
         this.pickup = pickup;
     }
 
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     public String getWhat() {
         return what;
     }
@@ -63,5 +68,9 @@ public class Offer {
 
     public boolean isPickup() {
         return pickup;
+    }
+
+    public String getUserID() {
+        return userID;
     }
 }

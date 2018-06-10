@@ -13,7 +13,7 @@ import static com.example.niels.eetmee.MainActivity.mAuth;
 
 // TODO: make it load your current bio and name en dieet
 // TODO: make a switch system for allergies
-// TODO: kan de switchchecker niet veel handigeR?
+
 
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -89,30 +89,14 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         Switch soy = findViewById(R.id.SoySwitch);
         Switch shellfish = findViewById(R.id.ShellfishSwitch);
 
-        if (vegetarian.isChecked()) {
-            diet.vegetarian = true;
-        }
-        if (vegan.isChecked()) {
-            diet.vegan = true;
-        }
-        if (nuts.isChecked()) {
-            diet.nutAllergy = true;
-        }
-        if (peanuts.isChecked()) {
-            diet.peanutAllergy = true;
-        }
-        if (lactose.isChecked()) {
-            diet.lactoseAllergy = true;
-        }
-        if (gluten.isChecked()) {
-            diet.glutenAllergy = true;
-        }
-        if (soy.isChecked()) {
-            diet.soyAllergy = true;
-        }
-        if (shellfish.isChecked()) {
-            diet.shellfishAllergy = true;
-        }
+        diet.vegetarian = vegetarian.isChecked();
+        diet.vegan = vegan.isChecked();
+        diet.nutAllergy = nuts.isChecked();
+        diet.peanutAllergy = peanuts.isChecked();
+        diet.lactoseAllergy = lactose.isChecked();
+        diet.glutenAllergy = gluten.isChecked();
+        diet.soyAllergy = soy.isChecked();
+        diet.shellfishAllergy = shellfish.isChecked();
         return diet;
     }
 }
