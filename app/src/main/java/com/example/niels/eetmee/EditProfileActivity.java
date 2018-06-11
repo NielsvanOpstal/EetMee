@@ -12,7 +12,6 @@ import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
 
 // TODO: make it load your current bio and name en dieet
-// TODO: make a switch system for allergies
 
 
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener {

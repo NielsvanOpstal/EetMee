@@ -1,10 +1,12 @@
 package com.example.niels.eetmee;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MakeOfferActivity.PUSHKEY;
@@ -18,9 +20,12 @@ public class DietActivity extends AppCompatActivity {
 
 
     public void dietadded(View view) {
-        Diet diet = checkCheckBoxes();
-        MYREF.child("offers").child(PUSHKEY).child("diet").setValue(diet);
+//        Adds the diet details to the offer just made
+        MYREF.child("offers").child(PUSHKEY).child("diet").setValue(checkCheckBoxes());
 
+        Toast.makeText(DietActivity.this, "Aanbod gemaakt!",
+                Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(DietActivity.this, BaseActivity.class));
     }
 
     private Diet checkCheckBoxes() {
