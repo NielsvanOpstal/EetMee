@@ -42,7 +42,7 @@ public class OfferRequest {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     offers.add(snapshot.getValue(Offer.class));
-                    Log.d("AAAA", "nu ben ik hier");
+                    Log.d("AAAA", snapshot.toString());
                 }
 //                for (Offer offer:offers) {
 //

@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Logger;
 
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         setContentView(R.layout.activity_main);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.setLogLevel(Logger.Level.DEBUG);
         MYREF = database.getReference();
 
         statusTextView = findViewById(R.id.StatusTextView);

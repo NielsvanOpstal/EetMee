@@ -38,6 +38,7 @@ public class OfferAdapter extends ArrayAdapter<Offer> {
         cost.setText("kosten: " +currentOffer.getCosts());
         distance.setText(currentOffer.getAdress());
         time.setText(currentOffer.getTime());
+
         return convertView;
     }
 }

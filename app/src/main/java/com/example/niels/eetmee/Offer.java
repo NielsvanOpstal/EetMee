@@ -1,6 +1,8 @@
 package com.example.niels.eetmee;
 
-public class Offer {
+import java.io.Serializable;
+
+public class Offer implements Serializable {
     private String what;
     private int costs;
     private String time;
@@ -9,6 +11,8 @@ public class Offer {
     private boolean eatTogheter;
     private boolean pickup;
     private String userID;
+    private Diet diet;
+    private int personsLeft;
 
     public void setWhat(String what) {
         this.what = what;
@@ -24,6 +28,7 @@ public class Offer {
 
     public void setPersons(int persons) {
         this.persons = persons;
+        this.personsLeft = persons;
     }
 
     public void setAdress(String adress) {
@@ -40,6 +45,10 @@ public class Offer {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public void setDiet(Diet diet) {
+        this.diet = diet;
     }
 
     public String getWhat() {
@@ -72,5 +81,13 @@ public class Offer {
 
     public String getUserID() {
         return userID;
+    }
+
+    public Diet getDiet() {
+        return diet;
+    }
+
+    public void decrementPersons() {
+        this.personsLeft -= 1;
     }
 }

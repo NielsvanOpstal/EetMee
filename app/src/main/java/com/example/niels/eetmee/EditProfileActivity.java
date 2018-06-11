@@ -48,9 +48,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             User newUser = new User();
             newUser.setName(aName);
             newUser.setBio(aBio);
-            Diet diet = checkCheckBoxes();
+            newUser.setDiet(checkCheckBoxes());
             MYREF.child("Users").child(mAuth.getUid()).setValue(newUser);
-            MYREF.child("Users").child(mAuth.getUid()).child("Diet").setValue(diet);
             startActivity(new Intent(EditProfileActivity.this, BaseActivity.class));
         }
     }

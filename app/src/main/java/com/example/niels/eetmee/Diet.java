@@ -1,6 +1,8 @@
 package com.example.niels.eetmee;
 
-public class Diet {
+import java.io.Serializable;
+
+public class Diet implements Serializable {
     protected boolean vegetarian = false;
     protected boolean vegan = false;
     protected boolean nutAllergy = false;

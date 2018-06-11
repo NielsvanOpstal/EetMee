@@ -5,6 +5,7 @@ public class User {
     private String bio;
     private String[] reviews;
     private int[] ratings;
+    private Diet diet;
 
     public void setName(String name) {
         this.name = name;
@@ -20,6 +21,10 @@ public class User {
 
     public void setRatings(int[] ratings) {
         this.ratings = ratings;
+    }
+
+    public void setDiet(Diet diet) {
+        this.diet = diet;
     }
 
     public String getName() {
@@ -38,5 +43,7 @@ public class User {
         return ratings;
     }
 
-
+    public Diet getDiet() {
+        return diet;
+    }
 }

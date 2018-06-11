@@ -12,16 +12,21 @@ import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MakeOfferActivity.PUSHKEY;
 
 public class DietActivity extends AppCompatActivity {
+    Offer offer;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diet_activity);
+
+        offer = (Offer) getIntent().getSerializableExtra("offermade");
     }
 
 
     public void dietadded(View view) {
 //        Adds the diet details to the offer just made
-        MYREF.child("offers").child(PUSHKEY).child("diet").setValue(checkCheckBoxes());
+        offer.setDiet(checkCheckBoxes());
+//        MYREF.child("offers").child(PUSHKEY).child("diet").setValue(checkCheckBoxes());
+        MYREF.child("offers").push().setValue(offer);
 
         Toast.makeText(DietActivity.this, "Aanbod gemaakt!",
                 Toast.LENGTH_SHORT).show();
