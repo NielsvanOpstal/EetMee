@@ -13,3 +13,15 @@
 IDEE: maak het mogelijk om een aanbod te maken voor over een paar dagen en ook te filteren daarop.
 - Besloten om de offer database te laten werken met push(). Wel daarom User toegevoegd aan de offer.
 - TODO overal: eerst checken of er iets in mAuth staat
+
+# dag 5
+- Telefoon kapot. Wordt dus lastig debuggen :(
+- Address Class gemaakt. Zit in de Offer class.
+- Coordinaten aanvragen werkt! via de Geocoding api
+- Moet er een soort geschiedenis in?
+- OPLETTEN: dat ik de offers filter op dat de datum nog wel moet komen.
+- TOEVOEGEN: dat je kan zien wie er mee eet.
+- TODO: zorgen dat mensen zich niet op zichzelf kunnen inschrijven
+- Ik begin nu wel heel veel classes te krijgen. Is hier iets aan te doen?
+- gefixt met klein dingetje. Veel beter.
+- TODO: nog even details scherm fixen
