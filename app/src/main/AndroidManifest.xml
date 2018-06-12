@@ -23,6 +23,7 @@
         <activity android:name=".MakeOfferActivity"></activity>
         <activity android:name=".OfferListActivity"></activity>
         <activity android:name=".DietActivity"></activity>
+        <activity android:name=".EnterAddresActivity"></activity>
     </application>
 
 </manifest>

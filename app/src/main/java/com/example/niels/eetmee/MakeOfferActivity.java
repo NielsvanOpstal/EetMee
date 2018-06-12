@@ -79,9 +79,10 @@ public class MakeOfferActivity extends AppCompatActivity {
             newOffer.setEatTogheter(togetherBool);
             newOffer.setPickup(pickUpBool);
             newOffer.setUserID(userID);
+            newOffer.setPersonsLeft(personsInt);
 //            PUSHKEY = MYREF.child("offers").push().getKey();
 //            MYREF.child("offers").child(PUSHKEY).setValue(newOffer);
-            Intent intent = new Intent(MakeOfferActivity.this, DietActivity.class);
+            Intent intent = new Intent(MakeOfferActivity.this, EnterAddresActivity.class);
             intent.putExtra("offermade", newOffer);
             startActivity(intent);
         }

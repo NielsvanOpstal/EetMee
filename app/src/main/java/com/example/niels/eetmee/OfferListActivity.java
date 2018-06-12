@@ -22,7 +22,6 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("JOsdf", MYREF.toString());
         // Dit moet nog weg
         if (MYREF == null) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -30,14 +29,19 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
             Log.d("JOsdf", MYREF.toString());
 
         }
+        int direction = getIntent().getIntExtra("afkomst", 0);
+
         setContentView(R.layout.offer_list_activity);
         OfferRequest request = new OfferRequest(this);
-        request.getOffers(this);
 
-    }
+        if (direction == 1) {
+            request.getOffers1(this);
+        }
+        if (direction == 2) {
+            request.getOffers2(this);
+        }
 
-    public void viewDetails(View view) {
-        startActivity(new Intent(OfferListActivity.this, DetailActivity.class));
+
     }
 
     @Override

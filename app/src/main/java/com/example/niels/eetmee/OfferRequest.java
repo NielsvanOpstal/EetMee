@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 import static com.example.niels.eetmee.MainActivity.MYREF;
+import static com.example.niels.eetmee.MainActivity.mAuth;
 
 public class OfferRequest {
 
@@ -25,40 +26,45 @@ public class OfferRequest {
 
     public OfferRequest(Context context) {
         context = context;
-        Log.d("ik heb ze", "JA IK AAAAAAAAAAAAAAAaa");
-
     }
 
-    public void getOffers(Callback aActivity) {
+    public void getOffers1(Callback aActivity) {
         activity = aActivity;
         final ArrayList<Offer> offers = new ArrayList<>();
-        Log.d("ik heb ze", "JA IK BBBBBBBBBBBBBBBBBBBBBBBB");
 
         MYREF.child("offers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d("ik heb ze", "JA IK CCCCCCCCCCCCCCCCCCCCCcc");
-
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     offers.add(snapshot.getValue(Offer.class));
-                    Log.d("AAAA", snapshot.toString());
                 }
-//                for (Offer offer:offers) {
-//
-//                    Log.d("OFFERDATA", offer.getWhat());
-//                    Log.d("OFFERDATA", "" + offer.getCosts());
-//                    Log.d("OFFERDATA", offer.getTime());
-//                    Log.d("OFFERDATA", "" + offer.getPersons());
-//
-//                }
                 activity.gotOffers(offers);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("ik heb ze", "JA IK EEEEEEEEEEEEEeeee");
+                activity.gotOffersError(databaseError.getMessage());
+            }
+        });
+    }
 
+    public void getOffers2(Callback aActivity) {
+        activity = aActivity;
+        final ArrayList<Offer> offers = new ArrayList<>();
+
+        MYREF.child("offers").orderByChild("userID").equalTo(mAuth.getCurrentUser().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    offers.add(snapshot.getValue(Offer.class));
+                }
+                activity.gotOffers(offers);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 activity.gotOffersError(databaseError.getMessage());
             }
         });

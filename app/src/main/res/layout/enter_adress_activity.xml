@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/EnterStreet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="straat"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/EnterNumber"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="nummer"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/EnterStreet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/EnterStreet"
+        app:layout_constraintTop_toTopOf="@+id/EnterStreet" />
+
+    <EditText
+        android:id="@+id/EnterExtra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="toevoeging"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/EnterStreet"
+        app:layout_constraintTop_toBottomOf="@+id/EnterStreet" />
+
+    <EditText
+        android:id="@+id/EnterPostal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="post code"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/EnterExtra"
+        app:layout_constraintTop_toBottomOf="@+id/EnterExtra" />
+
+    <EditText
+        android:id="@+id/EnterCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="plaats"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/EnterPostal"
+        app:layout_constraintTop_toBottomOf="@+id/EnterPostal" />
+
+    <Button
+        android:id="@+id/EnterSubmitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="adressadded"
+        android:text="voeg toe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EnterCity" />
+</android.support.constraint.ConstraintLayout>

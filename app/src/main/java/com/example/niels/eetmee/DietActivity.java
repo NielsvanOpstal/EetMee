@@ -18,7 +18,7 @@ public class DietActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diet_activity);
 
-        offer = (Offer) getIntent().getSerializableExtra("offermade");
+        offer = (Offer) getIntent().getSerializableExtra("offerfromadress");
     }
 
 
@@ -26,10 +26,13 @@ public class DietActivity extends AppCompatActivity {
 //        Adds the diet details to the offer just made
         offer.setDiet(checkCheckBoxes());
 //        MYREF.child("offers").child(PUSHKEY).child("diet").setValue(checkCheckBoxes());
-        MYREF.child("offers").push().setValue(offer);
+        String key = MYREF.child("offers").push().getKey();
+        offer.setFirebaseKey(key);
+        MYREF.child("offers").child(key).setValue(offer);
 
         Toast.makeText(DietActivity.this, "Aanbod gemaakt!",
                 Toast.LENGTH_SHORT).show();
+
         startActivity(new Intent(DietActivity.this, BaseActivity.class));
     }
 

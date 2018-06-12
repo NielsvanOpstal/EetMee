@@ -12,7 +12,9 @@ public class Offer implements Serializable {
     private boolean pickup;
     private String userID;
     private Diet diet;
+    private String firebaseKey;
     private int personsLeft;
+    private Adress location;
 
     public void setWhat(String what) {
         this.what = what;
@@ -28,7 +30,6 @@ public class Offer implements Serializable {
 
     public void setPersons(int persons) {
         this.persons = persons;
-        this.personsLeft = persons;
     }
 
     public void setAdress(String adress) {
@@ -51,8 +52,24 @@ public class Offer implements Serializable {
         this.diet = diet;
     }
 
+    public void setFirebaseKey(String firebaseKey) {
+        this.firebaseKey = firebaseKey;
+    }
+
+    public void setPersonsLeft(int personsLeft) {
+        this.personsLeft = personsLeft;
+    }
+
+    public void setLocation(Adress location) {
+        this.location = location;
+    }
+
     public String getWhat() {
         return what;
+    }
+
+    public int getPersonsLeft() {
+        return personsLeft;
     }
 
     public int getCosts() {
@@ -87,7 +104,15 @@ public class Offer implements Serializable {
         return diet;
     }
 
+    public String getFirebaseKey() {
+        return firebaseKey;
+    }
+
     public void decrementPersons() {
         this.personsLeft -= 1;
+    }
+
+    public Adress getLocation() {
+        return location;
     }
 }
