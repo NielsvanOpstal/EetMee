@@ -25,3 +25,9 @@ IDEE: maak het mogelijk om een aanbod te maken voor over een paar dagen en ook t
 - Ik begin nu wel heel veel classes te krijgen. Is hier iets aan te doen?
 - gefixt met klein dingetje. Veel beter.
 - TODO: nog even details scherm fixen
+
+# dag 6
+- nieuwe telefoon :)
+- coordinaten uit de JSON gekregen! 
+- na lang zoeken current location gekregen.
+
