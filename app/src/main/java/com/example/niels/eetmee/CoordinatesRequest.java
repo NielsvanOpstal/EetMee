@@ -9,9 +9,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-
+// TODO: niet verder laten gaan totdat goed adress is ingevuld.
 public class CoordinatesRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     private String adress;
@@ -20,7 +21,7 @@ public class CoordinatesRequest implements Response.Listener<JSONObject>, Respon
     private String APIKEY = "AIzaSyBLgAOfXM0AEAW_XXAmQpxNgC9qxRMO2Do";
 
     public interface Callback {
-        void gotCoordinates(int[] latlong);
+        void gotCoordinates(double[] latlong);
         void gotCoordinatesError(String message);
     }
 
@@ -46,6 +47,17 @@ public class CoordinatesRequest implements Response.Listener<JSONObject>, Respon
 
     @Override
     public void onResponse(JSONObject response) {
-        Log.d("WE HEBBEN REACTIE", response.toString());
+        try {
+            JSONObject coordinates = response.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("bounds").getJSONObject("northeast");
+
+            // Kan dit mooier?
+            double[] latlng = new double[2];
+            latlng[0] = coordinates.getDouble("lat");;
+            latlng[1] = coordinates.getDouble("lng");
+            activity.gotCoordinates(latlng);
+        }
+        catch (JSONException e) {
+            Log.d("something", e.getMessage());
+        }
     }
 }

@@ -9,7 +9,7 @@ public class Adress implements Serializable{
     private String PostalCode;
     private String city;
     private double lat;
-    private double len;
+    private double lng;
 
     public void setStreet(String street) {
         Street = street;
@@ -35,8 +35,8 @@ public class Adress implements Serializable{
         this.lat = lat;
     }
 
-    public void setLen(double len) {
-        this.len = len;
+    public void setLng(double len) {
+        this.lng = len;
     }
 
     public String getStreet() {
@@ -63,7 +63,7 @@ public class Adress implements Serializable{
         return lat;
     }
 
-    public double getLen() {
-        return len;
+    public double getLng() {
+        return lng;
     }
 }

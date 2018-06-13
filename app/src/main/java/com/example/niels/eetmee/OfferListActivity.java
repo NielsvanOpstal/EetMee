@@ -1,6 +1,7 @@
 package com.example.niels.eetmee;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,9 +19,14 @@ import static com.example.niels.eetmee.MainActivity.MYREF;
 
 public class OfferListActivity extends AppCompatActivity implements OfferRequest.Callback {
 
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         // Dit moet nog weg
         if (MYREF == null) {
@@ -53,6 +59,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     }
 
 
+
     @Override
     public void gotOffersError(String message) {
         // TODO: goede error message terug geven.
@@ -68,4 +75,6 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
             startActivity(intent);
         }
     }
+
 }
+
