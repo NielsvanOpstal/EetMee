@@ -19,6 +19,7 @@ public class OfferAdapter extends ArrayAdapter<Offer> {
         super(context, resource, objects);
 
         offers = objects;
+
     }
 
     @NonNull
