@@ -53,17 +53,17 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
             }
             Log.d("LOCATION: ,", "Permission was niet geaccepteerd");
         }
-        Log.d("hallo", "haaloo");
+
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         if (location != null) {
-                            Log.d("LOCATION: ,", "LOCATION WAS NULL");
+                            Log.d("LOCATION: ,", "" + location.getLatitude());
                         }
-                        Log.d("LOCATION: ,", "" + location.getLatitude());
                     }
                 });
+
 
 
         // Dit moet nog weg
@@ -74,7 +74,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
         }
         int direction = getIntent().getIntExtra("afkomst", 0);
-
+        Log.d("LOCATION", "" + direction);
         setContentView(R.layout.offer_list_activity);
         OfferRequest request = new OfferRequest(this);
 
@@ -92,7 +92,6 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     @Override
     public void gotOffers(ArrayList<Offer> offers) {
-        Log.d("HOi", "JOSDF");
         ListView offerlist = findViewById(R.id.OfferListView);
         offerlist.setAdapter(new OfferAdapter(this, 0, offers));
         offerlist.setOnItemClickListener(new onItemmClickListener());

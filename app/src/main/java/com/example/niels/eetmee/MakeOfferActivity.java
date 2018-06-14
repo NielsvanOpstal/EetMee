@@ -23,8 +23,6 @@ public class MakeOfferActivity extends AppCompatActivity {
     private String whatText;
     private EditText costs;
     private int costsInt = -1;
-    private EditText adress;
-    private String adressText;
     private EditText persons;
     private int personsInt = -1;
     private EditText time;
@@ -52,7 +50,6 @@ public class MakeOfferActivity extends AppCompatActivity {
         // Fill the fields and checkboxes
         what = findViewById(R.id.WhatEditText);
         costs = findViewById(R.id.CostEditText);
-        adress = findViewById(R.id.AdressEditText);
         persons = findViewById(R.id.PersonsEditText);
         time = findViewById(R.id.TimeEditText);
         together = findViewById(R.id.TogetherCheckbox);
@@ -63,7 +60,6 @@ public class MakeOfferActivity extends AppCompatActivity {
     public void ContiueClicked(View view) {
         whatText = what.getText().toString();
         costsInt = Integer.parseInt(costs.getText().toString());
-        adressText = adress.getText().toString();
         personsInt = Integer.parseInt(persons.getText().toString());
         timeText = time.getText().toString();
         togetherBool = together.isChecked();
@@ -72,7 +68,6 @@ public class MakeOfferActivity extends AppCompatActivity {
         if (ValidateForm()) {
             Offer newOffer = new Offer();
             newOffer.setWhat(whatText);
-            newOffer.setAdress(adressText);
             newOffer.setCosts(costsInt);
             newOffer.setPersons(personsInt);
             newOffer.setTime(timeText);
@@ -108,14 +103,6 @@ public class MakeOfferActivity extends AppCompatActivity {
             costs.setError(null);
         }
 
-        if (TextUtils.isEmpty(adressText)) {
-            adress.setError("Required");
-            valid = false;
-        }
-
-        else {
-            adress.setError(null);
-        }
 
         if (personsInt < 0) {
             persons.setError("Required");
@@ -127,7 +114,7 @@ public class MakeOfferActivity extends AppCompatActivity {
         }
 
         if (TextUtils.isEmpty(timeText)) {
-            adress.setError("Required");
+            time.setError("Required");
             valid = false;
         }
 

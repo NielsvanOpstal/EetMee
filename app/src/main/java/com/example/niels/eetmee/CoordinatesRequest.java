@@ -48,8 +48,8 @@ public class CoordinatesRequest implements Response.Listener<JSONObject>, Respon
     @Override
     public void onResponse(JSONObject response) {
         try {
+            Log.d("something", response.toString());
             JSONObject coordinates = response.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("bounds").getJSONObject("northeast");
-
             // Kan dit mooier?
             double[] latlng = new double[2];
             latlng[0] = coordinates.getDouble("lat");;
