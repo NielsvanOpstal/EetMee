@@ -10,6 +10,7 @@ import static com.example.niels.eetmee.MainActivity.MYREF;
 
 public class DetailActivity extends AppCompatActivity{
     Offer offer;
+    
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

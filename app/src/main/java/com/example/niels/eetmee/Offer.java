@@ -7,14 +7,13 @@ public class Offer implements Serializable {
     private int costs;
     private String time;
     private int persons;
-    private String adress;
     private boolean eatTogheter;
     private boolean pickup;
     private String userID;
     private Diet diet;
     private String firebaseKey;
     private int personsLeft;
-    private Adress location;
+    private Address address;
 
     public void setWhat(String what) {
         this.what = what;
@@ -32,9 +31,6 @@ public class Offer implements Serializable {
         this.persons = persons;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
-    }
 
     public void setEatTogheter(boolean eatTogheter) {
         this.eatTogheter = eatTogheter;
@@ -60,8 +56,8 @@ public class Offer implements Serializable {
         this.personsLeft = personsLeft;
     }
 
-    public void setLocation(Adress location) {
-        this.location = location;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String getWhat() {
@@ -82,10 +78,6 @@ public class Offer implements Serializable {
 
     public int getPersons() {
         return persons;
-    }
-
-    public String getAdress() {
-        return adress;
     }
 
     public boolean isEatTogheter() {
@@ -112,7 +104,7 @@ public class Offer implements Serializable {
         this.personsLeft -= 1;
     }
 
-    public Adress getLocation() {
-        return location;
+    public Address getAddress() {
+        return address;
     }
 }
