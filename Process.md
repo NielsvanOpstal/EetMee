@@ -37,3 +37,7 @@ IDEE: maak het mogelijk om een aanbod te maken voor over een paar dagen en ook t
 -Het lukt nu om de afstand te bereken.
 - Moet ik realtime bijhouden of er nog plek is? als iemand op een offer klikt zegmaar
 - Er gaat iets mis met de eaters updaten in de firebase.
+
+# dag 8
+- van sommige if statements achter elkaar een switch gemaakt
+- request functies duidelijkere naam gegeven
