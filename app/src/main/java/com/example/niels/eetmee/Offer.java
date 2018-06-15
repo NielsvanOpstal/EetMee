@@ -1,6 +1,9 @@
 package com.example.niels.eetmee;
 
+import android.util.Log;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Offer implements Serializable {
     private String what;
@@ -14,6 +17,8 @@ public class Offer implements Serializable {
     private String firebaseKey;
     private int personsLeft;
     private Address address;
+    private ArrayList<String> eaters = new ArrayList<>();
+
 
     public void setWhat(String what) {
         this.what = what;
@@ -23,6 +28,10 @@ public class Offer implements Serializable {
         this.costs = costs;
     }
 
+    public void setEaters(ArrayList<String> eaters) {
+        this.eaters = eaters;
+    }
+
     public void setTime(String time) {
         this.time = time;
     }
@@ -30,7 +39,6 @@ public class Offer implements Serializable {
     public void setPersons(int persons) {
         this.persons = persons;
     }
-
 
     public void setEatTogheter(boolean eatTogheter) {
         this.eatTogheter = eatTogheter;
@@ -65,7 +73,7 @@ public class Offer implements Serializable {
     }
 
     public int getPersonsLeft() {
-        return personsLeft;
+        return persons - eaters.size();
     }
 
     public int getCosts() {
@@ -100,11 +108,35 @@ public class Offer implements Serializable {
         return firebaseKey;
     }
 
-    public void decrementPersons() {
-        this.personsLeft -= 1;
+    public ArrayList<String> getEaters() {
+        return eaters;
     }
 
     public Address getAddress() {
         return address;
+    }
+
+    public boolean addEater(String userID) {
+        Log.d("EATERS", eaters.toString());
+        if (eaters.contains(userID)) {
+            return false;
+        }
+        else if (eaters.size() == persons) {
+            return false;
+        }
+        else {
+            Log.d("EATERS", eaters.toString());
+            eaters.add(userID);
+            Log.d("EATERS", eaters.toString());
+            return true;
+        }
+
+    }
+
+    public void removeEater(String userID) {
+        Log.d("EATERS", eaters.toString());
+        eaters.remove(userID);
+        Log.d("EATERS", userID);
+        Log.d("EATERS", eaters.toString());
     }
 }

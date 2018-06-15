@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -14,12 +15,22 @@ import static com.example.niels.eetmee.MainActivity.mAuth;
 // TODO: make it load your current bio and name en dieet
 
 
-public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener, UserRequest.Callback {
 
     private EditText name;
     private EditText bio;
     private String aName;
     private String aBio;
+    private Diet diet;
+
+    Switch vegetarian;
+    Switch vegan;
+    Switch nuts;
+    Switch peanuts;
+    Switch lactose;
+    Switch gluten;
+    Switch soy;
+    Switch shellfish;
 
 
     @Override
@@ -28,6 +39,10 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.profile_edit);
 
         if (mAuth.getCurrentUser() != null) {
+            UserRequest userRequest = new UserRequest(this);
+            userRequest.getUser(this);
+
+            diet = new Diet();
             // Edit texts
             name = findViewById(R.id.EditProfileName);
             bio = findViewById(R.id.EditProfileBio);
@@ -38,6 +53,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         else {
             startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
         }
+
     }
 
     @Override
@@ -77,15 +93,14 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     private Diet checkCheckBoxes() {
-        Diet diet = new Diet();
-        Switch vegetarian = findViewById(R.id.VegetarianSwitch);
-        Switch vegan = findViewById(R.id.VeganSwitch);
-        Switch nuts = findViewById(R.id.NutSwitch);
-        Switch peanuts = findViewById(R.id.PeanutSwitch);
-        Switch lactose = findViewById(R.id.LactoseSwitch);
-        Switch gluten = findViewById(R.id.GlutenSwitch);
-        Switch soy = findViewById(R.id.SoySwitch);
-        Switch shellfish = findViewById(R.id.ShellfishSwitch);
+        vegetarian = findViewById(R.id.VegetarianSwitch);
+        vegan = findViewById(R.id.VeganSwitch);
+        nuts = findViewById(R.id.NutSwitch);
+        peanuts = findViewById(R.id.PeanutSwitch);
+        lactose = findViewById(R.id.LactoseSwitch);
+        gluten = findViewById(R.id.GlutenSwitch);
+        soy = findViewById(R.id.SoySwitch);
+        shellfish = findViewById(R.id.ShellfishSwitch);
 
         diet.vegetarian = vegetarian.isChecked();
         diet.vegan = vegan.isChecked();
@@ -96,5 +111,29 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         diet.soyAllergy = soy.isChecked();
         diet.shellfishAllergy = shellfish.isChecked();
         return diet;
+    }
+
+    @Override
+    public void gotUser(User user) {
+        Log.d("userrequest", user.toString());
+//        diet = user.getDiet();
+        Log.d("userrequest", user.getBio());
+//        setSwitches();
+    }
+
+    private void setSwitches() {
+        vegetarian.setChecked(diet.vegetarian);
+        vegan.setChecked(diet.vegan);
+        nuts.setChecked(diet.nutAllergy);
+        peanuts.setChecked(diet.peanutAllergy);
+        lactose.setChecked(diet.lactoseAllergy);
+        gluten.setChecked(diet.glutenAllergy);
+        soy.setChecked(diet.soyAllergy);
+        shellfish.setChecked(diet.shellfishAllergy);
+    }
+
+    @Override
+    public void gotUserError(String message) {
+        Log.d("userrequest", message);
     }
 }

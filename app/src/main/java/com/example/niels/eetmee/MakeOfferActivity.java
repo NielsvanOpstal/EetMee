@@ -10,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
 
@@ -75,6 +77,7 @@ public class MakeOfferActivity extends AppCompatActivity {
             newOffer.setPickup(pickUpBool);
             newOffer.setUserID(userID);
             newOffer.setPersonsLeft(personsInt);
+            newOffer.setEaters(new ArrayList<String>());
 //            PUSHKEY = MYREF.child("offers").push().getKey();
 //            MYREF.child("offers").child(PUSHKEY).setValue(newOffer);
             Intent intent = new Intent(MakeOfferActivity.this, EnterAddresActivity.class);

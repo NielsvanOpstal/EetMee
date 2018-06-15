@@ -28,7 +28,7 @@ public class OfferRequest {
         context = context;
     }
 
-    public void getOffers1(Callback aActivity) {
+    public void getAllOffers(Callback aActivity) {
         activity = aActivity;
         final ArrayList<Offer> offers = new ArrayList<>();
 
@@ -49,11 +49,32 @@ public class OfferRequest {
         });
     }
 
-    public void getOffers2(Callback aActivity) {
+    public void getMyOffers(Callback aActivity) {
         activity = aActivity;
         final ArrayList<Offer> offers = new ArrayList<>();
 
         MYREF.child("offers").orderByChild("userID").equalTo(mAuth.getCurrentUser().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    offers.add(snapshot.getValue(Offer.class));
+                }
+                activity.gotOffers(offers);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                activity.gotOffersError(databaseError.getMessage());
+            }
+        });
+    }
+
+    public void getJoinedOffers(Callback aActivity) {
+        activity = aActivity;
+        final ArrayList<Offer> offers = new ArrayList<>();
+
+        MYREF.child("users").child("joinedDinners").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +33,9 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     private FusedLocationProviderClient mFusedLocationClient;
     private int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
+    private double lat;
+    private double lng;
 
 
     @Override
@@ -60,6 +64,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
                     public void onSuccess(Location location) {
                         if (location != null) {
                             Log.d("LOCATION: ,", "" + location.getLatitude());
+                            lat = location.getLatitude();
+                            lng = location.getLongitude();
                         }
                     }
                 });
@@ -73,18 +79,20 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
             Log.d("JOsdf", MYREF.toString());
 
         }
-        int direction = getIntent().getIntExtra("afkomst", 0);
-        Log.d("LOCATION", "" + direction);
+        RequestType requestType = (RequestType) getIntent().getSerializableExtra("afkomst");
+        Log.d("LOCATION", "" + requestType);
         setContentView(R.layout.offer_list_activity);
         OfferRequest request = new OfferRequest(this);
 
-        if (direction == 1) {
-            request.getOffers1(this);
-        }
-        if (direction == 2) {
-            request.getOffers2(this);
-        }
 
+        switch (requestType) {
+            case ALLOFFERS:     request.getAllOffers(this);
+                                break;
+            case MYOFFERS:      request.getMyOffers(this);
+                                break;
+            case JOINEDOFFERS:  request.getJoinedOffers(this);
+                                break;
+        }
 
 
 
@@ -93,7 +101,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     @Override
     public void gotOffers(ArrayList<Offer> offers) {
         ListView offerlist = findViewById(R.id.OfferListView);
-        offerlist.setAdapter(new OfferAdapter(this, 0, offers));
+        offerlist.setAdapter(new OfferAdapter(this, 0, offers, lat, lng));
         offerlist.setOnItemClickListener(new onItemmClickListener());
     }
 

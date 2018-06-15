@@ -7,7 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import static com.example.niels.eetmee.MainActivity.mAuth;
+
 // TODO: koken en eten alleen mogelijk maken wanneer bio is ingevuld
+// TODO: switch maken van de if statements
+
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,27 +22,36 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.IkWilEtenButton).setOnClickListener(this);
         findViewById(R.id.ProfielAanpassenButton).setOnClickListener(this);
         findViewById(R.id.MyOffersButton).setOnClickListener(this);
+        findViewById(R.id.JoinedOffersButton).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.IkWilKokenButton) {
-            startActivity(new Intent(BaseActivity.this, MakeOfferActivity.class));
-        }
-        if (id == R.id.IkWilEtenButton) {
-            Intent eatIntent =new Intent(BaseActivity.this, OfferListActivity.class);
-            eatIntent.putExtra("afkomst", 1);
-            startActivity(eatIntent);
-        }
-        if (id == R.id.ProfielAanpassenButton) {
-            startActivity(new Intent(BaseActivity.this, EditProfileActivity.class));
-        }
-        if (id == R.id.MyOffersButton) {
-            Log.d("hoi", "hoi");
-            Intent myIntent =new Intent(BaseActivity.this, OfferListActivity.class);
-            myIntent.putExtra("afkomst", 2);
-            startActivity(myIntent);
+        switch (id) {
+            case R.id.IkWilKokenButton:         startActivity(new Intent(BaseActivity.this, MakeOfferActivity.class));
+                                                break;
+
+            case R.id.IkWilEtenButton:          Intent eatIntent =new Intent(BaseActivity.this, OfferListActivity.class);
+                                                eatIntent.putExtra("afkomst", RequestType.ALLOFFERS);
+                                                startActivity(eatIntent);
+                                                break;
+
+            case R.id.ProfielAanpassenButton:   startActivity(new Intent(BaseActivity.this, EditProfileActivity.class));
+                                                break;
+
+            case R.id.MyOffersButton:           Intent myIntent =new Intent(BaseActivity.this, OfferListActivity.class);
+                                                myIntent.putExtra("afkomst", RequestType.MYOFFERS);
+                                                startActivity(myIntent);
+                                                break;
+
+            case R.id.JoinedOffersButton:       Log.d("USER", mAuth.getCurrentUser().toString());
+                                                Log.d("USER", mAuth.getCurrentUser().getUid());
+                                                Log.d("USER", mAuth.getUid());
+                                                Intent joinedIntent =new Intent(BaseActivity.this, OfferListActivity.class);
+                                                joinedIntent.putExtra("afkomst", RequestType.JOINEDOFFERS);
+                                                startActivity(joinedIntent);
+                                                break;
         }
     }
 }

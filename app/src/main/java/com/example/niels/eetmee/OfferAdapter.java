@@ -1,6 +1,7 @@
 package com.example.niels.eetmee;
 
 import android.content.Context;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,15 +11,19 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
+// TODO: crashvrij maken wanneer er geen coordinaten zijn
 public class OfferAdapter extends ArrayAdapter<Offer> {
 
     ArrayList<Offer> offers;
+    double lat;
+    double lng;
 
-    public OfferAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Offer> objects) {
+    public OfferAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Offer> objects, double aLat, double aLng) {
         super(context, resource, objects);
 
         offers = objects;
+        lat = aLat;
+        lng = aLng;
 
     }
 
@@ -35,9 +40,14 @@ public class OfferAdapter extends ArrayAdapter<Offer> {
         TextView distance = convertView.findViewById(R.id.DistanceField);
         TextView time = convertView.findViewById(R.id.TimeField);
 
+        Address address = currentOffer.getAddress();
+        float[] results = new float[1];
+        Location.distanceBetween(lat, lng, address.getLat(), address.getLng(), results);
+        float dist = results[0] / 1000;
         what.setText(currentOffer.getWhat());
         cost.setText("kosten: " +currentOffer.getCosts());
         time.setText(currentOffer.getTime());
+        distance.setText("afstand:" + dist + "km");
 
         return convertView;
     }
