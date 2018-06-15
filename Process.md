@@ -31,3 +31,13 @@ IDEE: maak het mogelijk om een aanbod te maken voor over een paar dagen en ook t
 - coordinaten uit de JSON gekregen! 
 - na lang zoeken current location gekregen.
 
+# dag 7
+- de map in DetaiActivity werkt! (maps voor android api)
+- de coordinaten die ik krijg uit geolocations api zijn niet nauwkeurig genoeg, ik woon schijnbaar op het spoor! Ik moet uitzoeken hoe ik het adress zo kan meegeven dat ik nauwkeurigere coordinaten krijg.
+-Het lukt nu om de afstand te bereken.
+- Moet ik realtime bijhouden of er nog plek is? als iemand op een offer klikt zegmaar
+- Er gaat iets mis met de eaters updaten in de firebase.
+
+# dag 8
+- van sommige if statements achter elkaar een switch gemaakt
+- request functies duidelijkere naam gegeven
