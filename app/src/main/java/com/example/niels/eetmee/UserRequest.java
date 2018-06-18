@@ -28,14 +28,15 @@ public class UserRequest {
     }
 
     public void getUser(UserRequest.Callback aActivity) {
-//        TODO: hier gaat iets mis
+//        TODO: Catch achtig iets fixen voor wanneer datasnapshot null teruggeeft
         activity = aActivity;
         Log.d("userrequest", mAuth.getCurrentUser().getUid());
-        MYREF.child("Users").orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                MYREF.child("Users").orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener()
+        MYREF.child("Users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("userrequest", dataSnapshot.toString());
                 User user = dataSnapshot.getValue(User.class);
-                Log.d("userrequest", "gelukt");
                 activity.gotUser(user);
             }
 

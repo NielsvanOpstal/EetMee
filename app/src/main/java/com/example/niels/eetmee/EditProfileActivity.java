@@ -49,6 +49,15 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
             // Button
             findViewById(R.id.EditProfileSumbit).setOnClickListener(this);
+
+            vegetarian = findViewById(R.id.VegetarianSwitch);
+            vegan = findViewById(R.id.VeganSwitch);
+            nuts = findViewById(R.id.NutSwitch);
+            peanuts = findViewById(R.id.PeanutSwitch);
+            lactose = findViewById(R.id.LactoseSwitch);
+            gluten = findViewById(R.id.GlutenSwitch);
+            soy = findViewById(R.id.SoySwitch);
+            shellfish = findViewById(R.id.ShellfishSwitch);
         }
         else {
             startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
@@ -93,14 +102,14 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     private Diet checkCheckBoxes() {
-        vegetarian = findViewById(R.id.VegetarianSwitch);
-        vegan = findViewById(R.id.VeganSwitch);
-        nuts = findViewById(R.id.NutSwitch);
-        peanuts = findViewById(R.id.PeanutSwitch);
-        lactose = findViewById(R.id.LactoseSwitch);
-        gluten = findViewById(R.id.GlutenSwitch);
-        soy = findViewById(R.id.SoySwitch);
-        shellfish = findViewById(R.id.ShellfishSwitch);
+//        vegetarian = findViewById(R.id.VegetarianSwitch);
+//        vegan = findViewById(R.id.VeganSwitch);
+//        nuts = findViewById(R.id.NutSwitch);
+//        peanuts = findViewById(R.id.PeanutSwitch);
+//        lactose = findViewById(R.id.LactoseSwitch);
+//        gluten = findViewById(R.id.GlutenSwitch);
+//        soy = findViewById(R.id.SoySwitch);
+//        shellfish = findViewById(R.id.ShellfishSwitch);
 
         diet.vegetarian = vegetarian.isChecked();
         diet.vegan = vegan.isChecked();
@@ -115,10 +124,30 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void gotUser(User user) {
+        Log.d("userrequest", "Hoi");
         Log.d("userrequest", user.toString());
-//        diet = user.getDiet();
-        Log.d("userrequest", user.getBio());
-//        setSwitches();
+        String userName = user.getName();
+        String userBio = user.getBio();
+        Diet userDiet = user.getDiet();
+        if (userName != null) {
+            name.setText(userName);
+            aName = userName;
+        }
+        if (userBio != null) {
+            bio.setText(userBio);
+            aBio = userBio;
+        }
+        if (userDiet != null) {
+            if (userDiet.vegetarian) {
+                Log.d("userrequest", userDiet.toString());
+            }
+            else{
+                Log.d("userrequest", "halllooo");
+            }
+            diet = userDiet;
+            setSwitches();
+        }
+
     }
 
     private void setSwitches() {

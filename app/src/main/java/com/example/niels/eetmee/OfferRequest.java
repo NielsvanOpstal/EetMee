@@ -73,15 +73,38 @@ public class OfferRequest {
     public void getJoinedOffers(Callback aActivity) {
         activity = aActivity;
         final ArrayList<Offer> offers = new ArrayList<>();
+        final ArrayList<String> joinedOffers = new ArrayList<>();
 
-        MYREF.child("users").child("joinedDinners").addListenerForSingleValueEvent(new ValueEventListener() {
+        MYREF.child("Users").child(mAuth.getUid()).child("joinedOffers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    offers.add(snapshot.getValue(Offer.class));
+//                Log.d("JOINEDOFFERS", dataSnapshot.toString());
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+//                    Log.d("JOINEDOFFERS", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaaa");
+                    joinedOffers.add(snapshot.getValue().toString());
+//                    Log.d("JOINEDOFFERS", joinedOffers.toString());
+
                 }
-                activity.gotOffers(offers);
+                MYREF.child("offers").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshotOffers) {
+//                            Log.d("JOINEDOFFERS", dataSnapshotOffers.toString());
+                        for (DataSnapshot dataSnapshotOffer: dataSnapshotOffers.getChildren()) {
+                            Log.d("JOINEDOFFERS",dataSnapshotOffer.getKey());
+                            if (joinedOffers.contains(dataSnapshotOffer.getKey())) {
+                                offers.add(dataSnapshotOffer.getValue(Offer.class));
+                            }
+                        }
+                        activity.gotOffers(offers);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override

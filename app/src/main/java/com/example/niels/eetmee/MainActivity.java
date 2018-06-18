@@ -107,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            User profile = new User();
+                            profile.setName("");
+                            MYREF.child("Users").child(mAuth.getUid()).setValue(profile);
                             startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.

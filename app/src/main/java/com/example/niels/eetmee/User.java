@@ -1,11 +1,14 @@
 package com.example.niels.eetmee;
 
+import java.util.ArrayList;
+
 public class User {
     private String name;
     private String bio;
     private String[] reviews;
     private int[] ratings;
     private Diet diet;
+    private ArrayList<String> joinedOffers = new ArrayList<>();
 
     public void setName(String name) {
         this.name = name;
@@ -45,5 +48,17 @@ public class User {
 
     public Diet getDiet() {
         return diet;
+    }
+
+    public ArrayList<String> getJoinedOffers() {
+        return joinedOffers;
+    }
+
+    public void addDinner(String offerKey) {
+        joinedOffers.add(offerKey);
+    }
+
+    public void removeDinner(String offerKey) {
+        joinedOffers.remove(offerKey);
     }
 }
