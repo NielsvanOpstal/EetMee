@@ -41,3 +41,12 @@ IDEE: maak het mogelijk om een aanbod te maken voor over een paar dagen en ook t
 # dag 8
 - van sommige if statements achter elkaar een switch gemaakt
 - request functies duidelijkere naam gegeven
+
+# dag 9
+- Vandaag ga ik aantal bugs oplossen
+*Bugs op dit moment:
+  * Krijgt alleen response uit firebase nadat een nieuwe account is aangmaakt 
+  * Edit profile activity is kapot (gefixt)
+  * Hij laat de kaart niet meer zien :( (gefixt, mega domme fout)
+  
+- EditProfileActivity laat je huidige profiel instellingen zien
