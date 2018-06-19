@@ -37,6 +37,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     private double lat;
     private double lng;
 
+    private RequestType requestType;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,11 +73,10 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
         if (MYREF == null) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             MYREF = database.getReference();
-            Log.d("JOsdf", MYREF.toString());
 
         }
-        RequestType requestType = (RequestType) getIntent().getSerializableExtra("afkomst");
-        Log.d("LOCATION", "" + requestType);
+        requestType = (RequestType) getIntent().getSerializableExtra("afkomst");
+
         setContentView(R.layout.offer_list_activity);
         OfferRequest request = new OfferRequest(this);
 
@@ -89,8 +90,6 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
                                 break;
         }
 
-
-
     }
 
     @Override
@@ -100,6 +99,22 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
         offerlist.setOnItemClickListener(new onItemmClickListener());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        OfferRequest request = new OfferRequest(this);
+
+        switch (requestType) {
+            case ALLOFFERS:     request.getAllOffers(this);
+                break;
+            case MYOFFERS:      request.getMyOffers(this);
+                break;
+            case JOINEDOFFERS:  request.getJoinedOffers(this);
+                break;
+        }
+
+    }
 
 
     @Override

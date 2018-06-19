@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -29,12 +30,12 @@ import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
 
 public class DetailActivity extends AppCompatActivity implements OnMapReadyCallback, UserRequest.Callback {
+
     Offer offer;
     MapView mapView;
     FirebaseUser user;
     Button joinButton;
     Button unJoinButton;
-//TODO: oplossen: HOE BIJ TE HOUDEN WANNEER BUTTON IS VERANDERD
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,9 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                 joinButton = findViewById(R.id.JoinButton);
                 unJoinButton = findViewById(R.id.UnJoinButton);
 
+                Log.d("USERUSERUSER", Calendar.getInstance().getTime().toString());
                 ArrayList<String> eaters = offer.getEaters();
+
 
                 Log.d("JOINEDOFFERS", eaters.toString());
                 Log.d("JOINEDOFFERS", mAuth.getUid());
@@ -78,12 +81,14 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     public void JoinDinner(View view) {
         Toast.makeText(this, user.getUid(), Toast.LENGTH_SHORT).show();
-        Log.d("USER", user.getUid());
+
         if(offer.addEater(user.getUid())) {
-            Log.d("USERID", offer.getEaters().toString());
+
             MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
+
             findViewById(R.id.UnJoinButton).setVisibility(VISIBLE);
             view.setVisibility(GONE);
+
             UserRequest request = new UserRequest(this);
             request.getUser(this);
 
@@ -92,6 +97,17 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 //            Toast.makeText(this, "Er ging iets mis :(\n Ben je al ingeschreven?", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void UnJoinButton(View view) {
+        offer.removeEater(user.getUid());
+        MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
+        findViewById(R.id.JoinButton).setVisibility(VISIBLE);
+        view.setVisibility(GONE);
+
+        UserRequest request = new UserRequest(this);
+        request.getUser(this);
+    }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -141,16 +157,17 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     }
 
-    public void UnJoinButton(View view) {
-        offer.removeEater(user.getUid());
-        MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
-        findViewById(R.id.JoinButton).setVisibility(VISIBLE);
-        view.setVisibility(GONE);
-    }
 
     @Override
     public void gotUser(User user) {
-        user.addDinner(offer.getFirebaseKey());
+        Log.d("USERUSERUSER", user.getJoinedOffers().toString());
+        Log.d("USERUSERUSER", offer.getFirebaseKey());
+        if (user.getJoinedOffers().contains(offer.getFirebaseKey())) {
+            user.removeDinner(offer.getFirebaseKey());
+        }
+        else {
+            user.addDinner(offer.getFirebaseKey());
+        }
         MYREF.child("Users").child(mAuth.getUid()).setValue(user);
     }
 
