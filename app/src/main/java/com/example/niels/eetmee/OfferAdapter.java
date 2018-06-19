@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 // TODO: crashvrij maken wanneer er geen coordinaten zijn
+// TODO: tijd printen in 00:00 ipv 00:0
 public class OfferAdapter extends ArrayAdapter<Offer> {
 
     ArrayList<Offer> offers;
@@ -46,7 +47,7 @@ public class OfferAdapter extends ArrayAdapter<Offer> {
         float dist = results[0] / 1000;
         what.setText(currentOffer.getWhat());
         cost.setText("kosten: " +currentOffer.getCosts());
-        time.setText(currentOffer.getTime());
+        time.setText(currentOffer.printTime());
         distance.setText("afstand:" + dist + "km");
 
         return convertView;

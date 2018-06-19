@@ -1,16 +1,28 @@
 package com.example.niels.eetmee;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import android.text.format.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
@@ -24,16 +36,19 @@ public class MakeOfferActivity extends AppCompatActivity {
     private EditText what;
     private String whatText;
     private EditText costs;
-    private int costsInt = -1;
+    private String costsText;
     private EditText persons;
-    private int personsInt = -1;
-    private EditText time;
+    private String personsText;
+    private static TextView time;
     private String timeText;
+    private static TextView date;
     private CheckBox together;
     private boolean togetherBool;
     private CheckBox pickUp;
     private boolean pickUpBool;
     private String userID;
+    private static  DateTime dateTime;
+
 
 
     @Override
@@ -49,20 +64,32 @@ public class MakeOfferActivity extends AppCompatActivity {
 
         setContentView(R.layout.make_offer_activity);
 
+        dateTime = new DateTime();
         // Fill the fields and checkboxes
         what = findViewById(R.id.WhatEditText);
         costs = findViewById(R.id.CostEditText);
         persons = findViewById(R.id.PersonsEditText);
-        time = findViewById(R.id.TimeEditText);
+        time = findViewById(R.id.TimeTextView);
+        date = findViewById(R.id.DateTextVew);
         together = findViewById(R.id.TogetherCheckbox);
         pickUp = findViewById(R.id.PickupCheckbox);
+
+//        time.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    DialogFragment newFragment = new TimePickerFragment();
+//                    newFragment.show(getFragmentManager(), "timepicker");
+//                }
+//            }
+//        });
 
     }
 
     public void ContiueClicked(View view) {
         whatText = what.getText().toString();
-        costsInt = Integer.parseInt(costs.getText().toString());
-        personsInt = Integer.parseInt(persons.getText().toString());
+        costsText = costs.getText().toString();
+        personsText = persons.getText().toString();
         timeText = time.getText().toString();
         togetherBool = together.isChecked();
         pickUpBool = pickUp.isChecked();
@@ -70,16 +97,16 @@ public class MakeOfferActivity extends AppCompatActivity {
         if (ValidateForm()) {
             Offer newOffer = new Offer();
             newOffer.setWhat(whatText);
-            newOffer.setCosts(costsInt);
-            newOffer.setPersons(personsInt);
-            newOffer.setTime(timeText);
+            newOffer.setCosts(Integer.parseInt(costsText));
+            newOffer.setPersons(Integer.parseInt(personsText));
+            newOffer.setDateTime(dateTime);
             newOffer.setEatTogheter(togetherBool);
             newOffer.setPickup(pickUpBool);
             newOffer.setUserID(userID);
-            newOffer.setPersonsLeft(personsInt);
+            newOffer.setPersonsLeft(Integer.parseInt(personsText));
             newOffer.setEaters(new ArrayList<String>());
-//            PUSHKEY = MYREF.child("offers").push().getKey();
-//            MYREF.child("offers").child(PUSHKEY).setValue(newOffer);
+
+
             Intent intent = new Intent(MakeOfferActivity.this, EnterAddresActivity.class);
             intent.putExtra("offermade", newOffer);
             startActivity(intent);
@@ -98,7 +125,7 @@ public class MakeOfferActivity extends AppCompatActivity {
             what.setError(null);
         }
 
-        if (costsInt < 0) {
+        if (TextUtils.isEmpty(costsText)) {
             costs.setError("Required.");
             valid = false;
         }
@@ -107,7 +134,7 @@ public class MakeOfferActivity extends AppCompatActivity {
         }
 
 
-        if (personsInt < 0) {
+        if (TextUtils.isEmpty(personsText)) {
             persons.setError("Required");
             valid = false;
         }
@@ -136,5 +163,56 @@ public class MakeOfferActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    public void TimeClicked(View view) {
+        DialogFragment newTimeFragment = new TimePickerFragment();
+        newTimeFragment.show(getFragmentManager(), "timePicker");
+    }
+
+    public void DateClicked(View view) {
+        DialogFragment newDateFragment = new DatePickerFragment();
+        newDateFragment.show(getFragmentManager(), "datePicker");
+    }
+
+
+    public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            time.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
+            dateTime.setHour(hourOfDay);
+            dateTime.setMinute(minute);
+        }
+
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
+        }
+    }
+
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            date.setText(Integer.toString(dayOfMonth) + "-" + Integer.toString(month + 1) + "-" + Integer.toString(year));
+
+            dateTime.setDay(dayOfMonth);
+            dateTime.setMonth(month + 1);
+            dateTime.setYear(year);
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c =Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
     }
 }

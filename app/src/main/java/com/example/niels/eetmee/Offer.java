@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Offer implements Serializable {
     private String what;
     private int costs;
-    private String time;
+    private DateTime dateTime;
     private int persons;
     private boolean eatTogheter;
     private boolean pickup;
@@ -32,8 +32,8 @@ public class Offer implements Serializable {
         this.eaters = eaters;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setDateTime(DateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public void setPersons(int persons) {
@@ -80,8 +80,8 @@ public class Offer implements Serializable {
         return costs;
     }
 
-    public String getTime() {
-        return time;
+    public DateTime getDateTime() {
+        return dateTime;
     }
 
     public int getPersons() {
@@ -138,5 +138,9 @@ public class Offer implements Serializable {
         eaters.remove(userID);
         Log.d("EATERS", userID);
         Log.d("EATERS", eaters.toString());
+    }
+
+    public String printTime() {
+        return dateTime.getHour() + ":" + dateTime.getMinute();
     }
 }

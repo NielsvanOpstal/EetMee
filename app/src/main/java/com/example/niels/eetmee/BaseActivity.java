@@ -45,10 +45,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                                                 startActivity(myIntent);
                                                 break;
 
-            case R.id.JoinedOffersButton:       Log.d("USER", mAuth.getCurrentUser().toString());
-                                                Log.d("USER", mAuth.getCurrentUser().getUid());
-                                                Log.d("USER", mAuth.getUid());
-                                                Intent joinedIntent =new Intent(BaseActivity.this, OfferListActivity.class);
+            case R.id.JoinedOffersButton:       Intent joinedIntent =new Intent(BaseActivity.this, OfferListActivity.class);
                                                 joinedIntent.putExtra("afkomst", RequestType.JOINEDOFFERS);
                                                 startActivity(joinedIntent);
                                                 break;
