@@ -4,11 +4,12 @@ import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Offer implements Serializable {
     private String what;
     private int costs;
-    private DateTime dateTime;
+    private Date dateTime;
     private int persons;
     private boolean eatTogheter;
     private boolean pickup;
@@ -18,7 +19,11 @@ public class Offer implements Serializable {
     private int personsLeft;
     private Address address;
     private ArrayList<String> eaters = new ArrayList<>();
+    private String dateString;
 
+    public void setDateString(String dateString) {
+        this.dateString = dateString;
+    }
 
     public void setWhat(String what) {
         this.what = what;
@@ -32,7 +37,7 @@ public class Offer implements Serializable {
         this.eaters = eaters;
     }
 
-    public void setDateTime(DateTime dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -80,7 +85,7 @@ public class Offer implements Serializable {
         return costs;
     }
 
-    public DateTime getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
@@ -116,6 +121,10 @@ public class Offer implements Serializable {
         return address;
     }
 
+    public String getDateString() {
+        return dateString;
+    }
+
     public boolean addEater(String userID) {
         Log.d("EATERS", eaters.toString());
         if (eaters.contains(userID)) {
@@ -140,7 +149,4 @@ public class Offer implements Serializable {
         Log.d("EATERS", eaters.toString());
     }
 
-    public String printTime() {
-        return dateTime.getHour() + ":" + dateTime.getMinute();
-    }
 }

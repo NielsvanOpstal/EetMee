@@ -21,8 +21,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -71,6 +74,13 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                     joinButton.setVisibility(VISIBLE);
                 }
 
+                Date date = Calendar.getInstance().getTime();
+                Date offerDate = offer.getDateTime();
+                if (date.after(offerDate) && offer.getEaters().contains(mAuth.getUid())) {
+                    findViewById(R.id.RateButton).setVisibility(VISIBLE);
+                }
+
+
 
             }
             else {
@@ -106,7 +116,10 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
         UserRequest request = new UserRequest(this);
         request.getUser(this);
+
+
     }
+
 
 
     @Override

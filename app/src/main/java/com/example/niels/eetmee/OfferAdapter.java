@@ -47,7 +47,7 @@ public class OfferAdapter extends ArrayAdapter<Offer> {
         float dist = results[0] / 1000;
         what.setText(currentOffer.getWhat());
         cost.setText("kosten: " +currentOffer.getCosts());
-        time.setText(currentOffer.printTime());
+        time.setText("Hier komt de tijd");
         distance.setText("afstand:" + dist + "km");
 
         return convertView;

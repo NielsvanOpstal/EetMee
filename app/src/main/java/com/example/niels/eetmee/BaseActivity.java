@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import static com.example.niels.eetmee.MainActivity.mAuth;
@@ -17,6 +19,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_screen);
+
 
         findViewById(R.id.IkWilKokenButton).setOnClickListener(this);
         findViewById(R.id.IkWilEtenButton).setOnClickListener(this);
@@ -51,4 +54,5 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                                                 break;
         }
     }
+
 }

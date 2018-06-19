@@ -28,7 +28,8 @@ public class OfferRequest {
         context = context;
     }
 
-    public void getAllOffers(Callback aActivity) {
+    public void getAllOffers(Callback aActivity, String dateString) {
+        Log.d("USERUSERUSER", "IK BEN HIER");
         activity = aActivity;
         final ArrayList<Offer> offers = new ArrayList<>();
 
@@ -36,6 +37,7 @@ public class OfferRequest {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                Log.d("USERUSERUSER", dataSnapshot.toString());
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     offers.add(snapshot.getValue(Offer.class));
                 }

@@ -23,6 +23,7 @@ import android.widget.Toast;
 import android.text.format.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
@@ -47,7 +48,8 @@ public class MakeOfferActivity extends AppCompatActivity {
     private CheckBox pickUp;
     private boolean pickUpBool;
     private String userID;
-    private static  DateTime dateTime;
+    private static String dateString;
+    private static Calendar cal;
 
 
 
@@ -64,7 +66,6 @@ public class MakeOfferActivity extends AppCompatActivity {
 
         setContentView(R.layout.make_offer_activity);
 
-        dateTime = new DateTime();
         // Fill the fields and checkboxes
         what = findViewById(R.id.WhatEditText);
         costs = findViewById(R.id.CostEditText);
@@ -74,15 +75,8 @@ public class MakeOfferActivity extends AppCompatActivity {
         together = findViewById(R.id.TogetherCheckbox);
         pickUp = findViewById(R.id.PickupCheckbox);
 
-//        time.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//                    DialogFragment newFragment = new TimePickerFragment();
-//                    newFragment.show(getFragmentManager(), "timepicker");
-//                }
-//            }
-//        });
+        cal = Calendar.getInstance();
+
 
     }
 
@@ -99,12 +93,15 @@ public class MakeOfferActivity extends AppCompatActivity {
             newOffer.setWhat(whatText);
             newOffer.setCosts(Integer.parseInt(costsText));
             newOffer.setPersons(Integer.parseInt(personsText));
-            newOffer.setDateTime(dateTime);
             newOffer.setEatTogheter(togetherBool);
             newOffer.setPickup(pickUpBool);
             newOffer.setUserID(userID);
+            newOffer.setDateString(dateString);
             newOffer.setPersonsLeft(Integer.parseInt(personsText));
             newOffer.setEaters(new ArrayList<String>());
+
+            Date dateTime = cal.getTime();
+            newOffer.setDateTime(dateTime);
 
 
             Intent intent = new Intent(MakeOfferActivity.this, EnterAddresActivity.class);
@@ -180,8 +177,10 @@ public class MakeOfferActivity extends AppCompatActivity {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             time.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
-            dateTime.setHour(hourOfDay);
-            dateTime.setMinute(minute);
+            cal.set(cal.HOUR_OF_DAY, hourOfDay);
+            cal.set(cal.MINUTE, minute);
+            cal.set(cal.SECOND, 0);
+            cal.set(cal.MILLISECOND, 0);
         }
 
 
@@ -198,11 +197,12 @@ public class MakeOfferActivity extends AppCompatActivity {
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            date.setText(Integer.toString(dayOfMonth) + "-" + Integer.toString(month + 1) + "-" + Integer.toString(year));
+            dateString = Integer.toString(dayOfMonth) + "-" + Integer.toString(month + 1) + "-" + Integer.toString(year);
+            date.setText(dateString);
 
-            dateTime.setDay(dayOfMonth);
-            dateTime.setMonth(month + 1);
-            dateTime.setYear(year);
+            cal.set(cal.DAY_OF_MONTH, dayOfMonth);
+            cal.set(cal.MONTH, month);
+            cal.set(cal.YEAR, year);
         }
 
         @Override
