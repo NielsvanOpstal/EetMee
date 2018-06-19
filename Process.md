@@ -50,3 +50,11 @@ IDEE: maak het mogelijk om een aanbod te maken voor over een paar dagen en ook t
   * Hij laat de kaart niet meer zien :( (gefixt, mega domme fout)
   
 - EditProfileActivity laat je huidige profiel instellingen zien
+
+
+# dag 10:
+
+- er was niet opgeslagen wat ik had getypt :(
+- iig een Date toegevoed.
+- Hij laat nu een "Hoe vond je het?" knop zien als een offer al is geweest, nog toevoegen dat je er ook voor moet zijn ingeschreven. Das is auch gemacht
+
