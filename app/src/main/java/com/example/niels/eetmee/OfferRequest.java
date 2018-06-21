@@ -30,10 +30,11 @@ public class OfferRequest {
 
     public void getAllOffers(Callback aActivity, String dateString) {
         Log.d("USERUSERUSER", "IK BEN HIER");
+        Log.d("USERUSERUSER", dateString);
         activity = aActivity;
         final ArrayList<Offer> offers = new ArrayList<>();
 
-        MYREF.child("offers").addListenerForSingleValueEvent(new ValueEventListener() {
+        MYREF.child("offers").orderByChild("dateString").equalTo(dateString).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

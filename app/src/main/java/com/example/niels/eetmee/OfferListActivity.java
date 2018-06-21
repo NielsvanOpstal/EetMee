@@ -107,8 +107,6 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
                                 break;
             case JOINEDOFFERS:  request.getJoinedOffers(this);
                                 break;
-
-
         }
 
     }
@@ -123,9 +121,16 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
             return false;
     }
 
+    private static void requester() {
+
+    }
+
+    public void hallo() {
+        Log.d("USERUSERUSER","Jahoor");
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("USERUSERUSER", "JAAA");
         DialogFragment newDateFragment = new DatePickerFragment();
         newDateFragment.show(getFragmentManager(), "datePicker");
         return true;
@@ -135,6 +140,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             dateString = Integer.toString(dayOfMonth) + "-" + Integer.toString(month + 1) + "-" + Integer.toString(year);
+            logger();
+            Log.d("USERUSERUSER","INDATESET");
 //          TODO: hoe kom ik bij de outer class???
         }
 
