@@ -39,8 +39,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.profile_edit);
 
         if (mAuth.getCurrentUser() != null) {
-            UserRequest userRequest = new UserRequest(this);
-            userRequest.getUser(this);
+            UserRequest userRequest = new UserRequest();
+            userRequest.getUser(this, UserRequestType.CURRENTUSER, mAuth.getUid());
 
             diet = new Diet();
             // Edit texts
@@ -123,7 +123,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
-    public void gotUser(User user) {
+    public void gotUser(User user, UserRequestType type) {
         Log.d("userrequest", "Hoi");
         Log.d("userrequest", user.toString());
         String userName = user.getName();

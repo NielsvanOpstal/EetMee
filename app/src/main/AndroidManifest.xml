@@ -35,6 +35,7 @@
         <activity android:name=".OfferListActivity"></activity>
         <activity android:name=".DietActivity"></activity>
         <activity android:name=".EnterAddresActivity"></activity>
+        <activity android:name=".UserInfoActivity"></activity>
     </application>
 
 </manifest>

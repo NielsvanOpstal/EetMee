@@ -1,12 +1,12 @@
 package com.example.niels.eetmee;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Serializable {
     private String name;
     private String bio;
-    private String[] reviews;
-    private int[] ratings;
+    private ArrayList<Review> reviews =  new ArrayList<>();
     private Diet diet;
     private ArrayList<String> joinedOffers = new ArrayList<>();
 
@@ -16,14 +16,6 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
-    }
-
-    public void setReviews(String[] reviews) {
-        this.reviews = reviews;
-    }
-
-    public void setRatings(int[] ratings) {
-        this.ratings = ratings;
     }
 
     public void setDiet(Diet diet) {
@@ -38,20 +30,16 @@ public class User {
         return bio;
     }
 
-    public String[] getReviews() {
-        return reviews;
-    }
-
-    public int[] getRatings() {
-        return ratings;
-    }
-
     public Diet getDiet() {
         return diet;
     }
 
     public ArrayList<String> getJoinedOffers() {
         return joinedOffers;
+    }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
     }
 
     public void addDinner(String offerKey) {
@@ -61,4 +49,9 @@ public class User {
     public void removeDinner(String offerKey) {
         joinedOffers.remove(offerKey);
     }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+    }
+
 }

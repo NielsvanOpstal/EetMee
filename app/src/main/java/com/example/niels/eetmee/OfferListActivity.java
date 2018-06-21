@@ -121,8 +121,10 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
             return false;
     }
 
-    private static void requester() {
-
+    public void requester(String dateString) {
+        OfferRequest offerRequest = new OfferRequest(this);
+        offerRequest.getAllOffers(this, dateString);
+        Log.d("USERUSERUSER", "IK BEN ER!");
     }
 
     public void hallo() {
@@ -136,12 +138,22 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
         return true;
     }
 
+
+
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        OfferRequest.Callback activity;
+
+        public void activityGetter(OfferRequest.Callback aActivity) {
+        }
+
+
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             dateString = Integer.toString(dayOfMonth) + "-" + Integer.toString(month + 1) + "-" + Integer.toString(year);
-            logger();
-            Log.d("USERUSERUSER","INDATESET");
+            activity = (OfferListActivity) getActivity();
+            request.getAllOffers(activity, dateString);
+
 //          TODO: hoe kom ik bij de outer class???
         }
 
@@ -154,11 +166,14 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
+
+
     }
 
 
     @Override
     public void gotOffers(ArrayList<Offer> offers) {
+        Log.d("USERUSERUSER", "HIER");
         ListView offerlist = findViewById(R.id.OfferListView);
         offerlist.setAdapter(new OfferAdapter(this, 0, offers, lat, lng));
         offerlist.setOnItemClickListener(new onItemmClickListener());
@@ -167,7 +182,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     @Override
     public void onResume() {
         super.onResume();
-
+        Log.d("HALO", dateString);
         switch (requestType) {
             case ALLOFFERS:     request.getAllOffers(this, dateString);
                 break;

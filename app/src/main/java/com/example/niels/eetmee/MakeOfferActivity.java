@@ -57,7 +57,7 @@ public class MakeOfferActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userID = mAuth.getCurrentUser().toString();
+        userID = mAuth.getUid();
         if(TextUtils.isEmpty(userID)) {
             Toast.makeText(MakeOfferActivity.this, "You need to be logged in",
                     Toast.LENGTH_SHORT).show();

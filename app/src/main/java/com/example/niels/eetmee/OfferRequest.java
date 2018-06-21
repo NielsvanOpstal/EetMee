@@ -33,7 +33,7 @@ public class OfferRequest {
         Log.d("USERUSERUSER", dateString);
         activity = aActivity;
         final ArrayList<Offer> offers = new ArrayList<>();
-
+//      TODO: dateSTring ipv 20-6-2018 invullen
         MYREF.child("offers").orderByChild("dateString").equalTo(dateString).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -55,11 +55,11 @@ public class OfferRequest {
     public void getMyOffers(Callback aActivity) {
         activity = aActivity;
         final ArrayList<Offer> offers = new ArrayList<>();
-
-        MYREF.child("offers").orderByChild("userID").equalTo(mAuth.getCurrentUser().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+        Log.d("debug", mAuth.getUid());
+        MYREF.child("offers").orderByChild("userID").equalTo(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                Log.d("debug", dataSnapshot.toString());
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     offers.add(snapshot.getValue(Offer.class));
                 }
@@ -77,24 +77,20 @@ public class OfferRequest {
         activity = aActivity;
         final ArrayList<Offer> offers = new ArrayList<>();
         final ArrayList<String> joinedOffers = new ArrayList<>();
+        Log.d("JOINEDOFFERS", "hier");
+
 
         MYREF.child("Users").child(mAuth.getUid()).child("joinedOffers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
 
-//                Log.d("JOINEDOFFERS", dataSnapshot.toString());
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-//                    Log.d("JOINEDOFFERS", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaaa");
                     joinedOffers.add(snapshot.getValue().toString());
-//                    Log.d("JOINEDOFFERS", joinedOffers.toString());
-
                 }
                 MYREF.child("offers").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshotOffers) {
-//                            Log.d("JOINEDOFFERS", dataSnapshotOffers.toString());
                         for (DataSnapshot dataSnapshotOffer: dataSnapshotOffers.getChildren()) {
-                            Log.d("JOINEDOFFERS",dataSnapshotOffer.getKey());
                             if (joinedOffers.contains(dataSnapshotOffer.getKey())) {
                                 offers.add(dataSnapshotOffer.getValue(Offer.class));
                             }

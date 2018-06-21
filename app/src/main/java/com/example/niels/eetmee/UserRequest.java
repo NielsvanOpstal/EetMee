@@ -15,29 +15,26 @@ import static com.example.niels.eetmee.MainActivity.mAuth;
 
 public class UserRequest {
 
-    private Context context;
+    private UserRequestType type;
     private UserRequest.Callback activity;
 
     public interface Callback {
-        void gotUser(User user);
+        void gotUser(User user, UserRequestType type);
         void gotUserError(String message);
     }
 
-    public UserRequest(Context context) {
-        context = context;
-    }
 
-    public void getUser(UserRequest.Callback aActivity) {
+    public void getUser(UserRequest.Callback aActivity, UserRequestType aType, String userID) {
+        final UserRequestType type = aType;
 //        TODO: Catch achtig iets fixen voor wanneer datasnapshot null teruggeeft
         activity = aActivity;
-        Log.d("userrequest", mAuth.getCurrentUser().getUid());
-//                MYREF.child("Users").orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener()
-        MYREF.child("Users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        Log.d("USERUSERSER", userID);
+        MYREF.child("Users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("userrequest", dataSnapshot.toString());
                 User user = dataSnapshot.getValue(User.class);
-                activity.gotUser(user);
+                activity.gotUser(user, type);
             }
 
             @Override
