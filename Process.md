@@ -58,3 +58,11 @@ IDEE: maak het mogelijk om een aanbod te maken voor over een paar dagen en ook t
 - iig een Date toegevoed.
 - Hij laat nu een "Hoe vond je het?" knop zien als een offer al is geweest, nog toevoegen dat je er ook voor moet zijn ingeschreven. Das is auch gemacht
 
+# dag 11
+- Ik kom er niet uit hoe je uit een static class kunt komen
+- Sorteren op datum lukt! alleen probleem van hierboven nog even fixen
+- Review Class aangemaakt en die zit in in de Userclass
+- nog zorgen dat iemand zijn eigen offers neit ziet
+- Heb het static probleempje opgelost!
+- reviews shrijven werkt via een dialog!
+- profiel bekijken kan nu ook!
