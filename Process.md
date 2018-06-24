@@ -1,3 +1,5 @@
+
+
 # dag2
 - problemen gehad met mijn gradle files door het implementeren van firebase database en firebase authentication. Nu werkend maar nieuwe error
 
@@ -59,10 +61,13 @@ IDEE: maak het mogelijk om een aanbod te maken voor over een paar dagen en ook t
 - Hij laat nu een "Hoe vond je het?" knop zien als een offer al is geweest, nog toevoegen dat je er ook voor moet zijn ingeschreven. Das is auch gemacht
 
 # dag 11
-- Ik kom er niet uit hoe je uit een static class kunt komen
+- Ik kom er niet uit hoe je uit een static class kunt komen -> opgelost!
 - Sorteren op datum lukt! alleen probleem van hierboven nog even fixen
 - Review Class aangemaakt en die zit in in de Userclass
 - nog zorgen dat iemand zijn eigen offers neit ziet
-- Heb het static probleempje opgelost!
+- Heb het static probleemp opgelost!
 - reviews shrijven werkt via een dialog!
 - profiel bekijken kan nu ook!
+
+# dag 12
+- Nu kun je je adress invullen via een autocomplete van google places api! hierdoor is de geocoding api niet meer nodig. Ook komen de markers nu eindelijk op de goede plek ipv 30 meter meer noordelijk :)
