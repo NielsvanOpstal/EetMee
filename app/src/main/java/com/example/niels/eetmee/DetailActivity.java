@@ -110,19 +110,54 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     public void JoinDinner(View view) {
         Toast.makeText(this, user.getUid(), Toast.LENGTH_SHORT).show();
+        String dietString = dietChecker(offer.getDiet(), currentUser.getDiet());
+        Log.d("DIETSTRING", dietString);
+        if (!TextUtils.isEmpty(dietString)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(dietString)
+                    .setPositiveButton("Toch inschrijven", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(offer.addEater(user.getUid())) {
+                                Log.d("DIETSTRING", "Prima");
+                                MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
 
-        if(offer.addEater(user.getUid())) {
+                                findViewById(R.id.UnJoinButton).setVisibility(VISIBLE);
+                                findViewById(R.id.JoinButton).setVisibility(GONE);
 
-            MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
+                                userRequest.getUser(DetailActivity.this, ALTERCURRENTUSER, mAuth.getUid());
 
-            findViewById(R.id.UnJoinButton).setVisibility(VISIBLE);
-            view.setVisibility(GONE);
+                            }
+                            else {
+                                Toast.makeText(DetailActivity.this, "Er ging iets mis :(\n Ben je al ingeschreven?", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+                    .setNegativeButton("Sorry, toch niet", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-            userRequest.getUser(this, ALTERCURRENTUSER, mAuth.getUid());
-
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            Log.d("DIETSTRING", "LEEG");
         }
         else {
+            if(offer.addEater(user.getUid())) {
+
+                MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
+
+                findViewById(R.id.UnJoinButton).setVisibility(VISIBLE);
+                view.setVisibility(GONE);
+
+                userRequest.getUser(this, ALTERCURRENTUSER, mAuth.getUid());
+
+            }
+            else {
 //            Toast.makeText(this, "Er ging iets mis :(\n Ben je al ingeschreven?", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
@@ -245,13 +280,43 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     @Override
     public void gotUserError(String message) {
 //        TODO: netjes afhandelen
-        Log.d("userrequest", "Er gign iets mis");
+        Log.d("userrequest", "Er ging iets mis");
     }
 
     public void show_info_button_clicked(View view) {
         Intent intent = new Intent(DetailActivity.this, UserInfoActivity.class);
         intent.putExtra("user", offerCreater);
         startActivity(intent);
+    }
+
+    public String dietChecker(Diet offerDiet, Diet userDiet) {
+
+        String alertString = "";
+        if ((!offerDiet.vegetarian && !offerDiet.vegan) && userDiet.vegetarian) {
+            alertString += "- It is not vegetarian! \n";
+        }
+        if (!offerDiet.vegan && userDiet.vegan) {
+            alertString += "- It is not vegan! \n";
+        }
+        if (offerDiet.glutenAllergy && userDiet.glutenAllergy) {
+            alertString += "- This offer contains gluten! \n";
+        }
+        if (offerDiet.lactoseAllergy && userDiet.lactoseAllergy) {
+            alertString += "- This offer contains lactose! \n";
+        }
+        if (offerDiet.nutAllergy && userDiet.nutAllergy) {
+            alertString += "- This offer contains nuts! \n";
+        }
+        if (offerDiet.peanutAllergy && userDiet.peanutAllergy) {
+            alertString += "- This offer contains peanuts! \n";
+        }
+        if (offerDiet.shellfishAllergy && userDiet.shellfishAllergy) {
+            alertString += "- This offer contains shellfish \n";
+        }
+        if (offerDiet.soyAllergy && userDiet.soyAllergy) {
+            alertString += "- This offer contains soy! ";
+        }
+        return alertString;
     }
 }
 

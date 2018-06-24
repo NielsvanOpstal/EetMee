@@ -4,13 +4,13 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
@@ -20,7 +20,19 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+
 import android.text.format.DateFormat;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,9 +40,15 @@ import java.util.Date;
 import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
 
-// TODO: van Time zo'n draai dingetje maken.
 // TODO: niet een lijst maar een opvolging van invulbare dingen
 public class MakeOfferActivity extends AppCompatActivity {
+
+    protected GeoDataClient mGeoDataClient;
+
+    private MYREFCHECKER myrefchecker;
+
+    private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+
 
     static String PUSHKEY;
 
@@ -57,12 +75,10 @@ public class MakeOfferActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userID = mAuth.getUid();
-        if(TextUtils.isEmpty(userID)) {
-            Toast.makeText(MakeOfferActivity.this, "You need to be logged in",
-                    Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MakeOfferActivity.this, MainActivity.class));
-        }
+        myrefchecker = new MYREFCHECKER();
+        myrefchecker.checker();
+
+        mGeoDataClient = Places.getGeoDataClient(this, null);
 
         setContentView(R.layout.make_offer_activity);
 
@@ -79,6 +95,7 @@ public class MakeOfferActivity extends AppCompatActivity {
 
 
     }
+
 
     public void ContiueClicked(View view) {
         whatText = what.getText().toString();
@@ -172,6 +189,39 @@ public class MakeOfferActivity extends AppCompatActivity {
         newDateFragment.show(getFragmentManager(), "datePicker");
     }
 
+    public void pickAdress(View view) {
+
+        try {
+        Intent intent =
+                new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                        .build(this);
+        startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                Log.i("PLACEPICKER", "Place: " + place.getName());
+                Log.d("PLACEPICKER", place.toString());
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i("PLACEPICKER", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+    }
 
     public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
         @Override

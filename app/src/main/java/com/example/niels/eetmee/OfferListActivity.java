@@ -75,7 +75,6 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
                     @Override
                     public void onSuccess(Location location) {
                         if (location != null) {
-                            Log.d("LOCATION: ,", "" + location.getLatitude());
                             lat = location.getLatitude();
                             lng = location.getLongitude();
                         }
@@ -84,19 +83,14 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
 
 
-        // Dit moet nog weg
-        if (MYREF == null) {
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            MYREF = database.getReference();
 
-        }
         requestType = (RequestType) getIntent().getSerializableExtra("afkomst");
 
         setContentView(R.layout.offer_list_activity);
         request = new OfferRequest(this);
 
         Date date = Calendar.getInstance().getTime();
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat df = new SimpleDateFormat("dd-M-yyyy");
         dateString = df.format(date);
 
 
@@ -121,16 +115,6 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
             return false;
     }
 
-    public void requester(String dateString) {
-        OfferRequest offerRequest = new OfferRequest(this);
-        offerRequest.getAllOffers(this, dateString);
-        Log.d("USERUSERUSER", "IK BEN ER!");
-    }
-
-    public void hallo() {
-        Log.d("USERUSERUSER","Jahoor");
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         DialogFragment newDateFragment = new DatePickerFragment();
@@ -142,19 +126,12 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-        OfferRequest.Callback activity;
-
-        public void activityGetter(OfferRequest.Callback aActivity) {
-        }
-
-
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             dateString = Integer.toString(dayOfMonth) + "-" + Integer.toString(month + 1) + "-" + Integer.toString(year);
-            activity = (OfferListActivity) getActivity();
+            OfferRequest.Callback activity = (OfferListActivity) getActivity();
             request.getAllOffers(activity, dateString);
 
-//          TODO: hoe kom ik bij de outer class???
         }
 
         @Override
@@ -182,6 +159,10 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     @Override
     public void onResume() {
         super.onResume();
+
+        MYREFCHECKER checker = new MYREFCHECKER();
+        checker.checker();
+
         Log.d("HALO", dateString);
         switch (requestType) {
             case ALLOFFERS:     request.getAllOffers(this, dateString);

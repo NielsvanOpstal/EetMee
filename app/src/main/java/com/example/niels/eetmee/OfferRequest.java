@@ -33,7 +33,6 @@ public class OfferRequest {
         Log.d("USERUSERUSER", dateString);
         activity = aActivity;
         final ArrayList<Offer> offers = new ArrayList<>();
-//      TODO: dateSTring ipv 20-6-2018 invullen
         MYREF.child("offers").orderByChild("dateString").equalTo(dateString).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
