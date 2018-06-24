@@ -66,8 +66,14 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (checkLocationPermission()) {
                 System.out.println("Locatie opvragen toegestaan");
+
             }
-            Log.d("LOCATION: ,", "Permission was niet geaccepteerd");
+            else {
+                // Latitudes and Longitudes can naturally not be greater than 90
+                double PERMISSIONNOTGIVEN = 100;
+                lat = PERMISSIONNOTGIVEN;
+                lng = PERMISSIONNOTGIVEN;
+            }
         }
 
         mFusedLocationClient.getLastLocation()
@@ -78,8 +84,13 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
                             lat = location.getLatitude();
                             lng = location.getLongitude();
                         }
+                        else {
+                            lat = 100;
+                            lng = 100;
+                        }
                     }
                 });
+
 
 
 
@@ -150,10 +161,9 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     @Override
     public void gotOffers(ArrayList<Offer> offers) {
-        Log.d("USERUSERUSER", "HIER");
-        ListView offerlist = findViewById(R.id.OfferListView);
-        offerlist.setAdapter(new OfferAdapter(this, 0, offers, lat, lng));
-        offerlist.setOnItemClickListener(new onItemmClickListener());
+        ListView offerList = findViewById(R.id.OfferListView);
+        offerList.setAdapter(new OfferAdapter(this, 0, offers, lat, lng));
+        offerList.setOnItemClickListener(new onItemmClickListener());
     }
 
     @Override
