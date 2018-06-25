@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:background="@color/amaranthDeepPurple"
+            android:background="@drawable/button_round_corner"
             android:paddingEnd="8dp"
             android:text="Sign In" />
 
@@ -105,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/amaranthDeepPurple"
+            android:background="@drawable/button_round_corner"
             android:text="Register" />
     </LinearLayout>
 
@@ -128,8 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:background="@color/amaranthDeepPurple"
-            android:onClick="signOutbutton"
+            android:background="@drawable/button_round_corner"
             android:paddingEnd="8dp"
             android:text="Sign Out"
             tools:text="Sign Out" />
@@ -140,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:background="@color/amaranthDeepPurple"
+            android:background="@drawable/button_round_corner"
             android:text="Continue" />
 
         <Button
@@ -148,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/amaranthDeepPurple"
+            android:background="@drawable/button_round_corner"
             android:text="Verify Email"
             tools:text="Verify Email" />
     </LinearLayout>
