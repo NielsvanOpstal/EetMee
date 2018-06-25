@@ -1,11 +1,15 @@
 package com.example.niels.eetmee;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +21,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     static public MYREFCHECKER myrefchecker;
     UserRequest userRequest;
     boolean profileFilled = false;
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +33,30 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.IkWilKokenButton).setOnClickListener(this);
         findViewById(R.id.IkWilEtenButton).setOnClickListener(this);
-        findViewById(R.id.ProfielAanpassenButton).setOnClickListener(this);
         findViewById(R.id.MyOffersButton).setOnClickListener(this);
         findViewById(R.id.JoinedOffersButton).setOnClickListener(this);
 
         userRequest = new UserRequest();
         Log.d("USERID", mAuth.getCurrentUser().getUid());
         userRequest.getUser(this, UserRequestType.CURRENTUSER, mAuth.getUid());
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+//        Only creates possibility to pick date when user has requested all offers
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.base_screen_action_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent = new Intent(BaseActivity.this, UserInfoActivity.class);
+        intent.putExtra("user", user);
+        intent.putExtra("userID", mAuth.getUid());
+        startActivity(intent);
+        return true;
     }
 
     @Override
@@ -60,9 +83,6 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                                                     break;
                                                 }
 
-            case R.id.ProfielAanpassenButton:   startActivity(new Intent(BaseActivity.this, EditProfileActivity.class));
-                                                break;
-
             case R.id.MyOffersButton:           if (profileFilled) {
                                                     Intent myIntent =new Intent(BaseActivity.this, OfferListActivity.class);
                                                     myIntent.putExtra("afkomst", RequestType.MYOFFERS);
@@ -88,7 +108,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void gotUser(User user, UserRequestType type) {
+    public void gotUser(User aUser, UserRequestType type) {
+        user = aUser;
         if (!TextUtils.isEmpty(user.getName())) {
             profileFilled = true;
         }

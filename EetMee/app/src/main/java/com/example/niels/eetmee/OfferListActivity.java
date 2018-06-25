@@ -56,7 +56,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     private static OfferRequest request;
 
-
+//TODO: backnavigattie
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

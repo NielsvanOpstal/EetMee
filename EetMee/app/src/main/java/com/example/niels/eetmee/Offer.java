@@ -1,14 +1,13 @@
 package com.example.niels.eetmee;
 
-import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Offer implements Serializable {
+public class Offer implements Serializable, Comparable {
     private String what;
     private int costs;
     private Date dateTime;
@@ -24,6 +23,11 @@ public class Offer implements Serializable {
     private double lng;
     private ArrayList<String> eaters = new ArrayList<>();
     private String dateString;
+    private float distance;
+
+    public void setDistance(float distance) {
+        this.distance = distance;
+    }
 
     public void setDateString(String dateString) {
         this.dateString = dateString;
@@ -145,6 +149,10 @@ public class Offer implements Serializable {
         return lng;
     }
 
+    public float getDistance() {
+        return distance;
+    }
+
     public boolean addEater(String userID) {
 
 //        Adds an eater to an offer if joiner is not yet in eaters and there is still place left
@@ -163,7 +171,12 @@ public class Offer implements Serializable {
 
 //        Removes an eater
         eaters.remove(userID);
-
     }
 
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        int compareDistance = (int) ((Offer) o).getDistance();
+        return (int) this.distance - compareDistance;
+    }
 }
