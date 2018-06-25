@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,6 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.niels.eetmee.BaseActivity.myrefchecker;
 import static com.example.niels.eetmee.MainActivity.MYREF;
 
 public class OfferListActivity extends AppCompatActivity implements OfferRequest.Callback {
@@ -58,24 +60,28 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        setContentView(R.layout.offer_list_activity);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        Log.d("hallo", "haaloo");
+
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+//            If no permission
             if (checkLocationPermission()) {
                 System.out.println("Locatie opvragen toegestaan");
 
             }
             else {
-                // Latitudes and Longitudes can naturally not be greater than 90
+
+//                No persmission given so set lat and lng to 100 to imply error
                 double PERMISSIONNOTGIVEN = 100;
                 lat = PERMISSIONNOTGIVEN;
                 lng = PERMISSIONNOTGIVEN;
             }
         }
 
+//        If location was found succesfully
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
@@ -85,26 +91,26 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
                             lng = location.getLongitude();
                         }
                         else {
+
+//                            If something went wrong in getting the locaiton
                             lat = 100;
                             lng = 100;
                         }
                     }
                 });
 
-
-
-
-
+//        Gets the RequestType so that the correct data can be requested
         requestType = (RequestType) getIntent().getSerializableExtra("afkomst");
 
-        setContentView(R.layout.offer_list_activity);
-        request = new OfferRequest(this);
+//        Creates new OfferRequest
+        request = new OfferRequest();
 
+//        Creates a dateString of the current date
         Date date = Calendar.getInstance().getTime();
         DateFormat df = new SimpleDateFormat("dd-M-yyyy");
         dateString = df.format(date);
 
-
+//        Depending on the RequestType received request the correct data
         switch (requestType) {
             case ALLOFFERS:     request.getAllOffers(this, dateString);
                                 break;
@@ -118,6 +124,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+//        Only creates possibility to pick date when user has requested all offers
             if (requestType == RequestType.ALLOFFERS) {
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.actionbar, menu);
@@ -128,6 +136,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+//        Show the datepicker when the datepicker icon is selected
         DialogFragment newDateFragment = new DatePickerFragment();
         newDateFragment.show(getFragmentManager(), "datePicker");
         return true;
@@ -139,6 +149,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+//            Create dateString based on the picked data and request the offers on that date
             dateString = Integer.toString(dayOfMonth) + "-" + Integer.toString(month + 1) + "-" + Integer.toString(year);
             OfferRequest.Callback activity = (OfferListActivity) getActivity();
             request.getAllOffers(activity, dateString);
@@ -147,6 +159,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+//            Set the date to current date when datepicker is created
             final Calendar c =Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
@@ -161,6 +175,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     @Override
     public void gotOffers(ArrayList<Offer> offers) {
+
+//        Sets an adapter and an onItemClickListener on the listView
         ListView offerList = findViewById(R.id.OfferListView);
         offerList.setAdapter(new OfferAdapter(this, 0, offers, lat, lng));
         offerList.setOnItemClickListener(new onItemmClickListener());
@@ -170,10 +186,9 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     public void onResume() {
         super.onResume();
 
-        MYREFCHECKER checker = new MYREFCHECKER();
-        checker.checker();
+        myrefchecker.checker();
 
-        Log.d("HALO", dateString);
+//        Requests the data again to refresh the data showed
         switch (requestType) {
             case ALLOFFERS:     request.getAllOffers(this, dateString);
                 break;
@@ -188,13 +203,16 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     @Override
     public void gotOffersError(String message) {
-        // TODO: goede error message terug geven.
-        Log.d("Heeft gewerkt", "NOPE");
+        Toast.makeText(OfferListActivity.this, "something went wrong. \n"
+                + message, Toast.LENGTH_SHORT).show();
+        Log.d("Error", message);
     }
 
     public class onItemmClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+//            If an item from the listview is clicked go to the details of that offer
             Offer offerClicked = (Offer) parent.getItemAtPosition(position);
             Intent intent = new Intent(OfferListActivity.this, DetailActivity.class);
             intent.putExtra("offer", offerClicked);
@@ -202,6 +220,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
         }
     }
     private boolean checkLocationPermission() {
+//        If permission is not granted to acces fine locaiton
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -209,13 +228,15 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
             if (ActivityCompat.shouldShowRequestPermissionRationale(OfferListActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
+//                Create a dialog that asks the user for permission
                 new AlertDialog.Builder(OfferListActivity.this)
                         .setTitle("Permission needed")
                         .setMessage("Allow permission to get your location")
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
+
+//                                Prompt the user once explanation has been shown
                                 ActivityCompat.requestPermissions( OfferListActivity.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION);

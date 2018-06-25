@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +21,6 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -78,8 +75,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         if (eaters.contains(mAuth.getUid())) {
             unJoinButton.setVisibility(VISIBLE);
             joinButton.setVisibility(GONE);
-        }
-        else {
+        } else {
             unJoinButton.setVisibility(GONE);
             joinButton.setVisibility(VISIBLE);
         }
@@ -115,18 +111,17 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 //                            If user still wants to join, try to join the dinner
                             if(offer.addEater(mAuth.getUid())) {
 
-//                                If successful, update the offer in firebase
+//                                If successful, update the offer in Firebase
                                 MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
 
-//                                Update the joining user in firebase
+//                                Update the joining user in Firebase
                                 currentUser.addDinner(offer.getFirebaseKey());
                                 MYREF.child("Users").child(mAuth.getUid()).setValue(currentUser);
 
 //                                Change the buttons
                                 findViewById(R.id.UnJoinButton).setVisibility(VISIBLE);
                                 findViewById(R.id.JoinButton).setVisibility(GONE);
-                            }
-                            else {
+                            } else {
 //                                If something went wrong, show a Toast
                                 Toast.makeText(DetailActivity.this, "Er ging helaas iets mis :(", Toast.LENGTH_SHORT).show();
                             }
@@ -144,26 +139,23 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
             AlertDialog dialog = builder.create();
             dialog.show();
             Log.d("DIETSTRING", "LEEG");
-        }
-
-//        If there are no problems with diet
-        else {
+        } else {
+            //        If there are no problems with diet
 
 //            Try to add the user to the offer
             if(offer.addEater(mAuth.getUid())) {
 
-//                If successful, update offer in firebase
+//                If successful, update offer in Firebase
                 MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
 
-//                Update the joining user in firebase
+//                Update the joining user in Firebase
                 currentUser.addDinner(offer.getFirebaseKey());
                 MYREF.child("Users").child(mAuth.getUid()).setValue(currentUser);
 
 //                Change the buttons
                 findViewById(R.id.UnJoinButton).setVisibility(VISIBLE);
                 view.setVisibility(GONE);
-            }
-            else {
+            } else {
 
 //                If user could not join offer, show a toast
                 Toast.makeText(this, "Er ging iets mis :(?", Toast.LENGTH_SHORT).show();
@@ -173,11 +165,11 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     public void UnJoinButton(View view) {
 
-//        Update the offer and updates it in firebase
+//        Update the offer and updates it in Firebase
         offer.removeEater(mAuth.getUid());
         MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
 
-//        Update the user in the firebase
+//        Update the user in the Firebase
         currentUser.removeDinner(offer.getFirebaseKey());
         MYREF.child("Users").child(mAuth.getUid()).setValue(currentUser);
 
@@ -208,8 +200,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
 //            Initialize the map
             MapsInitializer.initialize(this);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
 //            If something went wrong, show a toast
             Toast.makeText(this, "Er ging iets mis met de kaart \n" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -255,8 +246,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
 //                            If the user did not write anything set an error
                             input.setError("Vul het bedankje in!");
-                        }
-                        else {
+                        } else {
 
 //                            If user wrote something create a new Review and fill it and add it to the user
                             Review review = new Review();
@@ -291,8 +281,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
 //            Load the received user in the current user
             currentUser = user;
-        }
-        else {
+        } else {
 
 //            Load the received user in the offercreater user and sets the name in the view
             offerCreater = user;

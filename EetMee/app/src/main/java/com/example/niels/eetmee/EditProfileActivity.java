@@ -73,7 +73,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 //        Checks if the needed forms are filled in
         if (validateForm(aName, aBio)) {
 
-//            If filled, make a new User class and updates the current user in firebase
+//            If filled, make a new User class and updates the current user in Firebase
             User newUser = new User();
             newUser.setName(aName);
             newUser.setBio(aBio);
@@ -94,16 +94,14 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         if (TextUtils.isEmpty(aName)) {
             name.setError("Required.");
             valid = false;
-        }
-        else {
+        } else {
             name.setError(null);
         }
 
         if (TextUtils.isEmpty(aBio)) {
             bio.setError("Required.");
             valid = false;
-        }
-        else {
+        } else {
             bio.setError(null);
         }
 

@@ -35,56 +35,62 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     private EditText emailField;
     private EditText passwordField;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        Gets the reference tot he Firebase database and the Firebase Auth
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.setLogLevel(Logger.Level.DEBUG);
         MYREF = database.getReference();
+        mAuth = FirebaseAuth.getInstance();
 
+//        Finds the textviews and fiels
         statusTextView = findViewById(R.id.StatusTextView);
         detailTextView = findViewById(R.id.DetailTextView);
         emailField = findViewById(R.id.EmailField);
         passwordField = findViewById(R.id.PasswordField);
 
+//        Sets the onItemClickListeneres on the buttons
         findViewById(R.id.SignInButton).setOnClickListener(this);
         findViewById(R.id.RegisterButton).setOnClickListener(this);
         findViewById(R.id.SignOutButton).setOnClickListener(this);
         findViewById(R.id.VerifyEmailButton).setOnClickListener(this);
         findViewById(R.id.ContinueButton).setOnClickListener(this);
 
-        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
 
     private void updateUI(FirebaseUser user) {
-//        hideProgressDialog();  ??
+
+//        Checks if there is an user (user != null)
         if (user != null) {
+//            Fills teh statustextView and detailTextView
             statusTextView.setText(getString(R.string.users_email,
                     user.getEmail(), user.isEmailVerified()));
             detailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
+//            Update the buttons and fields
             findViewById(R.id.LogInButtons).setVisibility(View.GONE);
             findViewById(R.id.EmailPasswordField).setVisibility(View.GONE);
             findViewById(R.id.SignedInButtons).setVisibility(View.VISIBLE);
-
             findViewById(R.id.VerifyEmailButton).setEnabled(!user.isEmailVerified());
         } else {
+
+//            Fills the statusTextView and detailTextView
             statusTextView.setText(R.string.signed_out);
             detailTextView.setText(null);
 
+//            Update the buttons and field
             findViewById(R.id.LogInButtons).setVisibility(View.VISIBLE);
             findViewById(R.id.EmailPasswordField).setVisibility(View.VISIBLE);
             findViewById(R.id.SignedInButtons).setVisibility(View.GONE);
@@ -92,42 +98,35 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     }
 
     private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount:" + email);
         if (!validateForm()) {
             return;
         }
 
-//        showProgressDialog(); ??
-
-        // [START create_user_with_email]
+        // Start creating user with email and password
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+
+//                            Create a profile for the new user and set him in the firebase Database
                             User profile = new User();
                             profile.setName("");
                             MYREF.child("Users").child(mAuth.getUid()).setValue(profile);
                             startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
                         } else {
+
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
-                        // [START_EXCLUDE]
-//                        hideProgressDialog(); ??
-                        // [END_EXCLUDE]
                     }
-
                 });
-        // [END create_user_with_email]
     }
 
 
@@ -202,13 +201,11 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         findViewById(R.id.VerifyEmailButton).setEnabled(false);
 
         // Send verification email
-        // [START send_email_verification]
         final FirebaseUser user = mAuth.getCurrentUser();
         user.sendEmailVerification()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        // [START_EXCLUDE]
                         // Re-enable button
                         findViewById(R.id.VerifyEmailButton).setEnabled(true);
 
@@ -222,14 +219,14 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                                     "Failed to send verification email.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        // [END_EXCLUDE]
                     }
                 });
-        // [END send_email_verification]
     }
 
     @Override
     public void onClick(View v) {
+
+//        Checks which button is clicked and act accordingly
         int i = v.getId();
         if (i == R.id.RegisterButton) {
             createAccount(emailField.getText().toString(), passwordField.getText().toString());
@@ -239,8 +236,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             signOut();
         } else if (i == R.id.VerifyEmailButton) {
             sendEmailVerification();
-        }
-        else if (i == R.id.ContinueButton) {
+        } else if (i == R.id.ContinueButton) {
             startActivity(new Intent(MainActivity.this, BaseActivity.class));
         }
     }

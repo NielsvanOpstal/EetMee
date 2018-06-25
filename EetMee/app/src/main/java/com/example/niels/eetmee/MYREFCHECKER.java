@@ -7,6 +7,8 @@ import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
 
 public class MYREFCHECKER {
+
+//    Checks the Firebase database and authentication references, if null: get the again
     public void checker() {
         if (MYREF == null) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();

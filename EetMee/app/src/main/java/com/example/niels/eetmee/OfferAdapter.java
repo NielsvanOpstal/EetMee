@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-// TODO: crashvrij maken wanneer er geen coordinaten zijn
-// TODO: tijd printen in 00:00 ipv 00:0
+
+//TODO: sort on distance
 public class OfferAdapter extends ArrayAdapter<Offer> {
 
     ArrayList<Offer> offers;
@@ -44,18 +44,20 @@ public class OfferAdapter extends ArrayAdapter<Offer> {
         TextView distance = convertView.findViewById(R.id.DistanceField);
         TextView time = convertView.findViewById(R.id.TimeField);
 
-        // lat is 100 if there was no location found
+//         lat is 100 if there was no location found
         if (lat < 100) {
+
+//            Calculates the distance between users current location and offer location and fills distanceTextivew
             float[] results = new float[1];
             Location.distanceBetween(lat, lng, currentOffer.getLat(), currentOffer.getLng(), results);
             float dist = results[0] / 1000;
             distance.setText("afstand:" + dist + "km");
 
-        }
-        else {
+        } else {
             distance.setText("Do not know current location");
-
         }
+
+//        Fills the other textViews
         what.setText(currentOffer.getWhat());
         cost.setText("kosten: " +currentOffer.getCosts());
 

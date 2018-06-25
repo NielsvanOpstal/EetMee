@@ -19,6 +19,7 @@ import android.widget.TimePicker;
 
 
 import android.text.format.DateFormat;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -34,21 +35,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.example.niels.eetmee.BaseActivity.myrefchecker;
 import static com.example.niels.eetmee.MainActivity.mAuth;
 
 // TODO: niet een lijst maar een opvolging van invulbare dingen
 public class MakeOfferActivity extends AppCompatActivity {
 
-    protected GeoDataClient mGeoDataClient;
-
-    private MYREFCHECKER myrefchecker;
     AutocompleteFilter typeFilter;
 
-
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-
-
-    static String PUSHKEY;
 
     private EditText what;
     private String whatText;
@@ -63,7 +58,6 @@ public class MakeOfferActivity extends AppCompatActivity {
     private boolean togetherBool;
     private CheckBox pickUp;
     private boolean pickUpBool;
-    private String userID;
     private static String dateString;
     private static Calendar cal;
     private TextView address;
@@ -76,17 +70,14 @@ public class MakeOfferActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        myrefchecker = new MYREFCHECKER();
-        myrefchecker.checker();
-
-        mGeoDataClient = Places.getGeoDataClient(this, null);
-        typeFilter = new AutocompleteFilter.Builder().setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS).build();
-
-        userID = mAuth.getUid();
         setContentView(R.layout.make_offer_activity);
 
-        // Fill the fields and checkboxes
+        myrefchecker.checker();
+
+//        Make a typefilter for the google places autocomplete
+        typeFilter = new AutocompleteFilter.Builder().setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS).build();
+
+//         Find the fields and checkboxes
         what = findViewById(R.id.WhatEditText);
         costs = findViewById(R.id.CostEditText);
         persons = findViewById(R.id.PersonsEditText);
@@ -103,6 +94,8 @@ public class MakeOfferActivity extends AppCompatActivity {
 
 
     public void ContiueClicked(View view) {
+
+//        Get the filled in data
         whatText = what.getText().toString();
         costsText = costs.getText().toString();
         personsText = persons.getText().toString();
@@ -110,15 +103,17 @@ public class MakeOfferActivity extends AppCompatActivity {
         togetherBool = together.isChecked();
         pickUpBool = pickUp.isChecked();
 
+//        Checks if the forms are filled in
         if (ValidateForm()) {
+
+//            Create a new Offer and fill it
             Offer newOffer = new Offer();
             newOffer.setWhat(whatText);
             newOffer.setCosts(Integer.parseInt(costsText));
             newOffer.setPersons(Integer.parseInt(personsText));
             newOffer.setEatTogheter(togetherBool);
             newOffer.setPickup(pickUpBool);
-            Log.d("USERID", userID);
-            newOffer.setUserID(userID);
+            newOffer.setUserID(mAuth.getUid());
             newOffer.setDateString(dateString);
             newOffer.setPersonsLeft(Integer.parseInt(personsText));
             newOffer.setAddress(addressText);
@@ -129,7 +124,7 @@ public class MakeOfferActivity extends AppCompatActivity {
             Date dateTime = cal.getTime();
             newOffer.setDateTime(dateTime);
 
-
+//            Go to DietActivity
             Intent intent = new Intent(MakeOfferActivity.this, DietActivity.class);
             intent.putExtra("offerMade", newOffer);
             startActivity(intent);
@@ -137,49 +132,39 @@ public class MakeOfferActivity extends AppCompatActivity {
     }
 
     private boolean ValidateForm() {
+
 //        Checks if all the fields are filled and one or both checkboxes are checked.
         boolean valid = true;
 
         if (TextUtils.isEmpty(whatText)) {
             what.setError("Required.");
             valid = false;
-        }
-        else {
+        } else {
             what.setError(null);
         }
 
         if (TextUtils.isEmpty(costsText)) {
             costs.setError("Required.");
             valid = false;
-        }
-        else {
+        } else {
             costs.setError(null);
         }
-
-
         if (TextUtils.isEmpty(personsText)) {
             persons.setError("Required");
             valid = false;
-        }
-
-        else {
+        } else {
             persons.setError(null);
         }
-
         if (TextUtils.isEmpty(timeText)) {
             time.setError("Required");
             valid = false;
-        }
-
-        else {
+        } else {
             time.setError(null);
         }
-
         if (togetherBool || pickUpBool) {
             together.setError(null);
             pickUp.setError(null);
-        }
-        else {
+        } else {
             together.setError("kies een of twee opties");
             pickUp.setError("kies een of twee opties");
             valid = false;
@@ -187,8 +172,7 @@ public class MakeOfferActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(addressText)){
             address.setError("Vul aub een volledig addres in");
             valid = false;
-        }
-        else {
+        } else {
             address.setError(null);
         }
 
@@ -196,26 +180,32 @@ public class MakeOfferActivity extends AppCompatActivity {
     }
 
     public void TimeClicked(View view) {
+
+//        Make a TimePickerFragment and show it
         DialogFragment newTimeFragment = new TimePickerFragment();
         newTimeFragment.show(getFragmentManager(), "timePicker");
     }
 
     public void DateClicked(View view) {
+
+//        Make a DatePickerFragment and show it
         DialogFragment newDateFragment = new DatePickerFragment();
         newDateFragment.show(getFragmentManager(), "datePicker");
     }
 
     public void pickAdress(View view) {
 
+//        Try to launch the Google Places Autocomplete
         try {
-        Intent intent =
-                new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+        Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
                         .build(this);
         startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
         } catch (GooglePlayServicesRepairableException e) {
-            // TODO: Handle the error.
+            Toast.makeText(MakeOfferActivity.this, "something went wrong. \n" + e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
         } catch (GooglePlayServicesNotAvailableException e) {
-            // TODO: Handle the error.
+            Toast.makeText(MakeOfferActivity.this, "something went wrong. \n" + e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -224,12 +214,16 @@ public class MakeOfferActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+
+//            Result came bak from Google Places autocomplete
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
                 if (place.getAddress() == null) {
                     address.setError("vul aub een volledig addres in.");
                 }
                 else {
+
+//                    Get the address and coordinates from the Place class
                     addressText = place.getAddress().toString();
                     lat = place.getLatLng().latitude;
                     lng = place.getLatLng().longitude;
@@ -237,11 +231,14 @@ public class MakeOfferActivity extends AppCompatActivity {
                 }
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
-                // TODO: Handle the error.
-                Log.i("PLACEPICKER", status.getStatusMessage());
+
+//                Show toast with error
+                Toast.makeText(MakeOfferActivity.this, "something went wrong. \n"
+                                + status.getStatusMessage(), Toast.LENGTH_SHORT).show();
+                Log.i("Error", status.getStatusMessage());
 
             } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
+//                 The user canceled the operation
             }
         }
     }
@@ -249,6 +246,8 @@ public class MakeOfferActivity extends AppCompatActivity {
     public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+//            Set the picked time to the timeTextView and in a calendar object
             time.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
             cal.set(cal.HOUR_OF_DAY, hourOfDay);
             cal.set(cal.MINUTE, minute);
@@ -259,6 +258,8 @@ public class MakeOfferActivity extends AppCompatActivity {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+//          Set the start time on the current time
             final Calendar c = Calendar.getInstance();
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
@@ -270,6 +271,8 @@ public class MakeOfferActivity extends AppCompatActivity {
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+//            Create the dateString from the date picked and add the date to the calendar object
             dateString = Integer.toString(dayOfMonth) + "-" + Integer.toString(month + 1) + "-" + Integer.toString(year);
             date.setText(dateString);
 
@@ -280,6 +283,8 @@ public class MakeOfferActivity extends AppCompatActivity {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+//            Set the start date on the current date
             final Calendar c =Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);

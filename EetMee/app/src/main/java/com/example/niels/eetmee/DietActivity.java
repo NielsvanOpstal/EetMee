@@ -27,10 +27,10 @@ public class DietActivity extends AppCompatActivity {
 //        Adds the diet details to the offer
        offer.setDiet(checkCheckBoxes());
 
-//        Pushes in the firebase and gets the key
+//        Pushes in the Firebase and gets the key
         String key = MYREF.child("offers").push().getKey();
 
-//        Adds the key to the offer and updates the offer in firebase
+//        Adds the key to the offer and updates the offer in Firebase
         offer.setFirebaseKey(key);
         MYREF.child("offers").child(key).setValue(offer);
 

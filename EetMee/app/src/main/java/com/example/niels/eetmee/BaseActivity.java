@@ -43,8 +43,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.IkWilKokenButton:         if (profileFilled) {
                                                     startActivity(new Intent(BaseActivity.this, MakeOfferActivity.class));
                                                     break;
-                                                }
-                                                else {
+                                                } else {
                                                     Toast.makeText(this, "vul eerst je profiel aan", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(BaseActivity.this, EditProfileActivity.class));
                                                     break;
@@ -55,8 +54,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                                                     eatIntent.putExtra("afkomst", RequestType.ALLOFFERS);
                                                     startActivity(eatIntent);
                                                     break;
-                                                }
-                                                else {
+                                                } else {
                                                     Toast.makeText(this, "vul eerst je profiel aan", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(BaseActivity.this, EditProfileActivity.class));
                                                     break;
@@ -70,8 +68,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                                                     myIntent.putExtra("afkomst", RequestType.MYOFFERS);
                                                     startActivity(myIntent);
                                                     break;
-                                                }
-                                                else {
+                                                } else {
                                                     Toast.makeText(this, "vul eerst je profiel aan", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(BaseActivity.this, EditProfileActivity.class));
                                                     break;
@@ -82,8 +79,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                                                     joinedIntent.putExtra("afkomst", RequestType.JOINEDOFFERS);
                                                     startActivity(joinedIntent);
                                                     break;
-                                                }
-                                                else {
+                                                } else {
                                                     Toast.makeText(this, "vul eerst je profiel aan", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(BaseActivity.this, EditProfileActivity.class));
                                                     break;

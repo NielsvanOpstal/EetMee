@@ -146,27 +146,24 @@ public class Offer implements Serializable {
     }
 
     public boolean addEater(String userID) {
-        Log.d("EATERS", eaters.toString());
+
+//        Adds an eater to an offer if joiner is not yet in eaters and there is still place left
         if (eaters.contains(userID)) {
             return false;
-        }
-        else if (eaters.size() == persons) {
+        } else if (eaters.size() == persons) {
             return false;
-        }
-        else {
-            Log.d("EATERS", eaters.toString());
+        } else {
             eaters.add(userID);
-            Log.d("EATERS", eaters.toString());
             return true;
         }
 
     }
 
     public void removeEater(String userID) {
-        Log.d("EATERS", eaters.toString());
+
+//        Removes an eater
         eaters.remove(userID);
-        Log.d("EATERS", userID);
-        Log.d("EATERS", eaters.toString());
+
     }
 
 }
