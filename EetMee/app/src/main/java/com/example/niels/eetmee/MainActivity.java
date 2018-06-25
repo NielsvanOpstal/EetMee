@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     private EditText passwordField;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     private void signOut() {
         mAuth.signOut();
         updateUI(null);
-        Log.d("HOI", "HOI");
 //        startActivity(new Intent(MainActivity.this, MainActivity.class));
     }
 

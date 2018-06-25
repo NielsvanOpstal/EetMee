@@ -9,10 +9,11 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import static com.example.niels.eetmee.MainActivity.MYREF;
-import static com.example.niels.eetmee.MakeOfferActivity.PUSHKEY;
 
 public class DietActivity extends AppCompatActivity {
+
     Offer offer;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,21 +24,30 @@ public class DietActivity extends AppCompatActivity {
 
 
     public void dietadded(View view) {
-//        Adds the diet details to the offer just made
-        offer.setDiet(checkCheckBoxes());
-//        MYREF.child("offers").child(PUSHKEY).child("diet").setValue(checkCheckBoxes());
+//        Adds the diet details to the offer
+       offer.setDiet(checkCheckBoxes());
+
+//        Pushes in the firebase and gets the key
         String key = MYREF.child("offers").push().getKey();
+
+//        Adds the key to the offer and updates the offer in firebase
         offer.setFirebaseKey(key);
         MYREF.child("offers").child(key).setValue(offer);
 
         Toast.makeText(DietActivity.this, "Aanbod gemaakt!",
                 Toast.LENGTH_SHORT).show();
 
+//        Goes the BaseActivity
         startActivity(new Intent(DietActivity.this, BaseActivity.class));
     }
 
+
     private Diet checkCheckBoxes() {
+
+//        Creates a Diet class based on the switches switched by the user
         Diet diet = new Diet();
+
+//        Find all the switches
         Switch vegetarian = findViewById(R.id.OfferVegetarianSwitch);
         Switch vegan = findViewById(R.id.OfferVeganSwitch);
         Switch nuts = findViewById(R.id.OfferNutSwitch);
@@ -47,6 +57,7 @@ public class DietActivity extends AppCompatActivity {
         Switch soy = findViewById(R.id.OfferSoySwitch);
         Switch shellfish = findViewById(R.id.OfferShellfishSwitch);
 
+//        Fill the Diet class
         diet.vegetarian = vegetarian.isChecked();
         diet.vegan = vegan.isChecked();
         diet.nutAllergy = nuts.isChecked();
@@ -55,6 +66,7 @@ public class DietActivity extends AppCompatActivity {
         diet.glutenAllergy = gluten.isChecked();
         diet.soyAllergy = soy.isChecked();
         diet.shellfishAllergy = shellfish.isChecked();
+
         return diet;
     }
 }

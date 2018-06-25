@@ -1,8 +1,6 @@
 package com.example.niels.eetmee;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,25 +25,22 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.example.niels.eetmee.BaseActivity.myrefchecker;
 import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
 
-import static com.example.niels.eetmee.UserRequestType.ALTERCURRENTUSER;
 import static com.example.niels.eetmee.UserRequestType.CURRENTUSER;
 
 public class DetailActivity extends AppCompatActivity implements OnMapReadyCallback, UserRequest.Callback {
 
     Offer offer;
     MapView mapView;
-    FirebaseUser user;
     Button joinButton;
     Button unJoinButton;
     User currentUser;
@@ -54,82 +48,87 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     UserRequest userRequest;
     TextView nameTextView;
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.detail_activity);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-//                Log.d("USER", user.toString());
-                setContentView(R.layout.detail_activity);
+        // Check and fix the instances of the Firebase database and the Firebase Auth
+        myrefchecker.checker();
 
-                offer = (Offer) getIntent().getSerializableExtra("offer");
+        offer = (Offer) getIntent().getSerializableExtra("offer");
 
-                TextView whatTextView = findViewById(R.id.DetailWhatField);
-                whatTextView.setText(offer.getWhat());
+        TextView whatTextView = findViewById(R.id.DetailWhatField);
+        whatTextView.setText(offer.getWhat());
 
-                nameTextView = findViewById(R.id.DetailNameField);
+        nameTextView = findViewById(R.id.DetailNameField);
 
-                mapView = findViewById(R.id.mapView);
-                mapView.onCreate(savedInstanceState);
-                mapView.getMapAsync(this);
-                joinButton = findViewById(R.id.JoinButton);
-                unJoinButton = findViewById(R.id.UnJoinButton);
+        mapView = findViewById(R.id.mapView);
+        joinButton = findViewById(R.id.JoinButton);
+        unJoinButton = findViewById(R.id.UnJoinButton);
+        ArrayList<String> eaters = offer.getEaters();
 
-                Log.d("USERUSERUSER", Calendar.getInstance().getTime().toString());
-                ArrayList<String> eaters = offer.getEaters();
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
 
 
-                Log.d("JOINEDOFFERS", eaters.toString());
-                Log.d("JOINEDOFFERS", mAuth.getUid());
-                if (eaters.contains(mAuth.getUid())) {
-                    unJoinButton.setVisibility(VISIBLE);
-                    joinButton.setVisibility(GONE);
-                }
-                else {
-                    unJoinButton.setVisibility(GONE);
-                    joinButton.setVisibility(VISIBLE);
-                }
+//        If the user is already joined, make unJoinbutton visible and viceversa
+        if (eaters.contains(mAuth.getUid())) {
+            unJoinButton.setVisibility(VISIBLE);
+            joinButton.setVisibility(GONE);
+        }
+        else {
+            unJoinButton.setVisibility(GONE);
+            joinButton.setVisibility(VISIBLE);
+        }
 
-                Date date = Calendar.getInstance().getTime();
-                Date offerDate = offer.getDateTime();
-                if (date.after(offerDate) && offer.getEaters().contains(mAuth.getUid())) {
-                    findViewById(R.id.RateButton).setVisibility(VISIBLE);
-                }
+//        Gets the current date and time, if it is in past and user has joined the dinner user can leave a review
+        Date date = Calendar.getInstance().getTime();
+        Date offerDate = offer.getDateTime();
+        if (date.after(offerDate) && offer.getEaters().contains(mAuth.getUid())) {
+            findViewById(R.id.RateButton).setVisibility(VISIBLE);
+        }
 
-                userRequest = new UserRequest();
-                userRequest.getUser(this, UserRequestType.OFFERCREATER, offer.getUserID());
-                userRequest.getUser(this, CURRENTUSER, mAuth.getUid());
+//        Requests the current user and the user who created the offer
+        userRequest = new UserRequest();
+        userRequest.getUser(this, UserRequestType.OFFERCREATER, offer.getUserID());
+        userRequest.getUser(this, CURRENTUSER, mAuth.getUid());
 
-            }
-            else {
-                startActivity(new Intent(DetailActivity.this, MainActivity.class));
-            }
 
     }
 
     public void JoinDinner(View view) {
-        Toast.makeText(this, user.getUid(), Toast.LENGTH_SHORT).show();
+
+//        Gets string with the problems with allergies
         String dietString = dietChecker(offer.getDiet(), currentUser.getDiet());
-        Log.d("DIETSTRING", dietString);
+
+//        If there are problems (String is not empty) make an alerdialog containg the problems and checks if user still wants to join
         if (!TextUtils.isEmpty(dietString)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(dietString)
                     .setPositiveButton("Toch inschrijven", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if(offer.addEater(user.getUid())) {
-                                Log.d("DIETSTRING", "Prima");
+
+//                            If user still wants to join, try to join the dinner
+                            if(offer.addEater(mAuth.getUid())) {
+
+//                                If successful, update the offer in firebase
                                 MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
 
+//                                Update the joining user in firebase
+                                currentUser.addDinner(offer.getFirebaseKey());
+                                MYREF.child("Users").child(mAuth.getUid()).setValue(currentUser);
+
+//                                Change the buttons
                                 findViewById(R.id.UnJoinButton).setVisibility(VISIBLE);
                                 findViewById(R.id.JoinButton).setVisibility(GONE);
-
-                                userRequest.getUser(DetailActivity.this, ALTERCURRENTUSER, mAuth.getUid());
-
                             }
                             else {
-                                Toast.makeText(DetailActivity.this, "Er ging iets mis :(\n Ben je al ingeschreven?", Toast.LENGTH_SHORT).show();
+//                                If something went wrong, show a Toast
+                                Toast.makeText(DetailActivity.this, "Er ging helaas iets mis :(", Toast.LENGTH_SHORT).show();
                             }
                         }
                     })
@@ -137,37 +136,56 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
+//                            User doesn't want to join so nothing happens
                         }
                     });
+
+//            Build and show the dialog
             AlertDialog dialog = builder.create();
             dialog.show();
             Log.d("DIETSTRING", "LEEG");
         }
-        else {
-            if(offer.addEater(user.getUid())) {
 
+//        If there are no problems with diet
+        else {
+
+//            Try to add the user to the offer
+            if(offer.addEater(mAuth.getUid())) {
+
+//                If successful, update offer in firebase
                 MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
 
+//                Update the joining user in firebase
+                currentUser.addDinner(offer.getFirebaseKey());
+                MYREF.child("Users").child(mAuth.getUid()).setValue(currentUser);
+
+//                Change the buttons
                 findViewById(R.id.UnJoinButton).setVisibility(VISIBLE);
                 view.setVisibility(GONE);
-
-                userRequest.getUser(this, ALTERCURRENTUSER, mAuth.getUid());
-
             }
             else {
-//            Toast.makeText(this, "Er ging iets mis :(\n Ben je al ingeschreven?", Toast.LENGTH_SHORT).show();
-            }
 
+//                If user could not join offer, show a toast
+                Toast.makeText(this, "Er ging iets mis :(?", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     public void UnJoinButton(View view) {
-        offer.removeEater(user.getUid());
+
+//        Update the offer and updates it in firebase
+        offer.removeEater(mAuth.getUid());
         MYREF.child("offers").child(offer.getFirebaseKey()).setValue(offer);
+
+//        Update the user in the firebase
+        currentUser.removeDinner(offer.getFirebaseKey());
+        MYREF.child("Users").child(mAuth.getUid()).setValue(currentUser);
+
+//        change the buttons
         findViewById(R.id.JoinButton).setVisibility(VISIBLE);
         view.setVisibility(GONE);
 
-        userRequest.getUser(this, ALTERCURRENTUSER, mAuth.getUid());
+
 
 
     }
@@ -176,21 +194,26 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.d("MAPMAP", "1");
 
+//        Get the coordinates of the address from the offer
         LatLng latLng = new LatLng(offer.getLat(), offer.getLng());
+
+//        Settings from the map and add a marker
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.addMarker(new MarkerOptions().position(latLng).title("title"));
+        googleMap.addMarker(new MarkerOptions().position(latLng).title("Het kook address"));
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(13));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
         try {
-            Log.d("MAPMAP", "2");
+
+//            Initialize the map
             MapsInitializer.initialize(this);
         }
         catch (Exception e) {
-            Log.d("MAPMAP", "3");
-            Log.d("LOCATION", e.getMessage());
+
+//            If something went wrong, show a toast
+            Toast.makeText(this, "Er ging iets mis met de kaart \n" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.d("Error", e.getMessage());
         }
     }
 
@@ -198,6 +221,8 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     public void onResume() {
         mapView.onResume();
         super.onResume();
+
+        myrefchecker.checker();
     }
     @Override
     public void onPause() {
@@ -217,8 +242,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     public void RateBttonClicked(View view) {
 
-        Log.d("USERUSERUSER", "hier" );
-        LayoutInflater inflater = getLayoutInflater();
+//        build a dialog with an edit text and two buttons
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText input = new EditText(this);
         builder.setMessage("Type hier je bedankje!")
@@ -228,9 +252,13 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                     public void onClick(DialogInterface dialog, int which) {
                         String reviewText = input.getText().toString();
                         if (TextUtils.isEmpty(reviewText)) {
+
+//                            If the user did not write anything set an error
                             input.setError("Vul het bedankje in!");
                         }
                         else {
+
+//                            If user wrote something create a new Review and fill it and add it to the user
                             Review review = new Review();
                             review.setReviewWriter(currentUser.getName());
                             review.setDate(Calendar.getInstance().getTime());
@@ -244,13 +272,13 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+//                        If user cancels the dialog, do nothing
                     }
                 });
+
+//        Create and show the dialog
         AlertDialog dialog = builder.create();
         dialog.show();
-
-
-
     }
 
 
@@ -260,19 +288,13 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     public void gotUser(User user, UserRequestType type) {
 
         if (type == CURRENTUSER) {
+
+//            Load the received user in the current user
             currentUser = user;
         }
-        else if (type == ALTERCURRENTUSER) {
-            if (user.getJoinedOffers().contains(offer.getFirebaseKey())) {
-                user.removeDinner(offer.getFirebaseKey());
-            } else {
-                user.addDinner(offer.getFirebaseKey());
-            }
-            MYREF.child("Users").child(mAuth.getUid()).setValue(user);
-
-        }
-
         else {
+
+//            Load the received user in the offercreater user and sets the name in the view
             offerCreater = user;
             nameTextView.setText(user.getName());
         }
@@ -280,11 +302,14 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     @Override
     public void gotUserError(String message) {
-//        TODO: netjes afhandelen
-        Log.d("userrequest", "Er ging iets mis");
+        Toast.makeText(this, "Er ging iets mis met het ontvangen van de gebruiker \n"
+                + message, Toast.LENGTH_SHORT).show();
+        Log.d("Error", message);
     }
 
     public void show_info_button_clicked(View view) {
+
+//        Goes to the profile info from the offerCreater
         Intent intent = new Intent(DetailActivity.this, UserInfoActivity.class);
         intent.putExtra("user", offerCreater);
         intent.putExtra("userID", offer.getUserID());
@@ -293,6 +318,9 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     public String dietChecker(Diet offerDiet, Diet userDiet) {
 
+
+//        Checks if there are problems with the diets from the user and the offer, if so: create a
+//        string with the problems and returns it
         String alertString = "";
         if ((!offerDiet.vegetarian && !offerDiet.vegan) && userDiet.vegetarian) {
             alertString += "- It is not vegetarian! \n";
@@ -318,6 +346,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         if (offerDiet.soyAllergy && userDiet.soyAllergy) {
             alertString += "- This offer contains soy! ";
         }
+
         return alertString;
     }
 }

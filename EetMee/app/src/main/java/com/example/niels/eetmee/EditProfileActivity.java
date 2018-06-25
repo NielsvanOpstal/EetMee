@@ -8,11 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
+import static com.example.niels.eetmee.BaseActivity.myrefchecker;
 import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
-
-// TODO: make it load your current bio and name en dieet
 
 
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener, UserRequest.Callback {
@@ -38,48 +38,57 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_edit);
 
-        if (mAuth.getCurrentUser() != null) {
-            UserRequest userRequest = new UserRequest();
-            userRequest.getUser(this, UserRequestType.CURRENTUSER, mAuth.getUid());
+        myrefchecker.checker();
 
-            diet = new Diet();
-            // Edit texts
-            name = findViewById(R.id.EditProfileName);
-            bio = findViewById(R.id.EditProfileBio);
+//        Gets the user
+        UserRequest userRequest = new UserRequest();
+        userRequest.getUser(this, UserRequestType.CURRENTUSER, mAuth.getUid());
 
-            // Button
-            findViewById(R.id.EditProfileSumbit).setOnClickListener(this);
+        diet = new Diet();
 
-            vegetarian = findViewById(R.id.VegetarianSwitch);
-            vegan = findViewById(R.id.VeganSwitch);
-            nuts = findViewById(R.id.NutSwitch);
-            peanuts = findViewById(R.id.PeanutSwitch);
-            lactose = findViewById(R.id.LactoseSwitch);
-            gluten = findViewById(R.id.GlutenSwitch);
-            soy = findViewById(R.id.SoySwitch);
-            shellfish = findViewById(R.id.ShellfishSwitch);
-        }
-        else {
-            startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
-        }
+//         Edit texts
+        name = findViewById(R.id.EditProfileName);
+        bio = findViewById(R.id.EditProfileBio);
 
+//         Button
+        findViewById(R.id.EditProfileSumbit).setOnClickListener(this);
+
+//        Switches
+        vegetarian = findViewById(R.id.VegetarianSwitch);
+        vegan = findViewById(R.id.VeganSwitch);
+        nuts = findViewById(R.id.NutSwitch);
+        peanuts = findViewById(R.id.PeanutSwitch);
+        lactose = findViewById(R.id.LactoseSwitch);
+        gluten = findViewById(R.id.GlutenSwitch);
+        soy = findViewById(R.id.SoySwitch);
+        shellfish = findViewById(R.id.ShellfishSwitch);
     }
 
     @Override
     public void onClick(View v) {
+//        Gets the name and bio by the user
         aName = name.getText().toString();
         aBio = bio.getText().toString();
+
+//        Checks if the needed forms are filled in
         if (validateForm(aName, aBio)) {
+
+//            If filled, make a new User class and updates the current user in firebase
             User newUser = new User();
             newUser.setName(aName);
             newUser.setBio(aBio);
             newUser.setDiet(checkCheckBoxes());
             MYREF.child("Users").child(mAuth.getUid()).setValue(newUser);
+
+//            Go back to the BaseActivity
             startActivity(new Intent(EditProfileActivity.this, BaseActivity.class));
         }
     }
 
     private boolean validateForm(String aName, String aBio) {
+//        Class to check whether the forms are filled in. If there is a form missing, set an error
+//        in the missing editText and return false
+
         boolean valid = true;
 
         if (TextUtils.isEmpty(aName)) {
@@ -102,14 +111,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     private Diet checkCheckBoxes() {
-//        vegetarian = findViewById(R.id.VegetarianSwitch);
-//        vegan = findViewById(R.id.VeganSwitch);
-//        nuts = findViewById(R.id.NutSwitch);
-//        peanuts = findViewById(R.id.PeanutSwitch);
-//        lactose = findViewById(R.id.LactoseSwitch);
-//        gluten = findViewById(R.id.GlutenSwitch);
-//        soy = findViewById(R.id.SoySwitch);
-//        shellfish = findViewById(R.id.ShellfishSwitch);
+//        Fills the diet based on the checkboxes
 
         diet.vegetarian = vegetarian.isChecked();
         diet.vegan = vegan.isChecked();
@@ -124,11 +126,13 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void gotUser(User user, UserRequestType type) {
-        Log.d("userrequest", "Hoi");
-        Log.d("userrequest", user.toString());
+
+//        Gets the current data from the user
         String userName = user.getName();
         String userBio = user.getBio();
         Diet userDiet = user.getDiet();
+
+//        if the name, bio and/or diet are not null, set the screen based on the current profile
         if (userName != null) {
             name.setText(userName);
             aName = userName;
@@ -138,12 +142,6 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             aBio = userBio;
         }
         if (userDiet != null) {
-            if (userDiet.vegetarian) {
-                Log.d("userrequest", userDiet.toString());
-            }
-            else{
-                Log.d("userrequest", "halllooo");
-            }
             diet = userDiet;
             setSwitches();
         }
@@ -151,6 +149,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void setSwitches() {
+
+//        Set the switches based on the user's diet
         vegetarian.setChecked(diet.vegetarian);
         vegan.setChecked(diet.vegan);
         nuts.setChecked(diet.nutAllergy);
@@ -163,6 +163,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void gotUserError(String message) {
-        Log.d("userrequest", message);
+        Toast.makeText(this, "Er ging iets mis met het ontvangen van de gebruiker \n"
+                + message, Toast.LENGTH_SHORT).show();
+        Log.d("Error", message);
     }
 }
