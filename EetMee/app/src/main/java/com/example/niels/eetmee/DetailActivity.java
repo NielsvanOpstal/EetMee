@@ -72,13 +72,19 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
 
 //        If the user is already joined, make unJoinbutton visible and viceversa
-        if (eaters.contains(mAuth.getUid())) {
-            unJoinButton.setVisibility(VISIBLE);
+        if(offer.getUserID().equals(mAuth.getUid())) {
             joinButton.setVisibility(GONE);
-        } else {
             unJoinButton.setVisibility(GONE);
-            joinButton.setVisibility(VISIBLE);
+        } else {
+            if (eaters.contains(mAuth.getUid())) {
+                unJoinButton.setVisibility(VISIBLE);
+                joinButton.setVisibility(GONE);
+            } else {
+                unJoinButton.setVisibility(GONE);
+                joinButton.setVisibility(VISIBLE);
+            }
         }
+
 
 //        Gets the current date and time, if it is in past and user has joined the dinner user can leave a review
         Date date = Calendar.getInstance().getTime();

@@ -31,7 +31,10 @@ public class OfferRequest {
 
 //                Casts all the received offers back to the Offer class
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    offers.add(snapshot.getValue(Offer.class));
+                    Offer offer = snapshot.getValue(Offer.class);
+                    if (offer.getPersonsLeft() > 0) {
+                        offers.add(snapshot.getValue(Offer.class));
+                    }
                 }
                 activity.gotOffers(offers);
             }
