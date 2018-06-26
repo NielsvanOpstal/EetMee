@@ -1,3 +1,9 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This class is an User. It contains a Diet class and an arrayList with Reviews.
+ */
 package com.example.niels.eetmee;
 
 import java.io.Serializable;

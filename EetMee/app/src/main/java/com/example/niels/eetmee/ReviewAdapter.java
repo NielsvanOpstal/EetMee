@@ -1,3 +1,9 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This adapter fills the reviewList in the UserInfoActivity.
+ */
 package com.example.niels.eetmee;
 
 import android.content.Context;

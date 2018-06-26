@@ -1,3 +1,11 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This activity lets the user specify which allergens the offer it is creating contains and whether it
+is vegan/vegetarian. After this activity is completed, the offer is successfully made and added to the
+Firebase databse
+ */
 package com.example.niels.eetmee;
 
 import android.content.Intent;

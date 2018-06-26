@@ -1,3 +1,10 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This adapter fills the ListView in the OfferListActivity. It calculates the distance from an offer to
+the user and fills an offer_list_item with the needed data
+ */
 package com.example.niels.eetmee;
 
 import android.content.Context;
@@ -15,6 +22,8 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static com.example.niels.eetmee.OfferListActivity.PERMISSION_NOT_GIVEN;
 
 public class OfferAdapter extends ArrayAdapter<Offer> {
 
@@ -57,8 +66,8 @@ public class OfferAdapter extends ArrayAdapter<Offer> {
         TextView distance = convertView.findViewById(R.id.DistanceField);
         TextView time = convertView.findViewById(R.id.TimeField);
 
-//        lat is 100 if there was no location found
-        if (lat < 100) {
+//        lat is 100 if there was no location
+        if (lat < PERMISSION_NOT_GIVEN) {
 
 //            formats the distance to 2 decimals and fills the distance TextView
             distance.setText("afstand:" + numberFormat.format(currentOffer.getDistance()) + "km");

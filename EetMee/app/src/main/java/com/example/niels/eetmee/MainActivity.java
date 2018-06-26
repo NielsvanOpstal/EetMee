@@ -1,7 +1,10 @@
+/*
+EetMee
+Niels van Opstal 11021519
 
-
-
-
+This activity is the login activity. Here the user can login, register, get send a verification mail
+and logout. It is done by Firebase Authentication via the email-password login function
+ */
 package com.example.niels.eetmee;
 
 import android.content.Intent;

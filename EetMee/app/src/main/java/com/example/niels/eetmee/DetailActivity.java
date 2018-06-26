@@ -1,3 +1,15 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This activity shows the details of an offer. It contains a Google Maps map which shows the location
+from the address. It also gives the user the possibility to join or unjoin the offer if it is not his/her
+offer or before the current time. If a user has joined an offer and the offer is past, the user can
+leave a review.
+If the user joins an offer but there are problems with his diet and the offer, the user gets prompted a
+dialog.
+The user can also be redirected to a screen that shows more info about the user that made the offeree
+ */
 package com.example.niels.eetmee;
 
 import android.app.AlertDialog;
@@ -22,13 +34,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.example.niels.eetmee.BaseActivity.myrefchecker;
+import static com.example.niels.eetmee.BaseActivity.myRefChecker;
 import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
 
@@ -42,6 +55,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     User currentUser, offerCreater;
     UserRequest userRequest;
     TextView nameTextView;
+    String dietString;
 
 
 
@@ -50,13 +64,19 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
 
-        // Check and fix the instances of the Firebase database and the Firebase Auth
-        myrefchecker.checker();
+//         Check and fix the instances of the Firebase database and the Firebase Auth
+        myRefChecker.checker();
 
         offer = (Offer) getIntent().getSerializableExtra("offer");
 
+//        Fill the textViews
         TextView whatTextView = findViewById(R.id.DetailWhatField);
         whatTextView.setText(offer.getWhat());
+
+
+        TextView timeTextView = findViewById(R.id.DetailTimeField);
+        SimpleDateFormat df = new SimpleDateFormat("k:mm");
+        timeTextView.setText(df.format(offer.getDateTime()));
 
         nameTextView = findViewById(R.id.DetailNameField);
 
@@ -89,8 +109,6 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
             }
         }
 
-
-
         if (date.after(offerDate) && offer.getEaters().contains(mAuth.getUid())) {
             findViewById(R.id.RateButton).setVisibility(VISIBLE);
         }
@@ -99,16 +117,11 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         userRequest = new UserRequest();
         userRequest.getUser(this, UserRequestType.OFFERCREATER, offer.getUserID());
         userRequest.getUser(this, CURRENTUSER, mAuth.getUid());
-
-
     }
 
     public void JoinDinner(View view) {
 
-//        Gets string with the problems with allergies
-        String dietString = dietChecker(offer.getDiet(), currentUser.getDiet());
-
-//        If there are problems (String is not empty) make an alerdialog containg the problems and checks if user still wants to join
+//        If there are diet problems (dietString is not empty) make an alerdialog containg the problems and checks if user still wants to join
         if (!TextUtils.isEmpty(dietString)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(dietString)
@@ -184,13 +197,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 //        change the buttons
         findViewById(R.id.JoinButton).setVisibility(VISIBLE);
         view.setVisibility(GONE);
-
-
-
-
     }
-
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -221,7 +228,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         mapView.onResume();
         super.onResume();
 
-        myrefchecker.checker();
+        myRefChecker.checker();
     }
     @Override
     public void onPause() {
@@ -280,8 +287,6 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
 
-
-
     @Override
     public void gotUser(User user, UserRequestType type) {
 
@@ -289,6 +294,15 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
 //            Load the received user in the current user
             currentUser = user;
+
+//            Gets string with the problems with allergies
+            dietString = dietChecker(offer.getDiet(), currentUser.getDiet());
+            TextView detailsTextView = findViewById(R.id.DetailDetailsField);
+            if (dietString.isEmpty()) {
+                detailsTextView.setText("Geen probleem met je dieet!");
+            } else {
+                detailsTextView.setText(dietString);
+            }
         } else {
 
 //            Load the received user in the offercreater user and sets the name in the view

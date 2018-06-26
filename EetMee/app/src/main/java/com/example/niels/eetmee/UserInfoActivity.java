@@ -1,3 +1,10 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This activity shows the information about an user. If the profile is the of the user viewing it, he
+can edit it.
+ */
 package com.example.niels.eetmee;
 
 import android.content.Intent;

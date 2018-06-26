@@ -1,6 +1,11 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This activity is mainly a screen which redirects the user to other activities.
+ */
 package com.example.niels.eetmee;
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,7 +23,7 @@ import static com.example.niels.eetmee.MainActivity.mAuth;
 
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener, UserRequest.Callback {
 
-    static public MYREFCHECKER myrefchecker;
+    static public MyRefChecker myRefChecker;
     UserRequest userRequest;
     boolean profileFilled = false;
     private User user;
@@ -28,8 +33,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_screen);
 
-        myrefchecker = new MYREFCHECKER();
-        myrefchecker.checker();
+        myRefChecker = new MyRefChecker();
+        myRefChecker.checker();
 
         findViewById(R.id.IkWilKokenButton).setOnClickListener(this);
         findViewById(R.id.IkWilEtenButton).setOnClickListener(this);
@@ -110,6 +115,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void gotUser(User aUser, UserRequestType type) {
+
         user = aUser;
         if (!TextUtils.isEmpty(user.getName())) {
             profileFilled = true;
@@ -119,6 +125,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void gotUserError(String message) {
+
         Toast.makeText(this, "Er ging iets mis :( \n" +
                 message, Toast.LENGTH_SHORT).show();
         Log.d("Error", message);
@@ -129,7 +136,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
 
         userRequest.getUser(this, UserRequestType.CURRENTUSER, mAuth.getUid());
-        myrefchecker.checker();
+        myRefChecker.checker();
         if (!profileFilled) {
             userRequest.getUser(this, UserRequestType.CURRENTUSER, mAuth.getUid());
         }

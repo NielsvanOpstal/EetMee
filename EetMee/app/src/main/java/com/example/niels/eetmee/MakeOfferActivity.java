@@ -1,3 +1,17 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This is the first activity in the process of making an offer. This activity lets the user specify
+what he is going to make, for how many persons, where he lives, the cost of what he is going to make,
+the date and time and whether people can join the user for dinner and/or pickup the food.
+
+The time is specified by a TimePickerFragment.
+The date is specified by a DatePickerFragment.
+The Address is specified by a Google Places Autocomplete function.
+
+
+ */
 package com.example.niels.eetmee;
 
 import android.app.DatePickerDialog;
@@ -17,7 +31,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 
@@ -28,19 +41,18 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.GeoDataClient;
+
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.Places;
+
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.maps.model.LatLng;
+
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.example.niels.eetmee.BaseActivity.myrefchecker;
+import static com.example.niels.eetmee.BaseActivity.myRefChecker;
 import static com.example.niels.eetmee.MainActivity.mAuth;
-//TODO: alleen portret modus toe staan
 public class MakeOfferActivity extends AppCompatActivity {
 
     AutocompleteFilter typeFilter;
@@ -64,7 +76,7 @@ public class MakeOfferActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.make_offer_activity);
 
-        myrefchecker.checker();
+        myRefChecker.checker();
 
 //        Make a typefilter for the google places autocomplete
         typeFilter = new AutocompleteFilter.Builder().setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS).build();

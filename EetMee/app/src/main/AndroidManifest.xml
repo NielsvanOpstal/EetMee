@@ -24,23 +24,39 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".EditProfileActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".BaseActivity"
-            android:launchMode="singleTask">
-
+            android:launchMode="singleTask"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".DetailActivity"></activity>
-        <activity android:name=".MakeOfferActivity"></activity>
-        <activity android:name=".OfferListActivity"></activity>
-        <activity android:name=".DietActivity"></activity>
-        <activity android:name=".UserInfoActivity"></activity>
+        <activity android:name=".DetailActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".MakeOfferActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".OfferListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".DietActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".UserInfoActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

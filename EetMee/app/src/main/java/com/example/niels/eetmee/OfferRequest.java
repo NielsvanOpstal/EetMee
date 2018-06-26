@@ -1,3 +1,11 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This request requests offers from the Firebase database. it has three different Firebase queries.
+One gives back all the offers of a certain date. One gives back all the offers an user has joined.
+And one gives back all the offers an User has created.
+ */
 package com.example.niels.eetmee;
 
 import android.support.annotation.NonNull;

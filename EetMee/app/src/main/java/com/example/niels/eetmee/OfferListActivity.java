@@ -1,7 +1,14 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This activity first requests the offers depending on where you came from. If the offers are received
+the activity sets an adapter on the listview. If the user is viewing all offers, it can select a date
+so that the offers can be filtered to that specific date.
+ */
 package com.example.niels.eetmee;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -30,18 +37,15 @@ import android.widget.Toast;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import static android.view.View.GONE;
-import static com.example.niels.eetmee.BaseActivity.myrefchecker;
-import static com.example.niels.eetmee.MainActivity.MYREF;
+import static com.example.niels.eetmee.BaseActivity.myRefChecker;
 
 public class OfferListActivity extends AppCompatActivity implements OfferRequest.Callback {
 
@@ -56,6 +60,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     private static String dateString;
 
     private static OfferRequest request;
+
+    public static final int PERMISSION_NOT_GIVEN = 100;
 
 
     @Override
@@ -76,9 +82,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
             else {
 
 //                No persmission given so set lat and lng to 100 to imply error
-                double PERMISSIONNOTGIVEN = 100;
-                lat = PERMISSIONNOTGIVEN;
-                lng = PERMISSIONNOTGIVEN;
+                lat = PERMISSION_NOT_GIVEN;
+                lng = PERMISSION_NOT_GIVEN;
             }
         }
 
@@ -94,8 +99,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
                         else {
 
 //                            If something went wrong in getting the locaiton
-                            lat = 100;
-                            lng = 100;
+                            lat = PERMISSION_NOT_GIVEN;
+                            lng = PERMISSION_NOT_GIVEN;
                         }
                     }
                 });
@@ -208,7 +213,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     public void onResume() {
         super.onResume();
 
-        myrefchecker.checker();
+        myRefChecker.checker();
 
 //        Requests the data again to refresh the data showed
         switch (requestType) {

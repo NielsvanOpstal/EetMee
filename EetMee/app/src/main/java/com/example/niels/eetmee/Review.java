@@ -1,3 +1,10 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+A review class. Used in the User class.
+ */
+
 package com.example.niels.eetmee;
 
 import java.io.Serializable;

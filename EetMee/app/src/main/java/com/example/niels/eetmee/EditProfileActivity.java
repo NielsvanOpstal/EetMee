@@ -1,3 +1,10 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This activity lets the user edit his profile. The user can set his name, his bio and his diet.
+The user gets here either by selecting he wants to alter his profile or when he is first logged in.
+ */
 package com.example.niels.eetmee;
 
 import android.content.Intent;
@@ -10,7 +17,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import static com.example.niels.eetmee.BaseActivity.myrefchecker;
+import static com.example.niels.eetmee.BaseActivity.myRefChecker;
 import static com.example.niels.eetmee.MainActivity.MYREF;
 import static com.example.niels.eetmee.MainActivity.mAuth;
 
@@ -27,8 +34,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_edit);
 
-        myrefchecker = new MYREFCHECKER();
-        myrefchecker.checker();
+        myRefChecker = new MyRefChecker();
+        myRefChecker.checker();
 
 //        Gets the user
         UserRequest userRequest = new UserRequest();

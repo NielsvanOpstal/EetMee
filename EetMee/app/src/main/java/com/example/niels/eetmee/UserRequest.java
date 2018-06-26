@@ -1,7 +1,13 @@
+/*
+EetMee
+Niels van Opstal 11021519
+
+This request request the user from the Firebase databse based on the userID given in the getUser function.
+ */
 package com.example.niels.eetmee;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
+
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
