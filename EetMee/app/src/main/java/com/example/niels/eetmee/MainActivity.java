@@ -27,13 +27,10 @@ import com.google.firebase.database.Logger;
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
 
     private static final String TAG = "MainActivity";
-    public static DatabaseReference MYREF;
 
+    public static DatabaseReference MYREF;
     protected static  FirebaseAuth mAuth;
-    private TextView statusTextView;
-    private TextView detailTextView;
-    private EditText emailField;
-    private EditText passwordField;
+    private TextView statusTextView, detailTextView, emailField, passwordField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

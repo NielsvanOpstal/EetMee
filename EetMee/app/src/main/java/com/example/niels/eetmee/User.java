@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
-    private String name;
-    private String bio;
+    private String name, bio;
     private ArrayList<Review> reviews =  new ArrayList<>();
     private Diet diet;
     private ArrayList<String> joinedOffers = new ArrayList<>();

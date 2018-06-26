@@ -32,12 +32,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditProfileActivity"></activity>
-        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".BaseActivity"
+            android:launchMode="singleTask">
+
+        </activity>
         <activity android:name=".DetailActivity"></activity>
         <activity android:name=".MakeOfferActivity"></activity>
         <activity android:name=".OfferListActivity"></activity>
         <activity android:name=".DietActivity"></activity>
-        <activity android:name=".EnterAddresActivity"></activity>
         <activity android:name=".UserInfoActivity"></activity>
     </application>
 

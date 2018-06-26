@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mediumPurple"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -60,6 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hello World!"
+            android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -72,6 +72,7 @@
             android:layout_height="28dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
+            android:textColor="@android:color/black"
             app:layout_constraintTop_toBottomOf="@+id/StatusTextView"
             tools:layout_editor_absoluteX="163dp" />
     </LinearLayout>
@@ -97,12 +98,14 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:background="@drawable/button_round_corner"
+            android:textColor="#FFFFFF"
             android:paddingEnd="8dp"
             android:text="Sign In" />
 
         <Button
             android:id="@+id/RegisterButton"
             android:layout_width="wrap_content"
+            android:textColor="#FFFFFF"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_round_corner"
@@ -128,6 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
+            android:textColor="#FFFFFF"
             android:background="@drawable/button_round_corner"
             android:paddingEnd="8dp"
             android:text="Sign Out"
@@ -138,6 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:textColor="#FFFFFF"
             android:layout_weight="1"
             android:background="@drawable/button_round_corner"
             android:text="Continue" />
@@ -146,6 +151,7 @@
             android:id="@+id/VerifyEmailButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
             android:layout_weight="1"
             android:background="@drawable/button_round_corner"
             android:text="Verify Email"

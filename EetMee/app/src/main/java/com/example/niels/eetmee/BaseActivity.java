@@ -105,6 +105,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                                                     break;
                                                 }
         }
+
     }
 
     @Override
@@ -118,12 +119,16 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void gotUserError(String message) {
-
+        Toast.makeText(this, "Er ging iets mis :( \n" +
+                message, Toast.LENGTH_SHORT).show();
+        Log.d("Error", message);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        userRequest.getUser(this, UserRequestType.CURRENTUSER, mAuth.getUid());
         myrefchecker.checker();
         if (!profileFilled) {
             userRequest.getUser(this, UserRequestType.CURRENTUSER, mAuth.getUid());

@@ -11,15 +11,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class OfferAdapter extends ArrayAdapter<Offer> {
 
-    ArrayList<Offer> offers;
-    double lat;
-    double lng;
+    private ArrayList<Offer> offers;
+    private double lat, lng;
+    private DecimalFormat numberFormat;
+
 
     public OfferAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Offer> objects, double aLat, double aLng) {
         super(context, resource, objects);
@@ -30,10 +32,11 @@ public class OfferAdapter extends ArrayAdapter<Offer> {
 
 //        If there is a current location (lat < 100) calculate distance and sort the objects based on distance
         if (lat < 100) {
+            numberFormat = new DecimalFormat("#.00");
             for (Offer offer : offers) {
                 float[] results = new float[1];
                 Location.distanceBetween(lat, lng, offer.getLat(), offer.getLng(), results);
-                offer.setDistance( results[0] / 1000);
+                offer.setDistance(results[0] / 1000);
             }
             Collections.sort(offers);
         }
@@ -57,15 +60,15 @@ public class OfferAdapter extends ArrayAdapter<Offer> {
 //        lat is 100 if there was no location found
         if (lat < 100) {
 
-//            Calculates the distance between users current location and offer location and fills distanceTextivew
-            distance.setText("afstand:" + currentOffer.getDistance() + "km");
+//            formats the distance to 2 decimals and fills the distance TextView
+            distance.setText("afstand:" + numberFormat.format(currentOffer.getDistance()) + "km");
         } else {
-            distance.setText("Do not know current location");
+            distance.setText("Huidige locatie onbekend");
         }
 
 //        Fills the other textViews
         what.setText(currentOffer.getWhat());
-        cost.setText("kosten: " +currentOffer.getCosts());
+        cost.setText("€ " +currentOffer.getCosts());
 
         SimpleDateFormat fm = new SimpleDateFormat("k:mm");
         time.setText(fm.format(currentOffer.getDateTime()));

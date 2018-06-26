@@ -42,7 +42,10 @@ public class UserInfoActivity extends AppCompatActivity {
 
     public void EditProfile(View view) {
 //        If button clicked, go to EditProfileActivity
-        startActivity(new Intent(UserInfoActivity.this, EditProfileActivity.class));
+        Intent intent = new Intent(UserInfoActivity.this, EditProfileActivity.class);
+        intent.putExtra("fromInfo", true);
+        startActivity(intent);
+        finish();
     }
 
 

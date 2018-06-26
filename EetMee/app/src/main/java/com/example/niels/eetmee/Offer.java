@@ -8,21 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Offer implements Serializable, Comparable {
-    private String what;
-    private int costs;
+    private String what, firebaseKey, address, dateString, userID;
+    private int costs, persons, personsLeft;
     private Date dateTime;
-    private int persons;
-    private boolean eatTogheter;
-    private boolean pickup;
-    private String userID;
+    private boolean eatTogheter, pickup;
     private Diet diet;
-    private String firebaseKey;
-    private int personsLeft;
-    private String address;
-    private double lat;
-    private double lng;
+    private double lat, lng;
     private ArrayList<String> eaters = new ArrayList<>();
-    private String dateString;
     private float distance;
 
     public void setDistance(float distance) {

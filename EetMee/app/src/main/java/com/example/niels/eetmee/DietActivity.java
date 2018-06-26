@@ -37,8 +37,14 @@ public class DietActivity extends AppCompatActivity {
         Toast.makeText(DietActivity.this, "Aanbod gemaakt!",
                 Toast.LENGTH_SHORT).show();
 
+//        Finishes the MakeOfferActivity since the offer has been completed
+        Intent intent = new Intent("finish_activity");
+        sendBroadcast(intent);
+
 //        Goes the BaseActivity
         startActivity(new Intent(DietActivity.this, BaseActivity.class));
+
+        finish();
     }
 
 

@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static android.view.View.GONE;
 import static com.example.niels.eetmee.BaseActivity.myrefchecker;
 import static com.example.niels.eetmee.MainActivity.MYREF;
 
@@ -47,8 +49,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     private FusedLocationProviderClient mFusedLocationClient;
     private int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
-    private double lat;
-    private double lng;
+    private double lat, lng;
 
     private RequestType requestType;
 
@@ -56,7 +57,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     private static OfferRequest request;
 
-//TODO: backnavigattie
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,13 +111,26 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
         DateFormat df = new SimpleDateFormat("dd-M-yyyy");
         dateString = df.format(date);
 
+        Button allOffersButton = findViewById(R.id.IkWilEtenButtonList);
+        Button myOffersButton = findViewById(R.id.MyOffersButtonList);
+        Button joinedOffersButton = findViewById(R.id.JoinedOffersButtonList);
+
 //        Depending on the RequestType received request the correct data
         switch (requestType) {
             case ALLOFFERS:     request.getAllOffers(this, dateString);
+                                allOffersButton.setVisibility(View.VISIBLE);
+                                myOffersButton.setVisibility(GONE);
+                                joinedOffersButton.setVisibility(GONE);
                                 break;
             case MYOFFERS:      request.getMyOffers(this);
+                                allOffersButton.setVisibility(GONE);
+                                myOffersButton.setVisibility(View.VISIBLE);
+                                joinedOffersButton.setVisibility(GONE);
                                 break;
             case JOINEDOFFERS:  request.getJoinedOffers(this);
+                                allOffersButton.setVisibility(GONE);
+                                myOffersButton.setVisibility(GONE);
+                                joinedOffersButton.setVisibility(View.VISIBLE);
                                 break;
         }
 

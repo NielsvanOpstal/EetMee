@@ -4,7 +4,10 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -45,26 +48,17 @@ public class MakeOfferActivity extends AppCompatActivity {
 
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
-    private EditText what;
-    private String whatText;
-    private EditText costs;
-    private String costsText;
-    private EditText persons;
-    private String personsText;
-    private static TextView time;
-    private String timeText;
-    private static TextView date;
-    private CheckBox together;
-    private boolean togetherBool;
-    private CheckBox pickUp;
-    private boolean pickUpBool;
+    private EditText what, costs, persons;
+    private String whatText, costsText, personsText, timeText, addressText;
+    private static TextView time, date;
+    private CheckBox together, pickUp;
+    private boolean togetherBool, pickUpBool;
     private static String dateString;
     private static Calendar cal;
     private TextView address;
-    private String addressText;
-    private double lat;
-    private double lng;
+    private double lat, lng;
 
+    private BroadcastReceiver broadcastReceiver;
 
 
     @Override
@@ -89,7 +83,17 @@ public class MakeOfferActivity extends AppCompatActivity {
 
         cal = Calendar.getInstance();
 
-
+//        Creates a broadcastreceiver so that the activity finishes after the offer was fully created and not before
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (action.equals("finish_activity")) {
+                    finish();
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver, new IntentFilter("finish_activity"));
     }
 
 
@@ -292,5 +296,11 @@ public class MakeOfferActivity extends AppCompatActivity {
 
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(broadcastReceiver);
     }
 }

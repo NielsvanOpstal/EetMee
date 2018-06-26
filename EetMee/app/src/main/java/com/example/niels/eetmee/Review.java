@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Review implements Serializable {
-    private String review;
-    private String reviewWriter;
+    private String review, reviewWriter;
     private Date date;
 
     public void setReview(String review) {

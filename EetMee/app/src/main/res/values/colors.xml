@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#A52B6C</color>
+    <color name="colorPrimary">#048966</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="mediumPurple">#8E72FF</color>
-    <color name="tumbleWeed">#EDAF97</color>
-    <color name="iguanaGreen">#7DC180</color>
-    <color name="deepSpaceSparkle">#476A6F</color>
-    <color name="amaranthDeepPurple">#A52B6C</color>
+    <color name="mediumPurple">#073B4C</color>
+    <color name="tumbleWeed">#EF476F</color>
+    <color name="iguanaGreen">#FFD166</color>
+    <color name="deepSpaceSparkle">#118AB2</color>
+    <color name="amaranthDeepPurple">#048966</color>
 </resources>

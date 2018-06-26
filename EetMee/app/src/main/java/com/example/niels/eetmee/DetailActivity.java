@@ -38,10 +38,8 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     Offer offer;
     MapView mapView;
-    Button joinButton;
-    Button unJoinButton;
-    User currentUser;
-    User offerCreater;
+    Button joinButton, unJoinButton;
+    User currentUser, offerCreater;
     UserRequest userRequest;
     TextView nameTextView;
 
@@ -70,12 +68,18 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
+//        Gets the current date and time,
+        Date date = Calendar.getInstance().getTime();
+        Date offerDate = offer.getDateTime();
 
-//        If the user is already joined, make unJoinbutton visible and viceversa
-        if(offer.getUserID().equals(mAuth.getUid())) {
+        if(offer.getUserID().equals(mAuth.getUid()) || date.after(offerDate) ) {
+
+//            If the user is the cook or the date is before current time, remove the join and unjoin buttons
             joinButton.setVisibility(GONE);
             unJoinButton.setVisibility(GONE);
         } else {
+
+//            Else, depending on if an user is already joined, show or hide the join and unjoin buttons
             if (eaters.contains(mAuth.getUid())) {
                 unJoinButton.setVisibility(VISIBLE);
                 joinButton.setVisibility(GONE);
@@ -86,9 +90,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         }
 
 
-//        Gets the current date and time, if it is in past and user has joined the dinner user can leave a review
-        Date date = Calendar.getInstance().getTime();
-        Date offerDate = offer.getDateTime();
+
         if (date.after(offerDate) && offer.getEaters().contains(mAuth.getUid())) {
             findViewById(R.id.RateButton).setVisibility(VISIBLE);
         }

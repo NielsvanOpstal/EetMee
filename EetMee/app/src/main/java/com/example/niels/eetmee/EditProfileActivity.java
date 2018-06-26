@@ -17,21 +17,10 @@ import static com.example.niels.eetmee.MainActivity.mAuth;
 
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener, UserRequest.Callback {
 
-    private EditText name;
-    private EditText bio;
-    private String aName;
-    private String aBio;
+    private EditText name, bio;
+    private String aName, aBio;
     private Diet diet;
-
-    Switch vegetarian;
-    Switch vegan;
-    Switch nuts;
-    Switch peanuts;
-    Switch lactose;
-    Switch gluten;
-    Switch soy;
-    Switch shellfish;
-
+    Switch vegetarian, vegan, nuts, peanuts, lactose, gluten, soy, shellfish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +69,19 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             newUser.setDiet(checkCheckBoxes());
             MYREF.child("Users").child(mAuth.getUid()).setValue(newUser);
 
-//            Go back to the BaseActivity
-            startActivity(new Intent(EditProfileActivity.this, BaseActivity.class));
+            if(getIntent().getBooleanExtra("fromInfo", false)) {
+
+//                If came from UserInfoActivity, go back there
+                Intent intent = new Intent(EditProfileActivity.this, UserInfoActivity.class);
+                intent.putExtra("user", newUser);
+                intent.putExtra("userID", mAuth.getUid());
+                startActivity(intent);
+            } else {
+
+//                Else, go back to the BaseActivity
+                startActivity(new Intent(EditProfileActivity.this, BaseActivity.class));
+            }
+            finish();
         }
     }
 
