@@ -40,22 +40,20 @@ import java.util.Date;
 
 import static com.example.niels.eetmee.BaseActivity.myrefchecker;
 import static com.example.niels.eetmee.MainActivity.mAuth;
-
-// TODO: niet een lijst maar een opvolging van invulbare dingen
+//TODO: alleen portret modus toe staan
 public class MakeOfferActivity extends AppCompatActivity {
 
     AutocompleteFilter typeFilter;
 
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
-    private EditText what, costs, persons;
+    private EditText what, costs, persons, address;
     private String whatText, costsText, personsText, timeText, addressText;
-    private static TextView time, date;
+    private static EditText date, time;
     private CheckBox together, pickUp;
     private boolean togetherBool, pickUpBool;
     private static String dateString;
     private static Calendar cal;
-    private TextView address;
     private double lat, lng;
 
     private BroadcastReceiver broadcastReceiver;
@@ -75,11 +73,11 @@ public class MakeOfferActivity extends AppCompatActivity {
         what = findViewById(R.id.WhatEditText);
         costs = findViewById(R.id.CostEditText);
         persons = findViewById(R.id.PersonsEditText);
-        time = findViewById(R.id.TimeTextView);
-        date = findViewById(R.id.DateTextView);
+        time = findViewById(R.id.TimeEditText);
+        date = findViewById(R.id.DateEditText);
         together = findViewById(R.id.TogetherCheckbox);
         pickUp = findViewById(R.id.PickupCheckbox);
-        address = findViewById(R.id.AddressTextView);
+        address = findViewById(R.id.AddressEditText);
 
         cal = Calendar.getInstance();
 
@@ -252,12 +250,17 @@ public class MakeOfferActivity extends AppCompatActivity {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
 //            Set the picked time to the timeTextView and in a calendar object
-            time.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
+            if (minute < 10) {
+                time.setText(Integer.toString(hourOfDay) + ":0" + Integer.toString(minute));
+            }
+            else {
+                time.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
+            }
             cal.set(cal.HOUR_OF_DAY, hourOfDay);
             cal.set(cal.MINUTE, minute);
             cal.set(cal.SECOND, 0);
             cal.set(cal.MILLISECOND, 0);
-        }
+    }
 
 
         @Override
@@ -302,5 +305,11 @@ public class MakeOfferActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(broadcastReceiver, new IntentFilter("finish_activity"));
     }
 }

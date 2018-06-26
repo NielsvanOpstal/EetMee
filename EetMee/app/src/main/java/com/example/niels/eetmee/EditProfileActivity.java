@@ -27,6 +27,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_edit);
 
+        myrefchecker = new MYREFCHECKER();
         myrefchecker.checker();
 
 //        Gets the user

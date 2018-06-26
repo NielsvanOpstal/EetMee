@@ -58,6 +58,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MyOffersButton" />
 
+    <TextView
+        android:id="@+id/GotNoOffersTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Er konden geen aanbiedingen gevonden worden "
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/OfferListView"
         android:layout_width="match_parent"
@@ -65,6 +72,9 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_weight="3" />
+        android:layout_weight="3" >
+
+
+    </ListView>
 
 </LinearLayout>

@@ -190,10 +190,18 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     @Override
     public void gotOffers(ArrayList<Offer> offers) {
 
-//        Sets an adapter and an onItemClickListener on the listView
-        ListView offerList = findViewById(R.id.OfferListView);
-        offerList.setAdapter(new OfferAdapter(this, 0, offers, lat, lng));
-        offerList.setOnItemClickListener(new onItemmClickListener());
+
+        if (offers.isEmpty()) {
+
+//            If there are no offers received, show an message that says so
+            findViewById(R.id.GotNoOffersTextView).setVisibility(View.VISIBLE);
+        } else {
+
+//            Else, sets an adapter and an onItemClickListener on the listView
+            ListView offerList = findViewById(R.id.OfferListView);
+            offerList.setAdapter(new OfferAdapter(this, 0, offers, lat, lng));
+            offerList.setOnItemClickListener(new onItemmClickListener());
+        }
     }
 
     @Override
@@ -234,7 +242,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
         }
     }
     private boolean checkLocationPermission() {
-//        If permission is not granted to acces fine locaiton
+//        If permission is not granted to access fine location
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
