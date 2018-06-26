@@ -71,3 +71,6 @@ IDEE: maak het mogelijk om een aanbod te maken voor over een paar dagen en ook t
 
 # dag 12
 - Nu kun je je adress invullen via een autocomplete van google places api! hierdoor is de geocoding api niet meer nodig. Ook komen de markers nu eindelijk op de goede plek ipv 30 meter meer noordelijk :)
+
+# dag 13
+- mooi gemaakt, gecomment en code opgeruimd
