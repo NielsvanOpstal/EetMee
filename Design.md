@@ -1,5 +1,5 @@
 # more detailed sketch
-![Alt text](https://github.com/nielske31/EetMee/blob/master/design.png)
+![Alt text](https://github.com/nielske31/EetMee/blob/master/doc/design.png)
 
 Google's Firebase zal aan de basis staan van de app. De authentication functie van Firebase zal worden gebruikt om gebruikers
 in te laten loggen en te laten registreren. Daarna zal dit account gekoppeld worden aan een profiel wat in een firebase database
@@ -12,4 +12,4 @@ Ook zal ik gebruik maken van de Geocoding API (https://developers.google.com/map
 wat de coordinaten zijn van de aanbieders zodat de mee-eeters op afstand kunnen sorteren. De response hiervan is in een JSON dus niets bijzonders.
 
 De data zal ook komen vanuit firebase en zal er als volgt uit zien:
-![Alt text](https://github.com/nielske31/EetMee/blob/master/Firebasestructuur.png)
+![Alt text](https://github.com/nielske31/EetMee/blob/master/doc/Firebasestructuur.png)
