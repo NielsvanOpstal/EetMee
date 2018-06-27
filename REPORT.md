@@ -117,6 +117,20 @@ There are 2 request classes in the app:
 There are 2 Enums in the app:
 - The first one is the OfferRequestType which consists of: ALLOFFERS, JOINEDOFFERS, MYOFFERS
 - The second one is the UserRequestType which consists of: CURRENTUSER, OFFERCREATER
+
+# Challenges
+There were several things that I found challeging. They were making the classes so that it has everything it needed, making the firebase so that it was easy to use and had no double information, making the fragments work and the API's and minimizing duplicate-code.
+
+The classes are much different from what I had expected them to be. In my design.md they are fairly simple. For example, in design.md the Offer class had 7 variables but in the app in the end it had 16 variables including one other class (Diet class which contains another 8 variables). The class became bigger and bigger the further I got into making the app. I believe the way it is now is better than what I imagined it to be in the design.md. The way the Offer class works now offers more functionality and I also didn't before know what was neccessary for all the functionality in the app.
+Related to the classes was Firebase. To make that intuitivly and well functioning I had to alter the classes so that it works well. The offers need to contain the UserID from the user that created the offer so that the user could be easily lookup when someone wanted to see details about the creater from an offer. There went a lot of work into making it work well but in te end it came out nicely.
+
+The fragments and API's were another headbreaker. I had never worked with a Fragment before but when I found out that letting users fill in the Time and Date wasn't going to work I needed to use them. To fix that I figured out how to use the fragments so that I could use the DatePickerFragment and the TimePickerFragment. Altough these were not in the design.md, it made, in my opinion, the user experience a lot better. 
+Another example is the way the addresses are filled in by the user. First it was an extra activity where the user filled in his/her street, housenumber, postalcode, city and eventually a building. I then made a string of this and used that to get the coordinates via the Geocoding API. This didn't work very well because if the api gave back something else, the user would never know. Also the coordinates were always like 30 meters off. I found out about the google autcomplete and implemented that. That required a change from the Geocoding API to the Places API and some figuring out how to use that but in the end, way better user experience and much easier to handle code-wise.
+
+Minimizing the duplicate-code also took some time and thinking. I had almost made three different activies that almost did the exact same thing (show offers) and three requests types that in principle did the same thing. At first it felt like I was doing more than was neccessary but didn't have clue how to fix it. Then when I was not working on the problem, it always happen when not trying to solve the problem, I came with a way to reduce the amount of duplicate code. I solved the problems through intents and Enums.
+
+Another challenging thing in the end was the size of the app. Before I only made some small apps so the size was never a problem but this time I sometimes lost the overview (apparently this is the correct way to write this). On the other side, by working on the app for four weeks in a row I can now describe every activity and view without looking at the code, which I find pretty cool.
+
  
   
 
