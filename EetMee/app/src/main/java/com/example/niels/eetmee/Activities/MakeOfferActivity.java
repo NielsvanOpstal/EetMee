@@ -12,7 +12,7 @@ The Address is specified by a Google Places Autocomplete function.
 
 
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -37,6 +37,8 @@ import android.widget.TimePicker;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
+import com.example.niels.eetmee.Classes.Offer;
+import com.example.niels.eetmee.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
@@ -51,8 +53,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.example.niels.eetmee.BaseActivity.myRefChecker;
-import static com.example.niels.eetmee.LoginActivity.mAuth;
+import static com.example.niels.eetmee.Activities.BaseActivity.myRefChecker;
+import static com.example.niels.eetmee.Activities.LoginActivity.mAuth;
 public class MakeOfferActivity extends AppCompatActivity {
 
     AutocompleteFilter typeFilter;

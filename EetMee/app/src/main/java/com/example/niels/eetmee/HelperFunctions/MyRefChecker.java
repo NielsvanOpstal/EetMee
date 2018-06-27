@@ -4,13 +4,13 @@ Niels van Opstal 11021519
 
 This class lets you check whether there is still a reference to the Firebase database and authentication
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.HelperFunctions;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static com.example.niels.eetmee.LoginActivity.MYREF;
-import static com.example.niels.eetmee.LoginActivity.mAuth;
+import static com.example.niels.eetmee.Activities.LoginActivity.MYREF;
+import static com.example.niels.eetmee.Activities.LoginActivity.mAuth;
 
 public class MyRefChecker {
 

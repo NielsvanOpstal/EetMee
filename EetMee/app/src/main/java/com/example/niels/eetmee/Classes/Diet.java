@@ -4,7 +4,7 @@ Niels van Opstal 11021519
 
 This class contains the Diet of an user or an offer.
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Classes;
 
 import java.io.Serializable;
 

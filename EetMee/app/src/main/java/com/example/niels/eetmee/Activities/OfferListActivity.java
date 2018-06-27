@@ -6,7 +6,7 @@ This activity first requests the offers depending on where you came from. If the
 the activity sets an adapter on the listview. If the user is viewing all offers, it can select a date
 so that the offers can be filtered to that specific date.
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Activities;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -34,6 +34,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.example.niels.eetmee.Classes.Offer;
+import com.example.niels.eetmee.Adapters.OfferAdapter;
+import com.example.niels.eetmee.Requests.OfferRequest;
+import com.example.niels.eetmee.Enums.OfferRequestType;
+import com.example.niels.eetmee.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,7 +50,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static android.view.View.GONE;
-import static com.example.niels.eetmee.BaseActivity.myRefChecker;
+import static com.example.niels.eetmee.Activities.BaseActivity.myRefChecker;
 
 public class OfferListActivity extends AppCompatActivity implements OfferRequest.Callback {
 
@@ -195,15 +200,16 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     @Override
     public void gotOffers(ArrayList<Offer> offers) {
 
-
+        ListView offerList = findViewById(R.id.OfferListView);
         if (offers.isEmpty()) {
 
 //            If there are no offers received, show an message that says so
             findViewById(R.id.GotNoOffersTextView).setVisibility(View.VISIBLE);
+            offerList.setAdapter(new OfferAdapter(this, 0, offers, lat, lng));
         } else {
             findViewById(R.id.GotNoOffersTextView).setVisibility(GONE);
 //            Else, sets an adapter and an onItemClickListener on the listView
-            ListView offerList = findViewById(R.id.OfferListView);
+
             offerList.setAdapter(new OfferAdapter(this, 0, offers, lat, lng));
             offerList.setOnItemClickListener(new onItemmClickListener());
         }

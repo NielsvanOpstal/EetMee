@@ -6,18 +6,19 @@ This request requests offers from the Firebase database. it has three different 
 One gives back all the offers of a certain date. One gives back all the offers an user has joined.
 And one gives back all the offers an User has created.
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Requests;
 
 import android.support.annotation.NonNull;
 
+import com.example.niels.eetmee.Classes.Offer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.example.niels.eetmee.LoginActivity.MYREF;
-import static com.example.niels.eetmee.LoginActivity.mAuth;
+import static com.example.niels.eetmee.Activities.LoginActivity.MYREF;
+import static com.example.niels.eetmee.Activities.LoginActivity.mAuth;
 
 public class OfferRequest {
 

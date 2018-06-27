@@ -4,7 +4,7 @@ Niels van Opstal 11021519
 
 This adapter fills the reviewList in the UserInfoActivity.
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,12 +15,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.niels.eetmee.R;
+import com.example.niels.eetmee.Classes.Review;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-class ReviewAdapter extends ArrayAdapter<Review> {
+public class ReviewAdapter extends ArrayAdapter<Review> {
 
     ArrayList<Review> reviews;
 

@@ -5,7 +5,7 @@ Niels van Opstal 11021519
 This adapter fills the ListView in the OfferListActivity. It calculates the distance from an offer to
 the user and fills an offer_list_item with the needed data
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Adapters;
 
 import android.content.Context;
 import android.location.Location;
@@ -18,12 +18,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.niels.eetmee.Classes.Offer;
+import com.example.niels.eetmee.R;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static com.example.niels.eetmee.OfferListActivity.PERMISSION_NOT_GIVEN;
+import static com.example.niels.eetmee.Activities.OfferListActivity.PERMISSION_NOT_GIVEN;
 
 public class OfferAdapter extends ArrayAdapter<Offer> {
 

@@ -5,7 +5,7 @@ Niels van Opstal 11021519
 This class is an offer. It contains a comparable to sort offers based on the distance to a user.
 It also contains a Diet class.
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Classes;
 
 
 import android.support.annotation.NonNull;

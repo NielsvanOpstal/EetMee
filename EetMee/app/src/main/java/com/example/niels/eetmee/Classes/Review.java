@@ -5,7 +5,7 @@ Niels van Opstal 11021519
 A review class. Used in the User class.
  */
 
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Classes;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -62,7 +62,7 @@
         android:id="@+id/GotNoOffersTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Er konden geen aanbiedingen gevonden worden "
+        android:text="Er konden geen aanbiedingen gevonden worden :( Probeer een andere datum!"
         android:visibility="gone" />
 
     <ListView

@@ -4,17 +4,19 @@ Niels van Opstal 11021519
 
 This request request the user from the Firebase databse based on the userID given in the getUser function.
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Requests;
 
 import android.support.annotation.NonNull;
 
 
+import com.example.niels.eetmee.Classes.User;
+import com.example.niels.eetmee.Enums.UserRequestType;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 
-import static com.example.niels.eetmee.LoginActivity.MYREF;
+import static com.example.niels.eetmee.Activities.LoginActivity.MYREF;
 
 public class UserRequest {
 

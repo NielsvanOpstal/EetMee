@@ -24,7 +24,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".LoginActivity"
+        <activity android:name=".Activities.LoginActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
 
@@ -34,27 +34,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditProfileActivity"
+        <activity android:name=".Activities.EditProfileActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".BaseActivity"
+        <activity android:name=".Activities.BaseActivity"
             android:launchMode="singleTask"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".DetailActivity"
+        <activity android:name=".Activities.DetailActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".MakeOfferActivity"
+        <activity android:name=".Activities.MakeOfferActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".OfferListActivity"
+        <activity android:name=".Activities.OfferListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".DietActivity"
+        <activity android:name=".Activities.DietActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".UserInfoActivity"
+        <activity android:name=".Activities.UserInfoActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
     </application>

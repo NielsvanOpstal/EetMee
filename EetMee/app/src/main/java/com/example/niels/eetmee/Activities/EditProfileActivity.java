@@ -5,7 +5,7 @@ Niels van Opstal 11021519
 This activity lets the user edit his profile. The user can set his name, his bio and his diet.
 The user gets here either by selecting he wants to alter his profile or when he is first logged in.
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +17,16 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import static com.example.niels.eetmee.BaseActivity.myRefChecker;
-import static com.example.niels.eetmee.LoginActivity.MYREF;
-import static com.example.niels.eetmee.LoginActivity.mAuth;
+import com.example.niels.eetmee.Classes.Diet;
+import com.example.niels.eetmee.HelperFunctions.MyRefChecker;
+import com.example.niels.eetmee.R;
+import com.example.niels.eetmee.Classes.User;
+import com.example.niels.eetmee.Requests.UserRequest;
+import com.example.niels.eetmee.Enums.UserRequestType;
+
+import static com.example.niels.eetmee.Activities.BaseActivity.myRefChecker;
+import static com.example.niels.eetmee.Activities.LoginActivity.MYREF;
+import static com.example.niels.eetmee.Activities.LoginActivity.mAuth;
 
 
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener, UserRequest.Callback {

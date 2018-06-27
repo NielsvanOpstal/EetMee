@@ -6,7 +6,7 @@ This activity lets the user specify which allergens the offer it is creating con
 is vegan/vegetarian. After this activity is completed, the offer is successfully made and added to the
 Firebase databse
  */
-package com.example.niels.eetmee;
+package com.example.niels.eetmee.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,11 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import static com.example.niels.eetmee.LoginActivity.MYREF;
+import com.example.niels.eetmee.Classes.Diet;
+import com.example.niels.eetmee.Classes.Offer;
+import com.example.niels.eetmee.R;
+
+import static com.example.niels.eetmee.Activities.LoginActivity.MYREF;
 
 public class DietActivity extends AppCompatActivity {
 
