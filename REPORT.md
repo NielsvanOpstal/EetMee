@@ -5,7 +5,7 @@ This app makes it possible to share the food you cook, either by people picking 
 
 ![Alt text](https://github.com/nielske31/EetMee/blob/master/doc/BaseActivity.jpeg)
 
-# Technical design
+# Technical Design
 
 ## Overview
 
@@ -16,7 +16,7 @@ The code consists of several classes which can be divided in different groups.
 - Fourth, there are adapters. These fill ListViews and keep track on which item is shown.
 - Fifth and final, there are enumerates. These enable a variable to be a set of predefined constants.
 
-### The activities
+### The Activities
 
 The app consists of a total of 8 activities.
 - The LoginActivity enables the user to login or create an account using Google's Firebase Authentication via the email password method. It also enables the user to send a verification email to their email.
@@ -60,5 +60,22 @@ The app consists of a total of 8 activities.
 - The DietActivity is where the user can specify the specifics of the offer: allergens and whether or not it is vegetarian/vegan.
   * When user completes this activity, the specifics are set into an Diet Class which is added to the Offer class and then set into the Firebase database
   
+### The Classes
+
+The app consists of a total of 5 classes
+- The Diet class contains booleans for whether or not a user/class has allergens and/or diet preferences
+  * The allergens are nuts, gluten, lactose, epanut, shellfish and soya
+  * For the diet preferences are choose vegetarian and or vegan
+ 
+- The Offer class contains all the info of an Offer.
+  * the variables in the class are:
+  * String what, firebaseKey, address, dateString, userID
+  * int costs, persons, personsLeft
+  * Date dateTime;
+  * boolean eatTogheter, pickup;
+  * Diet diet;
+  * double lat, lng;
+  * ArrayList<String> eaters = new ArrayList<>();
+  * float distance;
   
 
