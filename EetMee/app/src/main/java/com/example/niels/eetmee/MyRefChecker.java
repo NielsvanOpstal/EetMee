@@ -9,8 +9,8 @@ package com.example.niels.eetmee;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static com.example.niels.eetmee.MainActivity.MYREF;
-import static com.example.niels.eetmee.MainActivity.mAuth;
+import static com.example.niels.eetmee.LoginActivity.MYREF;
+import static com.example.niels.eetmee.LoginActivity.mAuth;
 
 public class MyRefChecker {
 

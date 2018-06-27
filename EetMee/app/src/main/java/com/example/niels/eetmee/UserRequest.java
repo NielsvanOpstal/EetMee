@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 
-import static com.example.niels.eetmee.MainActivity.MYREF;
+import static com.example.niels.eetmee.LoginActivity.MYREF;
 
 public class UserRequest {
 

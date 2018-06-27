@@ -52,7 +52,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static com.example.niels.eetmee.BaseActivity.myRefChecker;
-import static com.example.niels.eetmee.MainActivity.mAuth;
+import static com.example.niels.eetmee.LoginActivity.mAuth;
 public class MakeOfferActivity extends AppCompatActivity {
 
     AutocompleteFilter typeFilter;

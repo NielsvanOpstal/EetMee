@@ -16,8 +16,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.example.niels.eetmee.MainActivity.MYREF;
-import static com.example.niels.eetmee.MainActivity.mAuth;
+import static com.example.niels.eetmee.LoginActivity.MYREF;
+import static com.example.niels.eetmee.LoginActivity.mAuth;
 
 public class OfferRequest {
 

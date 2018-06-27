@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import static com.example.niels.eetmee.MainActivity.mAuth;
+import static com.example.niels.eetmee.LoginActivity.mAuth;
 
 public class UserInfoActivity extends AppCompatActivity {
 

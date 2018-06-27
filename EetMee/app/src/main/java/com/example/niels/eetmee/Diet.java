@@ -8,7 +8,8 @@ package com.example.niels.eetmee;
 
 import java.io.Serializable;
 
-public class Diet implements Serializable {     public boolean vegetarian = false;
+public class Diet implements Serializable {
+    public boolean vegetarian = false;
     public boolean vegan = false;
     public boolean nutAllergy = false;
     public boolean glutenAllergy = false;

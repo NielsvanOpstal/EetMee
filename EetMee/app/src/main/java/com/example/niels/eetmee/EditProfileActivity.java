@@ -18,8 +18,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import static com.example.niels.eetmee.BaseActivity.myRefChecker;
-import static com.example.niels.eetmee.MainActivity.MYREF;
-import static com.example.niels.eetmee.MainActivity.mAuth;
+import static com.example.niels.eetmee.LoginActivity.MYREF;
+import static com.example.niels.eetmee.LoginActivity.mAuth;
 
 
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener, UserRequest.Callback {

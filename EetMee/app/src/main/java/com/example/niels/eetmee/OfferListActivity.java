@@ -55,7 +55,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 
     private double lat, lng;
 
-    private RequestType requestType;
+    private OfferRequestType offerRequestType;
 
     private static String dateString;
 
@@ -105,8 +105,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
                     }
                 });
 
-//        Gets the RequestType so that the correct data can be requested
-        requestType = (RequestType) getIntent().getSerializableExtra("afkomst");
+//        Gets the OfferRequestType so that the correct data can be requested
+        offerRequestType = (OfferRequestType) getIntent().getSerializableExtra("afkomst");
 
 //        Creates new OfferRequest
         request = new OfferRequest();
@@ -120,8 +120,8 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
         Button myOffersButton = findViewById(R.id.MyOffersButtonList);
         Button joinedOffersButton = findViewById(R.id.JoinedOffersButtonList);
 
-//        Depending on the RequestType received request the correct data
-        switch (requestType) {
+//        Depending on the OfferRequestType received request the correct data
+        switch (offerRequestType) {
             case ALLOFFERS:     request.getAllOffers(this, dateString);
                                 allOffersButton.setVisibility(View.VISIBLE);
                                 myOffersButton.setVisibility(GONE);
@@ -145,7 +145,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
     public boolean onCreateOptionsMenu(Menu menu) {
 
 //        Only creates possibility to pick date when user has requested all offers
-            if (requestType == RequestType.ALLOFFERS) {
+            if (offerRequestType == OfferRequestType.ALLOFFERS) {
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.actionbar, menu);
                 return true;
@@ -201,7 +201,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
 //            If there are no offers received, show an message that says so
             findViewById(R.id.GotNoOffersTextView).setVisibility(View.VISIBLE);
         } else {
-
+            findViewById(R.id.GotNoOffersTextView).setVisibility(GONE);
 //            Else, sets an adapter and an onItemClickListener on the listView
             ListView offerList = findViewById(R.id.OfferListView);
             offerList.setAdapter(new OfferAdapter(this, 0, offers, lat, lng));
@@ -216,7 +216,7 @@ public class OfferListActivity extends AppCompatActivity implements OfferRequest
         myRefChecker.checker();
 
 //        Requests the data again to refresh the data showed
-        switch (requestType) {
+        switch (offerRequestType) {
             case ALLOFFERS:     request.getAllOffers(this, dateString);
                 break;
             case MYOFFERS:      request.getMyOffers(this);

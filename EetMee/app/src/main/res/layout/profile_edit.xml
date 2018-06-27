@@ -67,7 +67,7 @@
             android:id="@+id/VegetarianSwitch"
             android:layout_width="167dp"
             android:layout_height="wrap_content"
-            android:text="vegatarisch" />
+            android:text="vegetarisch" />
 
         <Switch
             android:id="@+id/NutSwitch"

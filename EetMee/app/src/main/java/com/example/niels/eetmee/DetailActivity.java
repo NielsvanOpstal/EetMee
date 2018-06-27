@@ -42,8 +42,8 @@ import java.util.Date;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.example.niels.eetmee.BaseActivity.myRefChecker;
-import static com.example.niels.eetmee.MainActivity.MYREF;
-import static com.example.niels.eetmee.MainActivity.mAuth;
+import static com.example.niels.eetmee.LoginActivity.MYREF;
+import static com.example.niels.eetmee.LoginActivity.mAuth;
 
 import static com.example.niels.eetmee.UserRequestType.CURRENTUSER;
 

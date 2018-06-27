@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import static com.example.niels.eetmee.MainActivity.MYREF;
+import static com.example.niels.eetmee.LoginActivity.MYREF;
 
 public class DietActivity extends AppCompatActivity {
 

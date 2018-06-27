@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import static com.example.niels.eetmee.MainActivity.mAuth;
+import static com.example.niels.eetmee.LoginActivity.mAuth;
 
 
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener, UserRequest.Callback {
@@ -79,7 +79,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.IkWilEtenButton:          if (profileFilled) {
                                                     Intent eatIntent =new Intent(BaseActivity.this, OfferListActivity.class);
-                                                    eatIntent.putExtra("afkomst", RequestType.ALLOFFERS);
+                                                    eatIntent.putExtra("afkomst", OfferRequestType.ALLOFFERS);
                                                     startActivity(eatIntent);
                                                     break;
                                                 } else {
@@ -90,7 +90,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.MyOffersButton:           if (profileFilled) {
                                                     Intent myIntent =new Intent(BaseActivity.this, OfferListActivity.class);
-                                                    myIntent.putExtra("afkomst", RequestType.MYOFFERS);
+                                                    myIntent.putExtra("afkomst", OfferRequestType.MYOFFERS);
                                                     startActivity(myIntent);
                                                     break;
                                                 } else {
@@ -101,7 +101,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.JoinedOffersButton:       if (profileFilled) {
                                                     Intent joinedIntent =new Intent(BaseActivity.this, OfferListActivity.class);
-                                                    joinedIntent.putExtra("afkomst", RequestType.JOINEDOFFERS);
+                                                    joinedIntent.putExtra("afkomst", OfferRequestType.JOINEDOFFERS);
                                                     startActivity(joinedIntent);
                                                     break;
                                                 } else {
