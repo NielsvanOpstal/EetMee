@@ -18,7 +18,7 @@ The code consists of several classes which can be divided in different groups.
 
 ### The Activities
 
-The app consists of a total of 8 activities.
+The app consists of a total of 8 activities:
 - The LoginActivity enables the user to login or create an account using Google's Firebase Authentication via the email password method. It also enables the user to send a verification email to their email.
   * If the user is registering, the activity redirects to the EditProfileActivity.
   * If the user already has an account, the use activity enables the user to go the BaseActivity.
@@ -62,20 +62,61 @@ The app consists of a total of 8 activities.
   
 ### The Classes
 
-The app consists of a total of 5 classes
+The app consists of a total of 5 classes:
 - The Diet class contains booleans for whether or not a user/class has allergens and/or diet preferences
   * The allergens are nuts, gluten, lactose, epanut, shellfish and soya
   * For the diet preferences are choose vegetarian and or vegan
  
 - The Offer class contains all the info of an Offer.
   * the variables in the class are:
-  * String what, firebaseKey, address, dateString, userID
+  * String what, firebaseKey, address, dateString, userID  (userID of the user who made the offer)
   * int costs, persons, personsLeft
-  * Date dateTime;
-  * boolean eatTogheter, pickup;
-  * Diet diet;
-  * double lat, lng;
-  * ArrayList<String> eaters = new ArrayList<>();
-  * float distance;
+  * Date dateTime
+  * boolean eatTogheter, pickup
+  * Diet diet
+  * double lat, lng
+  * ArrayList<String> eaters = new ArrayList<>()  (Filled with userID's from the eaters)
+  * float distance  (Filled in the OfferListAdapter, the distance from the offer to the current location of the user in km)
+  * It also contains setters and getters for all the variables, a function to add and remove eaters to/from the eaters arrayList and a function which makes it posible to sort the offers on the distance variable.
+ 
+- The Review class contains a review.
+ * the variables in the class are:
+ * String review, reviewWriter
+ * Date date
+ * It also contains getters and setters for all the variables
+ 
+ - The user Class contains all the information about an user.
+ * the variables in the class are:
+ * String name, bio
+ * ArrayList<Review> reviews =  new ArrayList<>()
+ * Diet diet
+ * ArrayList<String> joinedOffers = new ArrayList<>()
+ * It also contains getters and setters for all the variables and two functions to add or remove new items tot he arrayLists
+ 
+- The MyRefChecker class is a class which checks whether or not there is still a reference to the Firebase Databse and Firebase authentication. If there is not, it gets a new reference.
+
+### The Requests
+
+There are 2 request classes in the app:
+- The UserRequest requests an user from the Firebase databse based on the given userID. If it received an user it also gives back the UserRequestType to the activity so that the activity can handle the user correct
+
+- The offerRequest request the offers from the Firebase database. It has three different queries that also handle the received data differently
+ * One query receives all the offers of a given date
+ * One query receives all the offers where the userID is equal to the current user's ID
+ * One query first receives the JoinedOffers ArraList from an user, and then finds the offers from that arraylist.
+ * They also give back the OfferRequestType so that the requesting activity can handle the request well.
+ 
+ ### The adapters
+ 
+ There are 2 adapters in the app:
+- The Review Adapter fills the review list in the UserInfoActivity.
+- The OfferListAdapter fills the OfferList activity and calculates the distance from each offer to the current location of the user.
+
+### The enums
+
+There are 2 Enums in the app:
+- The first one is the OfferRequestType which consists of: ALLOFFERS, JOINEDOFFERS, MYOFFERS
+- The second one is the UserRequestType which consists of: CURRENTUSER, OFFERCREATER
+ 
   
 
