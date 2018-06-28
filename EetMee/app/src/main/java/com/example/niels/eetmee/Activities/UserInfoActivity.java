@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
 //        Find the textviews
         TextView nameView = findViewById(R.id.InfoNameTextView);
-        TextView bioView = findViewById(R.id.InfoBioTextView);
+        EditText bioView = findViewById(R.id.InfoBioTextView);
         ListView reviewList = findViewById(R.id.InfoReviewList);
 
 //        Get the intent and the extra's from the intent

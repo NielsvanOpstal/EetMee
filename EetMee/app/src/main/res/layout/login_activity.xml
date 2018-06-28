@@ -1,10 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".Activities.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_text" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:srcCompat="@drawable/deel_2_logo" />
+
+    <LinearLayout
+        android:id="@+id/StatusDetailField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_weight="0.5"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TextView
+            android:id="@+id/StatusTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.191" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/EmailPasswordField"
@@ -13,6 +68,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,41 +99,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/StatusDetailField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/StatusTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            android:textColor="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.191" />
-
-        <TextView
-            android:id="@+id/DetailTextView"
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            android:textColor="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@+id/StatusTextView"
-            tools:layout_editor_absoluteX="163dp" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/LogInButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,6 +106,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,18 +120,18 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:background="@drawable/button_round_corner"
-            android:textColor="#FFFFFF"
             android:paddingEnd="8dp"
-            android:text="Sign In" />
+            android:text="Sign In"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/RegisterButton"
             android:layout_width="wrap_content"
-            android:textColor="#FFFFFF"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_round_corner"
-            android:text="Register" />
+            android:text="Register"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
@@ -118,6 +141,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,10 +154,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:textColor="#FFFFFF"
             android:background="@drawable/button_round_corner"
             android:paddingEnd="8dp"
             android:text="Sign Out"
+            android:textColor="#FFFFFF"
             tools:text="Sign Out" />
 
         <Button
@@ -141,20 +165,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:textColor="#FFFFFF"
             android:layout_weight="1"
             android:background="@drawable/button_round_corner"
-            android:text="Continue" />
+            android:text="Continue"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/VerifyEmailButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
             android:layout_weight="1"
             android:background="@drawable/button_round_corner"
             android:text="Verify Email"
+            android:textColor="#FFFFFF"
             tools:text="Verify Email" />
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

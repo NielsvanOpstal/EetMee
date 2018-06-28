@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_activity);
 
 //        Gets the reference tot he Firebase database and the Firebase Auth
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -76,9 +76,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
 //        Checks if there is an user (user != null)
         if (user != null) {
 //            Fills teh statustextView and detailTextView
-            statusTextView.setText(getString(R.string.users_email,
-                    user.getEmail(), user.isEmailVerified()));
-            detailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            statusTextView.setText("Welkom!");
 
 //            Update the buttons and fields
             findViewById(R.id.LogInButtons).setVisibility(View.GONE);
@@ -89,7 +87,6 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
 
 //            Fills the statusTextView and detailTextView
             statusTextView.setText(R.string.signed_out);
-            detailTextView.setText(null);
 
 //            Update the buttons and field
             findViewById(R.id.LogInButtons).setVisibility(View.VISIBLE);
