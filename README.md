@@ -2,6 +2,8 @@
 
 The app lets you create dinners and/or join or pickup food from offers all around you. Thereby reducing foodwaste and lonliness among people.
 
+demo: https://www.youtube.com/watch?v=aO3rss7sjJY
+
 # the Main Activity which lets you navigate through the app.
 ![Alt text](https://github.com/nielske31/EetMee/blob/master/doc/BaseActivity.jpeg)
 
